@@ -1,0 +1,21 @@
+---
+const tech = [
+  { k: 'Symfony', d: 'API, services, CLI, perfs' },
+  { k: 'WordPress', d: 'blocs, ACF, Woo, headless' },
+  { k: 'Astro', d: 'vitrines ultra-rapides' },
+  { k: 'Node/Express', d: 'micro-services, webhooks' },
+  { k: 'Docker', d: 'dev & déploiement' },
+  { k: 'PostgreSQL', d: 'modèles & optimisation' },
+]
+---
+<section id="stack" class="pt-16">
+  <h2 class="reveal section-title">Stack & outils</h2>
+  <div class="reveal mt-4 grid-auto-fill">
+    {tech.map(t => (
+      <div class="card glass">
+        <p class="font-semibold">{t.k}</p>
+        <p class="text-[rgb(var(--muted))] text-sm">{t.d}</p>
+      </div>
+    ))}
+  </div>
+</section>

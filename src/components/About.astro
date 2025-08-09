@@ -1,0 +1,26 @@
+---
+const intro = `Développeur backend passionné par la qualité et la mesure d'impact. J'aime transformer une idée floue en un service fiable, observable et simple à faire évoluer.`
+const values = [
+  { k: 'Clarté', d: 'Documentation concise, KPIs suivis.' },
+  { k: 'Performance', d: 'Temps de réponse & Core Web Vitals surveillés.' },
+  { k: 'Iteration', d: 'Livraisons fréquentes → feedback rapide.' },
+  { k: 'Fiabilité', d: 'Tests ciblés + monitoring.' },
+]
+---
+<section id="about" class="pt-16">
+  <h2 class="reveal section-title">À propos</h2>
+  <div class="reveal mt-4 grid gap-6 md:grid-cols-3 items-start">
+    <p class="md:col-span-2 text-[rgb(var(--muted))] leading-relaxed">{intro}</p>
+    <div class="space-y-3">
+      <p class="font-semibold">Valeurs clés</p>
+      <ul class="space-y-2">
+        {values.map(v => (
+          <li class="flex gap-3 items-start">
+            <span class="mt-1 h-2 w-2 rounded-full bg-gradient-to-r from-pink-500 to-sky-400"></span>
+            <span><strong>{v.k}</strong><br/><span class="text-[rgb(var(--muted))] text-sm">{v.d}</span></span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>

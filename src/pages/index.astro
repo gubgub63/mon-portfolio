@@ -1,11 +1,34 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro"
+import Hero from "../components/Hero.astro"
+import ProjectsCarousel from "../components/ProjectsCarousel.astro"
+import Stack from "../components/Stack.astro"
+import About from "../components/About.astro"
+import Services from "../components/Services.astro"
+import Process from "../components/Process.astro"
+import Experience from "../components/Experience.astro"
+import Testimonials from "../components/Testimonials.astro"
+import Contact from "../components/Contact.astro"
+import projectsData from "../data/projects.json"
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Adaptation du JSON vers structure utilisée par ProjectCard
+const projects = (projectsData as any[]).map(p => ({
+  title: p.title,
+  description: p.summary || p.description,
+  tags: p.tags || p.technologies || [],
+  link: p.demo || p.repo || p.github_url || '',
+  repo: p.repo || p.github_url || '',
+  image: p.image || '/assets/background.svg'
+}))
 ---
-
-<Layout>
-	<Welcome />
+<Layout title="Enzo — Backend → Full-stack" description="Portfolio minimal & glass. Projets, stack et contact.">
+  <Hero />
+  <About />
+  <Services />
+  <ProjectsCarousel items={projects} />
+  <Process />
+  <Experience />
+  <Testimonials />
+  <Stack />
+  <Contact />
 </Layout>

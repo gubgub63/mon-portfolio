@@ -1,0 +1,20 @@
+---
+const items = [
+  { y: '2025', t: 'Assistant Ultra-Trail', d: 'Générateur de plans + stack d’export (PDF/Excel).' },
+  { y: '2024', t: 'Headless Woo', d: 'Architecture headless + performance marketing (CAPI).' },
+  { y: '2023', t: 'MVP internes', d: 'Automatisations Node & monitoring pour divers projets.' },
+]
+---
+<section id="experience" class="pt-16">
+  <h2 class="reveal section-title">Expérience / Timeline</h2>
+  <ol class="reveal mt-6 relative border-l border-white/15 space-y-6 ml-4">
+    {items.map(i => (
+      <li class="pl-6 relative">
+        <span class="absolute -left-3 top-1 h-5 w-5 rounded-full bg-gradient-to-br from-pink-500 to-sky-500"></span>
+        <p class="text-sm uppercase tracking-wide text-pink-300/80 font-medium">{i.y}</p>
+        <p class="font-semibold">{i.t}</p>
+        <p class="text-[rgb(var(--muted))] text-sm leading-relaxed">{i.d}</p>
+      </li>
+    ))}
+  </ol>
+</section>

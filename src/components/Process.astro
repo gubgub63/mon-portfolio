@@ -1,0 +1,20 @@
+---
+const steps = [
+  { n: '1', t: 'Découverte', d: 'Besoins, contraintes, métriques attendues.' },
+  { n: '2', t: 'Cadrage', d: 'Découpage en incréments livrables + plan technique.' },
+  { n: '3', t: 'Construction', d: 'Dev itératif, preview / staging partagé.' },
+  { n: '4', t: 'Livraison & suivi', d: 'Déploiement, instrumentation, backlog évolutif.' },
+]
+---
+<section id="process" class="pt-16">
+  <h2 class="reveal section-title">Processus</h2>
+  <div class="reveal mt-6 grid md:grid-cols-4 gap-4">
+    {steps.map(s => (
+      <div class="relative card glass">
+        <span class="absolute -top-3 -left-3 h-8 w-8 flex items-center justify-center rounded-xl bg-gradient-to-br from-pink-500 to-sky-500 font-semibold text-sm">{s.n}</span>
+        <p class="font-semibold mb-1">{s.t}</p>
+        <p class="text-[rgb(var(--muted))] text-sm leading-relaxed">{s.d}</p>
+      </div>
+    ))}
+  </div>
+</section>

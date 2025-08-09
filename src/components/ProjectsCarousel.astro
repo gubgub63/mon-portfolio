@@ -1,0 +1,40 @@
+---
+import ProjectCard from './ProjectCard.astro'
+interface Item { title: string; description: string; tags?: string[]; link?: string; repo?: string; image?: string }
+const { items = [] } = Astro.props as { items: Item[] }
+---
+<section id="projects" class="pt-6 md:pt-10">
+  <div class="reveal flex items-center justify-between">
+    <h2 class="section-title">Projets récents</h2>
+    <div class="flex gap-2 items-center">
+      <button id="prev" class="btn disabled:opacity-40 disabled:cursor-not-allowed" aria-label="Précédent" aria-controls="rail">←</button>
+      <button id="next" class="btn disabled:opacity-40 disabled:cursor-not-allowed" aria-label="Suivant" aria-controls="rail">→</button>
+    </div>
+  </div>
+
+  <div class="reveal mt-4 overflow-x-auto carousel" id="rail">
+    <div class="grid grid-flow-col auto-cols-[minmax(260px,1fr)] gap-4 pr-6">
+      {items.map((p) => (<ProjectCard {...p} />))}
+    </div>
+  </div>
+
+  <script is:inline>
+    (()=>{
+      const rail = document.getElementById('rail')
+      if(!rail) return
+      const prev = document.getElementById('prev')
+      const next = document.getElementById('next')
+      const update = () => {
+        const max = rail.scrollWidth - rail.clientWidth - 4
+        if (prev) prev.disabled = rail.scrollLeft <= 0
+        if (next) next.disabled = rail.scrollLeft >= max - 1
+      }
+      const step = () => Math.min(rail.clientWidth * .9, 520)
+      prev?.addEventListener('click', ()=> { rail.scrollBy({ left: -step(), behavior: 'smooth' }); setTimeout(update, 320) })
+      next?.addEventListener('click', ()=> { rail.scrollBy({ left: step(), behavior: 'smooth' }); setTimeout(update, 320) })
+      rail.addEventListener('scroll', ()=> update())
+      window.addEventListener('resize', update)
+      update()
+    })()
+  </script>
+</section>

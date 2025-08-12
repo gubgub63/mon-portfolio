@@ -7,9 +7,9 @@ const items = [
 ---
 <section id="experience" class="pt-16">
   <h2 class="reveal section-title">Expérience / Timeline</h2>
-  <ol class="reveal mt-6 relative border-l border-white/15 space-y-6 ml-4">
-    {items.map(i => (
-      <li class="pl-6 relative">
+  <ol class="mt-6 relative border-l border-white/15 space-y-6 ml-4" id="timeline">
+    {items.map((i,idx) => (
+      <li class="pl-6 relative timeline-item opacity-0 translate-y-3" style={`--d:${idx*90}ms`}>
         <span class="absolute -left-3 top-1 h-5 w-5 rounded-full bg-gradient-to-br from-pink-500 to-sky-500"></span>
         <p class="text-sm uppercase tracking-wide text-pink-300/80 font-medium">{i.y}</p>
         <p class="font-semibold">{i.t}</p>
@@ -17,4 +17,24 @@ const items = [
       </li>
     ))}
   </ol>
+  <script is:inline>
+    (function(){
+      const list = document.getElementById('timeline');
+      if(!list) return;
+      const els = list.querySelectorAll('.timeline-item');
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){
+            e.target.classList.add('show');
+            io.unobserve(e.target);
+          }
+        })
+      }, { threshold:.25, rootMargin:'0px 0px -10% 0px' });
+      els.forEach(el=> io.observe(el));
+    })();
+  </script>
+  <style is:inline>
+    #experience .timeline-item { transition: opacity .6s ease, transform .6s cubic-bezier(.22,.7,.3,1); transition-delay: var(--d); }
+    #experience .timeline-item.show { opacity:1; transform:translateY(0); }
+  </style>
 </section>

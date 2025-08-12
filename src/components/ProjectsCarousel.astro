@@ -5,16 +5,20 @@ const { items = [] } = Astro.props as { items: Item[] }
 ---
 <section id="projects" class="pt-6 md:pt-10">
   <div class="reveal flex items-center justify-between">
-    <h2 class="section-title">Projets récents</h2>
+    <h2 class="section-title text-gradient">Projets récents</h2>
     <div class="flex gap-2 items-center">
       <button id="prev" class="btn disabled:opacity-40 disabled:cursor-not-allowed" aria-label="Précédent" aria-controls="rail">←</button>
       <button id="next" class="btn disabled:opacity-40 disabled:cursor-not-allowed" aria-label="Suivant" aria-controls="rail">→</button>
     </div>
   </div>
 
-  <div class="reveal mt-4 overflow-x-auto carousel" id="rail">
-    <div class="grid grid-flow-col auto-cols-[minmax(260px,1fr)] gap-4 pr-6">
-      {items.map((p) => (<ProjectCard {...p} />))}
+  <div class="reveal mt-4 overflow-x-auto" id="rail">
+    <div class="flex gap-4 pr-6 snap-x snap-mandatory">
+      {items.map((p) => (
+        <div class="snap-start shrink-0 w-[280px] md:w-[320px]" data-card>
+          <ProjectCard {...p} />
+        </div>
+      ))}
     </div>
   </div>
 
@@ -24,16 +28,27 @@ const { items = [] } = Astro.props as { items: Item[] }
       if(!rail) return
       const prev = document.getElementById('prev')
       const next = document.getElementById('next')
+      let isAnimating = false
+      const maxScroll = () => rail.scrollWidth - rail.clientWidth
       const update = () => {
-        const max = rail.scrollWidth - rail.clientWidth - 4
-        if (prev) prev.disabled = rail.scrollLeft <= 0
-        if (next) next.disabled = rail.scrollLeft >= max - 1
+        const max = maxScroll()
+        if (prev) prev.disabled = rail.scrollLeft <= 2
+        if (next) next.disabled = rail.scrollLeft >= max - 2
       }
-      const step = () => Math.min(rail.clientWidth * .9, 520)
-      prev?.addEventListener('click', ()=> { rail.scrollBy({ left: -step(), behavior: 'smooth' }); setTimeout(update, 320) })
-      next?.addEventListener('click', ()=> { rail.scrollBy({ left: step(), behavior: 'smooth' }); setTimeout(update, 320) })
-      rail.addEventListener('scroll', ()=> update())
-      window.addEventListener('resize', update)
+      const cards = Array.from(rail.querySelectorAll('[data-card]'))
+      const cardWidth = () => cards[0] ? (cards[0].clientWidth + 16) : 320
+      const scrollToSnap = (dir) => {
+        if (isAnimating) return
+        const cw = cardWidth()
+        const target = rail.scrollLeft + dir * cw
+        isAnimating = true
+        rail.scrollTo({ left: target, behavior: 'smooth' })
+        setTimeout(()=> { isAnimating = false; update() }, 420)
+      }
+      prev?.addEventListener('click', ()=> scrollToSnap(-1))
+      next?.addEventListener('click', ()=> scrollToSnap(1))
+      rail.addEventListener('scroll', ()=> { if(!isAnimating) update() })
+      window.addEventListener('resize', ()=> { update() })
       update()
     })()
   </script>

@@ -11,7 +11,7 @@
     --stroke: 255 255 255 / 0.13; /* glass stroke */
   }
   html { scroll-behavior: smooth; }
-  body { @apply bg-[rgb(var(--bg))] text-[rgb(var(--fg))] antialiased; }
+  body { @apply  text-[rgb(var(--fg))] antialiased; }
 }
 
 /* ---------- Utilities (custom classes OK, mais pas dans @apply ailleurs) ---------- */
@@ -84,7 +84,6 @@
 .nav-link { position: relative; display: inline-block; padding: .4rem .7rem; font-size: .75rem; line-height: 1; border-radius: .55rem; color: rgb(var(--muted)); transition: color .25s ease, background .25s ease; }
 .nav-link:hover { color: rgb(var(--fg)); background: rgba(255,255,255,.06); }
 .nav-link.active { color: rgb(var(--fg)); }
-.nav-link.active::after { content: ""; position: absolute; left: 50%; bottom: 4px; width: 6px; height: 6px; background: linear-gradient(90deg,#d946ef,#60a5fa); border-radius: 50%; transform: translateX(-50%); }
 
 /* ---------- Cards ---------- */
 .card { @apply rounded-2xl p-5 md:p-6; } /* Ajoute .glass dans le HTML: class="card glass" */

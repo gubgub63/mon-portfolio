@@ -1,35 +1,35 @@
 [
-  {
-    "slug": "traintrail",
-    "title": "TrainTrail",
-    "summary": "Génération & suivi de plans personnalisés trail / ultra.",
-    "description": "Application pour générer et suivre un plan d'entraînement personnalisé pour le trail et l’ultra-trail.",
-    "repo": "https://github.com/gubgub63/TrainTrail",
-    "demo": "",
-    "technologies": ["Symfony", "PHP", "JavaScript", "Twig", "CSS"],
-    "tags": ["Symfony", "Plan", "Trail"],
-    "year": 2025
-  },
-  {
-    "slug": "ultra-trail-assistant",
-    "title": "Ultra Trail Assistant",
-    "summary": "Nutrition, entraînement & itinéraires GPX pour ultra-traileurs.",
-    "description": "Outil complet pour planifier la nutrition, l’entraînement et les itinéraires GPX pour les ultra-traileurs.",
-    "repo": "https://github.com/gubgub63/ultra_trail_assistant",
-    "demo": "",
-    "technologies": ["Symfony", "PHP", "JavaScript", "Tailwind CSS", "Docker"],
-    "tags": ["Symfony", "GPX", "Nutrition"],
-    "year": 2025
-  },
-  {
-    "slug": "codelingua",
-    "title": "CodeLingua",
-    "summary": "Apprendre & traduire du code entre langues humaines.",
-    "description": "Plateforme collaborative pour apprendre et traduire du code en différentes langues.",
-    "repo": "http://github.com/hugocrne/CodeLingua",
-    "demo": "",
-    "technologies": ["Vue.js", "JavaScript", "Node.js", "Express", "MongoDB"],
-    "tags": ["Vue", "Node", "Collaboration"],
-    "year": 2024
-  }
+    {
+        "slug": "traintrail",
+        "title": "TrainTrail",
+        "summary": "Génération & suivi de plans personnalisés trail / ultra.",
+        "description": "Application pour générer et suivre un plan d'entraînement personnalisé pour le trail et l’ultra-trail.",
+        "repo": "https://github.com/gubgub63/TrainTrail",
+        "demo": "",
+        "technologies": ["Symfony", "PHP", "JavaScript", "Twig", "CSS"],
+        "tags": ["Symfony", "Plan", "Trail"],
+        "year": 2025
+    },
+    {
+        "slug": "ultra-trail-assistant",
+        "title": "Ultra Trail Assistant",
+        "summary": "Nutrition, entraînement & itinéraires GPX pour ultra-traileurs.",
+        "description": "Outil complet pour planifier la nutrition, l’entraînement et les itinéraires GPX pour les ultra-traileurs.",
+        "repo": "https://github.com/gubgub63/ultra_trail_assistant",
+        "demo": "",
+        "technologies": ["Symfony", "PHP", "JavaScript", "Tailwind CSS", "Docker"],
+        "tags": ["Symfony", "GPX", "Nutrition"],
+        "year": 2025
+    },
+    {
+        "slug": "codelingua",
+        "title": "CodeLingua",
+        "summary": "Apprendre & traduire du code entre langues humaines.",
+        "description": "Plateforme collaborative pour apprendre et traduire du code en différentes langues.",
+        "repo": "http://github.com/hugocrne/CodeLingua",
+        "demo": "",
+        "technologies": ["Vue.js", "JavaScript", "Node.js", "Express", "MongoDB"],
+        "tags": ["Vue", "Node", "Collaboration"],
+        "year": 2024
+    }
 ]

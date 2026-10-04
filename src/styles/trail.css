@@ -1,0 +1,433 @@
+/* Trail inherits the portfolio's palette, shell, typography, and motion tokens. */
+.trail-hero {
+    padding-bottom: 0;
+}
+.runner-location {
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 14px;
+}
+.trail-hero-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+.home-landscape {
+    margin: 40px 0 0;
+}
+.home-landscape img {
+    display: block;
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    object-position: center 55%;
+    border-radius: 12px;
+}
+.home-landscape figcaption {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 6px 18px;
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: 12px;
+}
+.home-landscape figcaption span:first-child {
+    color: var(--fg);
+}
+.runner-indexes {
+    display: grid;
+    grid-template-columns: 1.3fr repeat(4, 1fr);
+    margin: 0;
+    padding-bottom: 24px;
+    border-bottom: 1px dashed var(--border);
+}
+.runner-indexes > div {
+    padding-left: 24px;
+    border-left: 1px solid var(--border);
+}
+.runner-indexes > div:first-child {
+    padding-left: 0;
+    border-left: 0;
+}
+.runner-indexes dt {
+    color: var(--muted);
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+.runner-indexes dd {
+    margin: 0;
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 1.25;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+}
+.runner-indexes .index-overall dd {
+    font-weight: 600;
+}
+.index-unrated {
+    font-size: 13px;
+    letter-spacing: 0;
+    color: var(--muted);
+}
+.source-note {
+    margin-top: 16px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.6;
+}
+.source-note a,
+.trail-credits a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+.section-aside,
+.year-label {
+    font-size: 12px;
+    color: var(--muted);
+    flex-shrink: 0;
+}
+.year-label {
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 3px 10px;
+    color: var(--fg);
+}
+.race-results {
+    display: grid;
+    gap: 28px;
+}
+.race-result {
+    display: grid;
+    grid-template-columns: 100px minmax(0, 1fr) auto;
+    gap: 20px;
+}
+.race-date {
+    font-size: 12px;
+    color: var(--muted);
+    padding-top: 3px;
+}
+.race-information h3 {
+    font-size: 16px;
+    line-height: 1.4;
+    font-weight: 600;
+}
+.race-event,
+.race-terrain {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 3px;
+}
+.race-terrain span,
+.goal-distance span {
+    margin-inline: 6px;
+    color: var(--muted);
+}
+.result-context {
+    margin-top: 7px;
+    font-size: 12px;
+    color: var(--muted);
+    font-style: italic;
+}
+.race-performance {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+.finish-time {
+    font-size: 16px;
+    font-weight: 500;
+}
+.race-performance p + p {
+    margin-top: 4px;
+    font-size: 12px;
+    color: var(--muted);
+}
+.race-performance strong {
+    font-weight: 500;
+    color: var(--fg);
+}
+.full-results {
+    margin-top: 28px;
+}
+.full-results > summary {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    padding: 10px 16px;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 13px;
+    list-style: none;
+}
+.full-results > summary::-webkit-details-marker {
+    display: none;
+}
+.full-results > summary:hover {
+    background: var(--surface);
+}
+.full-results[open] > summary svg {
+    transform: rotate(90deg);
+}
+.results-table-scroll {
+    overflow: auto;
+    max-height: 480px;
+    margin-top: 20px;
+}
+.results-table-scroll table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+}
+.results-table-scroll caption {
+    text-align: left;
+    color: var(--muted);
+    padding-bottom: 12px;
+}
+.results-table-scroll th,
+.results-table-scroll td {
+    padding: 12px 10px;
+    border-bottom: 1px solid var(--border);
+}
+.results-table-scroll th:first-child {
+    padding-left: 0;
+}
+.results-table-scroll th {
+    font-weight: 500;
+}
+.results-table-scroll td {
+    white-space: nowrap;
+}
+.results-table-scroll time {
+    display: block;
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 11px;
+}
+.goals-intro {
+    margin-top: -7px;
+    margin-bottom: 28px;
+}
+.trail-goals {
+    display: grid;
+    gap: 32px;
+}
+.trail-goal {
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 24px;
+    align-items: start;
+}
+.goal-image {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    isolation: isolate;
+    aspect-ratio: 1.1;
+}
+.goal-image::after {
+    position: absolute;
+    inset: 50% 0 0;
+    content: '';
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+    pointer-events: none;
+}
+.goal-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 600ms var(--ease);
+}
+.goal-image:hover img {
+    transform: scale(1.04);
+}
+.goal-image > span {
+    position: absolute;
+    inset: auto 14px 12px;
+    z-index: 1;
+    color: white;
+    font-size: 11px;
+}
+.goal-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+.goal-heading h3 {
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    line-height: 1.3;
+}
+.goal-status {
+    padding: 2px 8px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 10px;
+    color: var(--muted);
+}
+.goal-timing {
+    margin-top: 5px;
+    font-size: 12px;
+    color: var(--muted);
+}
+.goal-timing span {
+    margin-inline: 4px;
+}
+.goal-distance {
+    margin-top: 15px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    font-weight: 500;
+}
+.goal-copy .body-copy {
+    font-size: 14px;
+    line-height: 1.65;
+}
+.goal-copy > .text-link {
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--fg);
+}
+.trail-story {
+    display: grid;
+    grid-template-columns: 1.65fr 1fr;
+    gap: 40px;
+}
+.story-copy > * + * {
+    margin-top: 16px;
+}
+.story-copy .text-link {
+    color: var(--fg);
+}
+.trail-principles {
+    display: grid;
+    gap: 24px;
+    align-content: start;
+    padding: 2px 0 0 24px;
+    border-left: 1px dashed var(--border);
+}
+.trail-principles h3 {
+    font-size: 14px;
+    font-weight: 500;
+}
+.trail-principles p {
+    margin-top: 4px;
+    font-size: 13px;
+    color: var(--muted);
+}
+.trail-credits {
+    margin-top: -20px;
+    font-size: 11px;
+    color: var(--muted);
+}
+.trail-credits summary {
+    cursor: pointer;
+    width: fit-content;
+    min-height: 24px;
+}
+.trail-credits p {
+    margin-top: 10px;
+}
+@media (max-width: 639px) {
+    .runner-location {
+        font-size: 12px;
+    }
+    .trail-hero .identity h1 {
+        font-size: 23px;
+    }
+    .home-landscape {
+        margin-top: 28px;
+    }
+    .home-landscape img {
+        height: 220px;
+    }
+    .home-landscape figcaption {
+        font-size: 11px;
+    }
+    .runner-indexes {
+        grid-template-columns: 1.2fr repeat(4, 1fr);
+    }
+    .runner-indexes > div {
+        padding-left: 10px;
+    }
+    .runner-indexes dd {
+        font-size: 25px;
+    }
+    .runner-indexes dt,
+    .index-unrated {
+        font-size: 11px;
+    }
+    .race-result {
+        grid-template-columns: minmax(0, 1fr) auto;
+        column-gap: 14px;
+        row-gap: 8px;
+    }
+    .race-date {
+        grid-column: 1 / -1;
+        padding: 0;
+    }
+    .race-information h3 {
+        font-size: 15px;
+    }
+    .race-performance {
+        padding-top: 1px;
+    }
+    .finish-time {
+        font-size: 15px;
+    }
+    .race-performance p + p {
+        font-size: 11px;
+    }
+    .race-event {
+        font-size: 12px;
+    }
+    .trail-goal {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+    .goal-image {
+        aspect-ratio: 1.65;
+    }
+    .goal-heading h3 {
+        font-size: 21px;
+    }
+    .goal-copy .body-copy {
+        font-size: 16px;
+    }
+    .trail-goals {
+        gap: 36px;
+    }
+    .trail-story {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+    .trail-principles {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        padding-left: 0;
+        padding-top: 24px;
+        border-left: 0;
+        border-top: 1px dashed var(--border);
+    }
+    .section-aside {
+        font-size: 11px;
+    }
+}
+
+.photographer-credits {
+    display: grid;
+    gap: 6px;
+    margin-block: 12px;
+    padding-left: 18px;
+    list-style: disc;
+}

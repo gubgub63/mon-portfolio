@@ -1,0 +1,352 @@
+---
+import snapshot from '../../public/data/github.json';
+
+type Contribution = { date: string; count: number; level: number };
+const contributions = (snapshot.contributions as Contribution[])
+    .slice()
+    .sort((a, b) => a.date.localeCompare(b.date));
+const dateLabel = (
+    value: string,
+    options: Intl.DateTimeFormatOptions = { month: 'long', day: 'numeric', year: 'numeric' },
+) => new Intl.DateTimeFormat('en-US', { ...options, timeZone: 'UTC' }).format(new Date(value));
+const firstDay = contributions.length
+    ? new Date(`${contributions[0].date}T00:00:00Z`).getUTCDay()
+    : 0;
+const cells: (Contribution | null)[] = [...Array(firstDay).fill(null), ...contributions];
+while (cells.length % 7) cells.push(null);
+const weekCount = Math.max(1, cells.length / 7);
+const months: { label: string; week: number }[] = [];
+let previousMonth = '';
+cells.forEach((day, index) => {
+    if (!day) return;
+    const month = day.date.slice(0, 7);
+    if (month !== previousMonth) {
+        const week = Math.floor(index / 7) + 1;
+        if (week <= weekCount - 2)
+            months.push({ label: dateLabel(day.date, { month: 'short' }), week });
+        previousMonth = month;
+    }
+});
+const total = new Intl.NumberFormat('en-US').format(snapshot.total);
+const snapshotDate = dateLabel(snapshot.fetchedAt, {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+});
+---
+
+<section id="github" class="github-activity" aria-labelledby="github-heading">
+    <div class="activity-heading">
+        <h2 id="github-heading">GitHub Activity</h2>
+        <a
+            class="profile-link"
+            href={snapshot.profileUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Visit ${snapshot.username} on GitHub (opens in a new tab)`}
+        >
+            <svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor" aria-hidden="true">
+                <path d="M12 .75a11.25 11.25 0 0 0-3.56 21.92c.56.1.77-.24.77-.54v-2.09c-3.13.68-3.79-1.33-3.79-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.69.08-.69 1.13.08 1.72 1.16 1.72 1.16 1 1.71 2.63 1.22 3.27.93.1-.72.39-1.22.71-1.5-2.5-.28-5.13-1.25-5.13-5.56 0-1.23.44-2.23 1.16-3.02-.12-.29-.5-1.43.11-2.98 0 0 .95-.31 3.1 1.15a10.8 10.8 0 0 1 5.62 0c2.15-1.46 3.09-1.15 3.09-1.15.61 1.55.23 2.69.11 2.98.72.79 1.16 1.79 1.16 3.02 0 4.32-2.63 5.27-5.14 5.55.4.35.76 1.04.76 2.1v3.08c0 .3.2.65.78.54A11.25 11.25 0 0 0 12 .75Z" />
+            </svg>
+        </a>
+    </div>
+
+    {contributions.length > 0 ? (
+        <>
+            <div
+                class="contribution-chart"
+                role="img"
+                aria-label={`${total} GitHub contributions from ${dateLabel(snapshot.range.start)} to ${dateLabel(snapshot.range.end)}. Daily values are available in the table below.`}
+                style={`--weeks: ${weekCount}`}
+            >
+                <div class="month-labels" aria-hidden="true">
+                    {months.map(({ label, week }) => (
+                        <span style={`grid-column: ${week} / span 3`}>{label}</span>
+                    ))}
+                </div>
+                <div class="contribution-cells" aria-hidden="true">
+                    {cells.map((day) =>
+                        day ? (
+                            <span
+                                class={`contribution level-${Math.max(0, Math.min(4, day.level))}`}
+                                title={`${dateLabel(day.date)}: ${day.count} contribution${day.count === 1 ? '' : 's'}`}
+                            ></span>
+                        ) : (
+                            <span class="contribution padding-day"></span>
+                        ),
+                    )}
+                </div>
+            </div>
+            <div class="graph-footer">
+                <p>
+                    <strong>{total}</strong> visible contributions in this period
+                </p>
+                <div class="legend" aria-hidden="true">
+                    <span>Less</span>
+                    {[0, 1, 2, 3, 4].map((level) => (
+                        <span class={`contribution level-${level}`}></span>
+                    ))}
+                    <span>More</span>
+                </div>
+            </div>
+            <div class="snapshot-footer">
+                <details class="daily-values">
+                    <summary>View daily contributions</summary>
+                    <div
+                        class="table-scroll"
+                        tabindex="0"
+                        role="region"
+                        aria-label="Daily GitHub contribution table"
+                    >
+                        <table>
+                            <caption>
+                                GitHub contributions · {dateLabel(snapshot.range.start)} –{' '}
+                                {dateLabel(snapshot.range.end)}
+                            </caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Contributions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {contributions.map((day) => (
+                                    <tr>
+                                        <th scope="row">
+                                            <time datetime={day.date}>{dateLabel(day.date)}</time>
+                                        </th>
+                                        <td>{day.count}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </details>
+                <p>
+                    Snapshot · <time datetime={snapshot.fetchedAt}>{snapshotDate}</time>
+                </p>
+            </div>
+        </>
+    ) : (
+        <p class="empty-activity">
+            Contribution data is currently unavailable.{' '}
+            <a href={snapshot.profileUrl}>View activity on GitHub</a>.
+        </p>
+    )}
+</section>
+
+<style>
+    .github-activity {
+        color: var(--fg);
+        min-width: 0;
+    }
+    .activity-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 25px;
+    }
+    h2 {
+        font-size: 30px;
+        font-weight: 300;
+        line-height: 1.2;
+        letter-spacing: -0.025em;
+        margin: 0;
+    }
+    .profile-link {
+        display: grid;
+        place-items: center;
+        width: 44px;
+        height: 44px;
+        color: var(--muted);
+        border-radius: 6px;
+        transition:
+            color 160ms ease,
+            background-color 160ms ease;
+    }
+    .profile-link:hover {
+        color: var(--fg);
+        background: var(--surface);
+    }
+    a:focus-visible,
+    summary:focus-visible,
+    .table-scroll:focus-visible {
+        outline: 2px solid var(--fg);
+        outline-offset: 4px;
+    }
+    .contribution-chart {
+        width: 100%;
+    }
+    .month-labels {
+        display: grid;
+        grid-template-columns: repeat(var(--weeks), minmax(0, 1fr));
+        gap: 3px;
+        margin-bottom: 8px;
+        color: var(--muted);
+        font-size: 11px;
+        line-height: 1.3;
+    }
+    .contribution-cells {
+        display: grid;
+        grid-template-rows: repeat(7, 1fr);
+        grid-template-columns: repeat(var(--weeks), minmax(0, 1fr));
+        grid-auto-flow: column;
+        gap: 3px;
+    }
+    .contribution {
+        display: block;
+        aspect-ratio: 1;
+        min-width: 0;
+        border-radius: 2px;
+    }
+    .level-0 {
+        background: var(--surface);
+    }
+    .level-1 {
+        background: color-mix(in srgb, var(--fg) 20%, var(--bg));
+    }
+    .level-2 {
+        background: color-mix(in srgb, var(--fg) 38%, var(--bg));
+    }
+    .level-3 {
+        background: color-mix(in srgb, var(--fg) 61%, var(--bg));
+    }
+    .level-4 {
+        background: var(--fg);
+    }
+    .padding-day {
+        background: transparent;
+    }
+    .graph-footer,
+    .snapshot-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.6;
+    }
+    .graph-footer {
+        margin-top: 13px;
+    }
+    p {
+        margin: 0;
+    }
+    strong {
+        font-weight: 500;
+        color: var(--fg);
+        font-variant-numeric: tabular-nums;
+    }
+    .legend {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        flex: none;
+    }
+    .legend .contribution {
+        width: 10px;
+        height: 10px;
+    }
+    .legend span:first-child {
+        margin-right: 3px;
+    }
+    .legend span:last-child {
+        margin-left: 3px;
+    }
+    .snapshot-footer {
+        align-items: flex-start;
+        margin-top: 6px;
+        position: relative;
+    }
+    .snapshot-footer > p {
+        flex: none;
+    }
+    summary {
+        cursor: pointer;
+        text-underline-offset: 4px;
+    }
+    summary:hover {
+        color: var(--fg);
+    }
+    .daily-values {
+        min-width: 0;
+    }
+    .daily-values[open] {
+        flex: 1;
+    }
+    .daily-values[open] + p {
+        display: none;
+    }
+    .table-scroll {
+        max-height: 320px;
+        overflow: auto;
+        margin-top: 16px;
+        border: 1px solid var(--border);
+        scrollbar-color: var(--muted) var(--surface);
+    }
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        font-size: 13px;
+    }
+    caption {
+        padding: 12px;
+        text-align: left;
+    }
+    th,
+    td {
+        padding: 8px 12px;
+        border-bottom: 1px solid var(--border);
+        text-align: left;
+    }
+    th {
+        font-weight: 500;
+        color: var(--fg);
+    }
+    td {
+        font-variant-numeric: tabular-nums;
+    }
+    thead {
+        position: sticky;
+        top: 0;
+        background: var(--bg);
+    }
+    .empty-activity {
+        color: var(--muted);
+    }
+    .empty-activity a {
+        color: var(--fg);
+        text-underline-offset: 4px;
+    }
+    @media (max-width: 540px) {
+        .contribution-cells,
+        .month-labels {
+            gap: 2px;
+        }
+        .contribution {
+            border-radius: 1px;
+        }
+        .month-labels {
+            font-size: 9px;
+        }
+        .month-labels span:nth-child(even) {
+            visibility: hidden;
+        }
+        .graph-footer {
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .snapshot-footer {
+            flex-wrap: wrap;
+            gap: 4px 16px;
+            font-size: 11px;
+        }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .profile-link {
+            transition: none;
+        }
+    }
+</style>

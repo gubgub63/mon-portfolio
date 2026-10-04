@@ -1,0 +1,134 @@
+{
+    "schemaVersion": 2,
+    "generatedAt": "2026-10-04T08:53:52.121063+00:00",
+    "title": "Design System: Enzo Gubbiotti Portfolio",
+    "extensions": {
+        "shadows": [
+            {
+                "name": "photograph",
+                "value": "0 5px 18px #00000016",
+                "purpose": "Overlapping trail photographs."
+            },
+            {
+                "name": "floating-contact",
+                "value": "0 4px 12px #0002",
+                "purpose": "Fixed contact action."
+            }
+        ],
+        "motion": [
+            {
+                "name": "ease",
+                "value": "cubic-bezier(.16,1,.3,1)",
+                "purpose": "Shared transform easing."
+            },
+            {
+                "name": "section-reveal",
+                "value": "550ms",
+                "purpose": "One-time section entry."
+            },
+            {
+                "name": "portrait-pixels",
+                "value": "400ms",
+                "purpose": "Randomized avatar cover/reveal."
+            },
+            {
+                "name": "marquee",
+                "value": "35s / 40s reverse",
+                "purpose": "Technology rows; paused by interaction and disabled for reduced motion."
+            }
+        ],
+        "breakpoints": [
+            {
+                "name": "mobile",
+                "value": "639px max-width"
+            },
+            {
+                "name": "portrait-desktop",
+                "value": "640px min-width"
+            },
+            {
+                "name": "activity-compact",
+                "value": "540px max-width"
+            }
+        ]
+    },
+    "components": [
+        {
+            "name": "Primary button",
+            "kind": "button",
+            "refersTo": "button-primary",
+            "description": "Principal compact portfolio action.",
+            "html": "<button class=\"button\">View my experience</button>",
+            "css": ".button{font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,sans-serif;box-sizing:border-box;background:var(--button,#171819);color:var(--button-text,#fff);border:1px solid var(--button,#171819);border-radius:7px;padding:10px 22px;min-height:46px;font-size:14px;font-weight:500;cursor:pointer;transition:transform .3s cubic-bezier(.16,1,.3,1)}.button:hover{transform:translateY(-2px)}.button:focus-visible{outline:2px solid var(--fg,#202632);outline-offset:5px}"
+        },
+        {
+            "name": "Secondary button",
+            "kind": "button",
+            "refersTo": "button-secondary",
+            "description": "Full-width repository collection link.",
+            "html": "<a class=\"button\" href=\"https://github.com/gubgub63?tab=repositories\">Explore all projects</a>",
+            "css": ".button{font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,sans-serif;box-sizing:border-box;display:flex;align-items:center;justify-content:center;width:100%;min-height:46px;padding:10px 22px;border:1px solid var(--border,#e2e4e8);border-radius:7px;background:var(--bg,#fff);color:var(--fg,#202632);font-size:14px;font-weight:500;text-decoration:none}.button:hover{background:var(--surface,#f6f7f8)}.button:focus-visible{outline:2px solid var(--fg,#202632);outline-offset:5px}"
+        },
+        {
+            "name": "Technology chip",
+            "kind": "chip",
+            "refersTo": "technology-chip",
+            "description": "Compact technology label.",
+            "html": "<span class=\"chip\">React</span>",
+            "css": ".chip{font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,sans-serif;box-sizing:border-box;display:inline-flex;align-items:center;padding:4px 12px;border:1px solid var(--border,#e2e4e8);border-radius:5px;color:var(--fg,#202632);font-size:13px;line-height:1.4;white-space:nowrap}"
+        },
+        {
+            "name": "Project card",
+            "kind": "card",
+            "refersTo": "project-card",
+            "description": "Dashed repository card.",
+            "html": "<article class=\"card\"><div class=\"preview\">WooApi</div><h3>WooApi</h3><p>A PHP project focused on the WooCommerce API.</p><a href=\"https://github.com/gubgub63/WooApi\">View repository</a></article>",
+            "css": ".card{font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,sans-serif;box-sizing:border-box;padding:8px;border:1px dashed #c5cad1;border-radius:12px;color:var(--fg,#202632);max-width:280px}.preview{height:152px;display:grid;place-items:center;background:#ede8f2;color:#655272;border-radius:7px;font-size:18px;font-weight:600}h3{font-size:18px;font-weight:600;line-height:1.2;letter-spacing:-.025em;margin:16px 8px 0}p{font-size:14px;color:var(--muted,#687180);line-height:1.55;margin:8px}a{display:block;color:inherit;margin:15px 8px 8px;font-size:10px;text-transform:uppercase;text-decoration:none;letter-spacing:.065em}a:focus-visible{outline:2px solid currentColor;outline-offset:5px}"
+        },
+        {
+            "name": "Contact card",
+            "kind": "card",
+            "refersTo": "contact-card",
+            "description": "Direct email destination.",
+            "html": "<a class=\"contact\" href=\"mailto:enzogubbiotti63@gmail.com\"><small>Email</small><span>enzogubbiotti63@gmail.com</span></a>",
+            "css": ".contact{font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,sans-serif;box-sizing:border-box;display:block;padding:15px 12px;border:1px solid var(--border,#e2e4e8);border-radius:14px;color:var(--fg,#202632);text-decoration:none}.contact:hover{background:var(--surface,#f6f7f8)}small{display:block;color:var(--muted,#687180);font-size:9px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px}span{font-size:12px;overflow-wrap:anywhere}.contact:focus-visible{outline:2px solid currentColor;outline-offset:5px}"
+        },
+        {
+            "name": "Navigation",
+            "kind": "nav",
+            "description": "Minimal inline header navigation.",
+            "html": "<nav aria-label=\"Main navigation\"><a class=\"brand\" href=\"/\">ENZO</a><div><a href=\"/#projects\">Projects</a><a href=\"/#experience\">Experience</a><a href=\"/#highlights\">Highlights</a></div></nav>",
+            "css": "nav{font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,sans-serif;box-sizing:border-box;display:flex;justify-content:space-between;align-items:center;gap:20px;height:65px;border-bottom:1px solid var(--border,#e2e4e8);font-size:14px}div{display:flex;gap:20px}a{color:var(--muted,#687180);text-decoration:none}.brand{font-weight:750;letter-spacing:-.03em;color:var(--fg,#202632)}a:hover{color:var(--fg,#202632)}a:focus-visible{outline:2px solid var(--fg,#202632);outline-offset:5px}@media(max-width:639px){nav{height:60px;font-size:12px}div{gap:12px}}"
+        }
+    ],
+    "narrative": {
+        "northStar": "The supplied Ren Lenon portfolio",
+        "overview": "The user pinned https://renlenon.vercel.app/ as the visual authority and explicitly required preserving its artistic direction. The implemented world is a narrow, white-first portfolio with light section titles, muted prose, compact controls and restrained image interactions. The default system sans stack is intentional reference fidelity.\n\nKeep the identity personal through verified content and the user's projects. Do not reinterpret this into an oversized agency landing page, colorful dashboard or new brand direction. This document records the implementation; the home page's Experience mode and sequence live in `.impeccable/surface.md`.",
+        "keyCharacteristics": [
+            "Narrow centered composition with generous separation between sections.",
+            "White and charcoal surfaces, gray text and borders, small black actions.",
+            "Circular avatar with randomized pixel reveal.",
+            "Compact timelines, dashed project outlines and softly rounded photographs.",
+            "Functional light and dark themes with English copy throughout."
+        ],
+        "rules": [
+            {
+                "name": "The Reference Rule",
+                "body": "Preserve the supplied reference's monochrome hierarchy. Existing muted purple and green project illustrations remain small content surfaces, not accents to expand across the page.",
+                "section": "colors"
+            }
+        ],
+        "dos": [
+            "Do preserve the supplied reference's composition, neutral hierarchy and profile pixel effect.",
+            "Do maintain English copy, both themes, visible keyboard focus and reduced-motion behavior.",
+            "Do keep avatar, stock illustrations and dated contribution data accurately described.",
+            "Do use actual repository destinations and verified career facts."
+        ],
+        "donts": [
+            "Don't replace the pinned direction with a newly invented visual system.",
+            "Don't present stock photos as personal portraits, project screenshots or evidence of trail achievements.",
+            "Don't invent career years, project metrics, testimonials or contact channels.",
+            "Don't treat the dated GitHub snapshot as a live activity feed."
+        ]
+    }
+}

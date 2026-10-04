@@ -1,235 +1,157 @@
 ---
-import "../styles/global.css";
+import '../styles/global.css';
+import Icon from '../components/Icon.astro';
 const {
-  title = "Enzo · Développeur",
-  description = "Portfolio — backend → full-stack. Symfony, WordPress, Astro.",
-  ogImage = "/assets/astro.svg",
-} = Astro.props as any;
-const nav = [
-  { href: "#about", label: "À propos" },
-  { href: "#services", label: "Services" },
-  { href: "#projects", label: "Projets" },
-  { href: "#process", label: "Process" },
-  { href: "#stack", label: "Stack" },
-  { href: "#contact", label: "Contact" },
-];
-
-const base = import.meta.env.BASE_URL;
+    mode = 'developer',
+    title = 'Enzo — Full-Stack Developer',
+    description = 'Full-stack developer at Accenture. Web applications, e-commerce, data engineering and a love for the trails.',
+} = Astro.props;
+const isTrail = mode === 'trail';
+const navigation = isTrail
+    ? [
+          { href: '/trail/#results', label: 'Results' },
+          { href: '/trail/#goals', label: '2027 goals' },
+          { href: '/trail/#story', label: 'My story' },
+      ]
+    : [
+          { href: '/#projects', label: 'Projects' },
+          { href: '/#experience', label: 'Experience' },
+          { href: '/#highlights', label: 'Highlights' },
+      ];
+const contactHref = isTrail ? '/trail/#contact' : '/#contact';
 ---
 
-
 <!doctype html>
-<html lang="fr" class="bg-[rgb(var(--bg))] text-[rgb(var(--fg))]">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content={description} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content={ogImage} />
-    <link rel="icon" type="image/svg+xml" href="/assets/astro.svg" />
-
-    <script
-      is:inline
-      src="https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js"
-    ></script>
-    <script is:inline src={`${base}/vanta.fog.min.js`}></script>
-    <title>{title}</title>
-  </head>
-  <body>
-
-    <header class="sticky top-0 z-40">
-      <div
-        class="container-px backdrop-blur supports-[backdrop-filter]:bg-white/5 border-b border-white/10"
-      >
-        <nav class="mx-auto max-w-6xl flex items-center justify-between h-12">
-          <a
-            href="#top"
-            class="font-semibold tracking-tight text-sm md:text-base">Enzo</a
-          >
-          <ul class="hidden sm:flex items-center gap-1">
-            {
-              nav.map((i) => (
-                <li>
-                  <a href={i.href} class="nav-link">
-                    {i.label}
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
-          <!-- Burger -->
-          <button
-            id="nav-toggle"
-            class="sm:hidden h-9 w-9 inline-flex items-center justify-center rounded-md border border-white/15 hover:bg-white/10"
-            aria-label="Menu"
-            aria-expanded="false"
-            aria-controls="mobile-nav"
-          >
-            <span class="sr-only">Menu</span>
-            <span
-              class="block w-4 h-[2px] bg-current relative after:content-[''] after:absolute after:w-4 after:h-[2px] after:bg-current after:-translate-y-2 before:content-[''] before:absolute before:w-4 before:h-[2px] before:bg-current before:translate-y-2"
-            ></span>
-          </button>
-        </nav>
-      </div>
-      <!-- Mobile panel -->
-      <div id="mobile-nav" class="sm:hidden fixed inset-0 z-30 hidden">
-        <div
-          id="mobile-backdrop"
-          class="absolute inset-0 bg-black/60 backdrop-blur opacity-0 transition-opacity"
-        >
-        </div>
-        <div
-          class="absolute top-0 right-0 h-full w-[78%] max-w-xs bg-[rgba(20,24,32,.92)] border-l border-white/10 translate-x-full transition-transform flex flex-col p-6 gap-4"
-        >
-          <div class="flex items-center justify-between">
-            <span class="font-semibold tracking-tight">Navigation</span>
-            <button
-              id="nav-close"
-              class="h-8 w-8 inline-flex items-center justify-center rounded-md hover:bg-white/10"
-              aria-label="Fermer">✕</button
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content={description} />
+        <meta name="theme-color" content="#ffffff" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:type" content="website" />
+        <link rel="icon" href="/favicon.svg" />
+        <title>{title}</title>
+        <script is:inline>
+            try {
+                if (localStorage.getItem('theme') === 'dark')
+                    document.documentElement.dataset.theme = 'dark';
+            } catch {}
+        </script>
+    </head>
+    <body class:list={{ 'trail-mode': isTrail }}>
+        <a class="skip-link" href="#main">
+            Skip to content
+        </a>
+        <header class="site-header">
+            <nav class="shell nav" aria-label="Main navigation">
+                <div class="nav-identity">
+                    <a class="wordmark" href="/" aria-label="Enzo home">
+                        ENZO
+                    </a>
+                    <div class="mode-switch" role="group" aria-label="Explore my two worlds">
+                        <a href="/" aria-current={!isTrail ? 'page' : undefined}>
+                            <Icon name="code" size={14} /> Developer
+                        </a>
+                        <a href="/trail/" aria-current={isTrail ? 'page' : undefined}>
+                            <Icon name="mountain" size={14} /> Trail
+                        </a>
+                    </div>
+                </div>
+                <div class="nav-links">
+                    {navigation.map((item) => (
+                        <a class="section-nav-link" href={item.href}>
+                            {item.label}
+                        </a>
+                    ))}
+                    <span class="nav-divider"></span>
+                    <button
+                        id="theme-toggle"
+                        class="icon-button"
+                        aria-label="Switch to dark theme"
+                        aria-pressed="false"
+                    >
+                        <span class="sun-icon">
+                            <Icon name="sun" size={16} />
+                        </span>
+                        <span class="moon-icon">
+                            <Icon name="moon" size={16} />
+                        </span>
+                    </button>
+                </div>
+            </nav>
+        </header>
+        <main id="main" class="shell">
+            <slot />
+        </main>
+        <footer class="shell site-footer">
+            <div>
+                <p class="footer-thought">
+                    {isTrail
+                        ? 'From the volcanoes. Towards something bigger.'
+                        : 'One step further. One iteration better.'}
+                </p>
+                <p>
+                    Enzo <span>/</span> {isTrail ? 'Always moving' : 'Always learning'}{' '}
+                    <span>/</span> {isTrail ? 'Puy-de-Dôme, FR' : 'France'}
+                </p>
+            </div>
+            <a
+                href={
+                    isTrail
+                        ? 'https://utmb.world/fr/runner/7379898.enzo.gubbiotti'
+                        : 'https://github.com/gubgub63'
+                }
+                target="_blank"
+                rel="noreferrer"
+                aria-label={isTrail ? 'Enzo on UTMB' : 'Enzo on GitHub'}
             >
-          </div>
-          <ul class="flex flex-col gap-1">
-            {
-              nav.map((i) => (
-                <li>
-                  <a href={i.href} class="nav-link !px-2">
-                    {i.label}
-                  </a>
-                </li>
-              ))
+                <Icon name={isTrail ? 'mountain' : 'github'} />
+            </a>
+        </footer>
+        <a class="floating-contact" href={contactHref}>
+            <Icon name="chat" size={17} /> Let's talk
+        </a>
+        <script>
+            const button = document.querySelector<HTMLButtonElement>('#theme-toggle');
+            function syncTheme() {
+                const dark = document.documentElement.dataset.theme === 'dark';
+                button?.setAttribute('aria-pressed', String(dark));
+                button?.setAttribute('aria-label', `Switch to ${dark ? 'light' : 'dark'} theme`);
+                document
+                    .querySelector('meta[name="theme-color"]')
+                    ?.setAttribute('content', dark ? '#101113' : '#ffffff');
             }
-          </ul>
-          <div class="mt-auto text-[10px] text-[rgb(var(--muted))]">
-            © {new Date().getFullYear()} Enzo
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <main id="top" class="mx-auto max-w-6xl container-px">
-        <div id="root-bg"></div>
-      <slot />
-    </main>
-
-    <footer class="mx-auto max-w-6xl container-px py-12 footer">
-      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p>© {new Date().getFullYear()} Enzo — Tous droits réservés.</p>
-        <p>
-          Construit avec <span class="link-underline">Astro</span> & Tailwind.
-        </p>
-      </div>
-    </footer>
-
-    <script is:inline>
-      // Reveal animation
-      const io = new IntersectionObserver(
-        (entries) => {
-          for (const e of entries) {
-            if (e.isIntersecting) {
-              e.target.classList.add("show");
-              io.unobserve(e.target);
+            syncTheme();
+            button?.addEventListener('click', () => {
+                const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+                document.documentElement.dataset.theme = theme;
+                try {
+                    localStorage.setItem('theme', theme);
+                } catch {}
+                syncTheme();
+            });
+            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+            if (!reduce.matches && 'IntersectionObserver' in window) {
+                const observer = new IntersectionObserver(
+                    (entries) =>
+                        entries.forEach((entry) => {
+                            if (entry.isIntersecting) {
+                                entry.target.animate(
+                                    [
+                                        { opacity: 0.55, transform: 'translateY(12px)' },
+                                        { opacity: 1, transform: 'translateY(0)' },
+                                    ],
+                                    { duration: 550, easing: 'cubic-bezier(.16,1,.3,1)' },
+                                );
+                                observer.unobserve(entry.target);
+                            }
+                        }),
+                    { threshold: 0.08 },
+                );
+                document.querySelectorAll('[data-reveal]').forEach((el) => observer.observe(el));
             }
-          }
-        },
-        { threshold: 0.16 }
-      );
-      document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
-
-      // Active link highlight
-      const sections = Array.from(document.querySelectorAll("section[id]"));
-      const navLinks = Array.from(document.querySelectorAll(".nav-link"));
-      const setActive = (id) => {
-        navLinks.forEach((a) =>
-          a.classList.toggle("active", a.getAttribute("href") === "#" + id)
-        );
-      };
-      const so = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((e) => {
-            if (e.isIntersecting) setActive(e.target.id);
-          });
-        },
-        { rootMargin: "-50% 0px -49% 0px", threshold: 0.01 }
-      );
-      sections.forEach((s) => so.observe(s));
-
-      // Scroll progress bar
-      const pb = document.getElementById("progress-bar");
-      const updatePb = () => {
-        const h = document.documentElement;
-        const ratio = h.scrollTop / (h.scrollHeight - h.clientHeight);
-        if (pb) pb.style.width = ratio * 100 + "%";
-      };
-      document.addEventListener("scroll", updatePb, { passive: true });
-      updatePb();
-
-      // Mobile menu
-      const toggleBtn = document.getElementById("nav-toggle");
-      const mobile = document.getElementById("mobile-nav");
-      const backdrop = document.getElementById("mobile-backdrop");
-      const closeBtn = document.getElementById("nav-close");
-      const panel = mobile?.querySelector("div:nth-child(2)");
-      function openMenu() {
-        if (!mobile) return;
-        mobile.classList.remove("hidden");
-        requestAnimationFrame(() => {
-          backdrop.style.opacity = "1";
-          panel.style.transform = "translateX(0)";
-          toggleBtn?.setAttribute("aria-expanded", "true");
-        });
-      }
-      function closeMenu() {
-        if (!mobile) return;
-        backdrop.style.opacity = "0";
-        panel.style.transform = "translateX(100%)";
-        toggleBtn?.setAttribute("aria-expanded", "false");
-        setTimeout(() => mobile.classList.add("hidden"), 200);
-      }
-      toggleBtn?.addEventListener("click", () =>
-        toggleBtn.getAttribute("aria-expanded") === "true"
-          ? closeMenu()
-          : openMenu()
-      );
-      closeBtn?.addEventListener("click", closeMenu);
-      backdrop?.addEventListener("click", closeMenu);
-      mobile
-        ?.querySelectorAll("a")
-        .forEach((a) => a.addEventListener("click", closeMenu));
-      window.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") closeMenu();
-      });
-
-      // Vanta fog background
-      let vantaInstance;
-      const initVanta = () => {
-        const target = document.getElementById("root-bg");
-        if (!target || !window.VANTA?.FOG) return;
-        vantaInstance?.destroy?.();
-        const prefersReduced = window.matchMedia(
-          "(prefers-reduced-motion: reduce)"
-        ).matches;
-        vantaInstance = window.VANTA.FOG({
-          el: target,
-          mouseControls: !prefersReduced,
-          touchControls: !prefersReduced,
-          gyroControls: false,
-          highlightColor: 0x334155,
-          midtoneColor: 0x111827,
-          lowlightColor: 0x05070b,
-          baseColor: 0x0b0f14,
-          blurFactor: 0.6,
-          speed: prefersReduced ? 0.0 : 0.6,
-          zoom: 1.1,
-        });
-      };
-      if (document.readyState === "complete") initVanta();
-      else window.addEventListener("load", initVanta, { once: true });
-      window.addEventListener("beforeunload", () =>
-        vantaInstance?.destroy?.()
-      );
-    </script>
-  </body>
+        </script>
+    </body>
 </html>

@@ -1,0 +1,135 @@
+{
+    "profileUrl": "https://utmb.world/fr/runner/7379898.enzo.gubbiotti",
+    "retrievedAt": "2026-10-04",
+    "athlete": "Enzo Gubbiotti",
+    "indexes": [
+        {
+            "piCategory": "general",
+            "index": 587
+        },
+        {
+            "piCategory": "20k",
+            "index": 589
+        },
+        {
+            "piCategory": "50k",
+            "index": 519
+        },
+        {
+            "piCategory": "100k",
+            "index": 504
+        },
+        {
+            "piCategory": "100m",
+            "index": null
+        }
+    ],
+    "results": [
+        {
+            "dateIso": "2026-08-08",
+            "raceName": "Trail de La Gentiane 28km",
+            "eventName": "Trail Des 6 Burons",
+            "eventYear": 2026,
+            "distance": "30.00",
+            "elevationGain": 1017,
+            "time": "02:54:31",
+            "isDnf": false,
+            "rank": 20,
+            "totalRanked": 354,
+            "piCategory": "20k",
+            "categoryPlacing": {
+                "category": "Espoir",
+                "place": "1st",
+                "source": "Confirmed directly by Enzo Gubbiotti"
+            }
+        },
+        {
+            "dateIso": "2026-06-12",
+            "raceName": "Ultra Trail du Puy Mary Aurillac SOLO",
+            "eventName": "Ultra Trail du Puy Mary Aurillac",
+            "eventYear": 2026,
+            "distance": "114.00",
+            "elevationGain": 5500,
+            "time": "21:42:07",
+            "isDnf": false,
+            "rank": 248,
+            "totalRanked": 456,
+            "piCategory": "100k",
+            "categoryPlacing": {
+                "category": "Espoir",
+                "place": "2nd",
+                "source": "Confirmed directly by Enzo Gubbiotti"
+            }
+        },
+        {
+            "dateIso": "2026-05-15",
+            "raceName": "Expérience Terres Volcaniques by Kiprun",
+            "eventName": "Volvic Volcanic Expérience",
+            "eventYear": 2026,
+            "distance": "86.00",
+            "elevationGain": 2750,
+            "time": "12:07:53",
+            "isDnf": false,
+            "rank": 434,
+            "totalRanked": 720,
+            "piCategory": "100k"
+        },
+        {
+            "dateIso": "2026-03-01",
+            "raceName": "Ultra Volcanique",
+            "eventName": "TRAIL DE VULCAIN",
+            "eventYear": 2026,
+            "distance": "77.00",
+            "elevationGain": 2850,
+            "time": null,
+            "isDnf": true,
+            "rank": null,
+            "totalRanked": 520,
+            "piCategory": "100k"
+        },
+        {
+            "dateIso": "2025-11-16",
+            "raceName": "LA TRAVERSEE DE LA FAILLE",
+            "eventName": "ROYAT TRAIL TOUR",
+            "eventYear": 2025,
+            "distance": "42.00",
+            "elevationGain": 1800,
+            "time": "05:14:29",
+            "isDnf": false,
+            "rank": 66,
+            "totalRanked": 188,
+            "piCategory": "50k"
+        },
+        {
+            "dateIso": "2025-10-11",
+            "raceName": "X - Ultra-Trail  Solo",
+            "eventName": "Grands Trails d'Auvergne (Sommet National du Trail)",
+            "eventYear": 2025,
+            "distance": "82.00",
+            "elevationGain": 3161,
+            "time": "10:51:45",
+            "isDnf": false,
+            "rank": 166,
+            "totalRanked": 541,
+            "piCategory": "100k",
+            "categoryPlacing": {
+                "category": "Espoir",
+                "place": "2nd",
+                "source": "Confirmed directly by Enzo Gubbiotti"
+            }
+        },
+        {
+            "dateIso": "2025-05-30",
+            "raceName": "Trail Expérience Impluvium",
+            "eventName": "Volvic Volcanic Expérience",
+            "eventYear": 2025,
+            "distance": "45.00",
+            "elevationGain": 1650,
+            "time": "05:42:15",
+            "isDnf": false,
+            "rank": 174,
+            "totalRanked": 780,
+            "piCategory": "50k"
+        }
+    ]
+}

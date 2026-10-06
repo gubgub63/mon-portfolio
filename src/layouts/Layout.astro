@@ -2,28 +2,42 @@
 import '../styles/global.css';
 import Icon from '../components/Icon.astro';
 import { sitePath } from '../lib/paths';
+
+interface Props {
+    mode?: 'developer' | 'trail';
+    lang?: 'en' | 'fr';
+    title?: string;
+    description?: string;
+}
+
 const {
     mode = 'developer',
+    lang = 'en',
     title = 'Enzo — Full-Stack Developer',
     description = 'Full-stack developer at Accenture. Web applications, e-commerce, data engineering and a love for the trails.',
 } = Astro.props;
 const isTrail = mode === 'trail';
+const isFrench = lang === 'fr';
+const homePath = isFrench ? '/fr/' : '/';
+const trailPath = isFrench ? '/fr/trail/' : '/trail/';
+const pagePath = isTrail ? trailPath : homePath;
 const navigation = isTrail
     ? [
-          { href: '/trail/#results', label: 'Results' },
-          { href: '/trail/#goals', label: '2027 goals' },
-          { href: '/trail/#story', label: 'My story' },
+          { href: `${trailPath}#results`, label: isFrench ? 'Résultats' : 'Results' },
+          { href: `${trailPath}#goals`, label: isFrench ? 'Objectifs 2027' : '2027 goals' },
+          { href: `${trailPath}#story`, label: isFrench ? 'Mon histoire' : 'My story' },
       ]
     : [
-          { href: '/#projects', label: 'Projects' },
-          { href: '/#experience', label: 'Experience' },
-          { href: '/#highlights', label: 'Highlights' },
+          { href: `${homePath}#projects`, label: isFrench ? 'Projets' : 'Projects' },
+          { href: `${homePath}#experience`, label: isFrench ? 'Parcours' : 'Experience' },
+          { href: `${homePath}#highlights`, label: isFrench ? 'À la une' : 'Highlights' },
       ];
-const contactHref = isTrail ? '/trail/#contact' : '/#contact';
+const contactHref = `${pagePath}#contact`;
+const absoluteUrl = (path: string) => new URL(sitePath(path), Astro.site || Astro.url).href;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -32,6 +46,9 @@ const contactHref = isTrail ? '/trail/#contact' : '/#contact';
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:type" content="website" />
+        <link rel="canonical" href={absoluteUrl(pagePath)} />
+        <link rel="alternate" hreflang="en" href={absoluteUrl(isTrail ? '/trail/' : '/')} />
+        <link rel="alternate" hreflang="fr" href={absoluteUrl(isTrail ? '/fr/trail/' : '/fr/')} />
         <link rel="icon" href={sitePath('/favicon.svg')} />
         <title>{title}</title>
         <script is:inline>
@@ -43,19 +60,32 @@ const contactHref = isTrail ? '/trail/#contact' : '/#contact';
     </head>
     <body class:list={{ 'trail-mode': isTrail }}>
         <a class="skip-link" href="#main">
-            Skip to content
+            {isFrench ? 'Aller au contenu' : 'Skip to content'}
         </a>
         <header class="site-header">
-            <nav class="shell nav" aria-label="Main navigation">
+            <nav
+                class="shell nav"
+                aria-label={isFrench ? 'Navigation principale' : 'Main navigation'}
+            >
                 <div class="nav-identity">
-                    <a class="wordmark" href={sitePath('/')} aria-label="Enzo home">
+                    <a
+                        class="wordmark"
+                        href={sitePath(homePath)}
+                        aria-label={isFrench ? 'Accueil Enzo' : 'Enzo home'}
+                    >
                         ENZO
                     </a>
-                    <div class="mode-switch" role="group" aria-label="Explore my two worlds">
-                        <a href={sitePath('/')} aria-current={!isTrail ? 'page' : undefined}>
-                            <Icon name="code" size={14} /> Developer
+                    <div
+                        class="mode-switch"
+                        role="group"
+                        aria-label={
+                            isFrench ? 'Explorer mes deux univers' : 'Explore my two worlds'
+                        }
+                    >
+                        <a href={sitePath(homePath)} aria-current={!isTrail ? 'page' : undefined}>
+                            <Icon name="code" size={14} /> {isFrench ? 'Développeur' : 'Developer'}
                         </a>
-                        <a href={sitePath('/trail/')} aria-current={isTrail ? 'page' : undefined}>
+                        <a href={sitePath(trailPath)} aria-current={isTrail ? 'page' : undefined}>
                             <Icon name="mountain" size={14} /> Trail
                         </a>
                     </div>
@@ -67,10 +97,33 @@ const contactHref = isTrail ? '/trail/#contact' : '/#contact';
                         </a>
                     ))}
                     <span class="nav-divider"></span>
+                    <div
+                        class="language-switch"
+                        role="group"
+                        aria-label={isFrench ? 'Langue du site' : 'Site language'}
+                    >
+                        <a
+                            href={sitePath(isTrail ? '/trail/' : '/')}
+                            lang="en"
+                            hreflang="en"
+                            aria-current={!isFrench ? 'true' : undefined}
+                        >
+                            EN
+                        </a>
+                        <span aria-hidden="true">/</span>
+                        <a
+                            href={sitePath(isTrail ? '/fr/trail/' : '/fr/')}
+                            lang="fr"
+                            hreflang="fr"
+                            aria-current={isFrench ? 'true' : undefined}
+                        >
+                            FR
+                        </a>
+                    </div>
                     <button
                         id="theme-toggle"
                         class="icon-button"
-                        aria-label="Switch to dark theme"
+                        aria-label={isFrench ? 'Activer le thème sombre' : 'Switch to dark theme'}
                         aria-pressed="false"
                     >
                         <span class="sun-icon">
@@ -90,11 +143,22 @@ const contactHref = isTrail ? '/trail/#contact' : '/#contact';
             <div>
                 <p class="footer-thought">
                     {isTrail
-                        ? 'From the volcanoes. Towards something bigger.'
-                        : 'One step further. One iteration better.'}
+                        ? isFrench
+                            ? 'Des volcans. Vers de nouveaux horizons.'
+                            : 'From the volcanoes. Towards something bigger.'
+                        : isFrench
+                          ? 'Toujours avancer. Toujours progresser.'
+                          : 'One step further. One iteration better.'}
                 </p>
                 <p>
-                    Enzo <span>/</span> {isTrail ? 'Always moving' : 'Always learning'}{' '}
+                    Enzo <span>/</span>{' '}
+                    {isTrail
+                        ? isFrench
+                            ? 'Toujours en mouvement'
+                            : 'Always moving'
+                        : isFrench
+                          ? 'Toujours apprendre'
+                          : 'Always learning'}{' '}
                     <span>/</span> {isTrail ? 'Puy-de-Dôme, FR' : 'France'}
                 </p>
             </div>
@@ -106,20 +170,34 @@ const contactHref = isTrail ? '/trail/#contact' : '/#contact';
                 }
                 target="_blank"
                 rel="noreferrer"
-                aria-label={isTrail ? 'Enzo on UTMB' : 'Enzo on GitHub'}
+                aria-label={
+                    isTrail
+                        ? isFrench
+                            ? 'Enzo sur UTMB'
+                            : 'Enzo on UTMB'
+                        : isFrench
+                          ? 'Enzo sur GitHub'
+                          : 'Enzo on GitHub'
+                }
             >
                 <Icon name={isTrail ? 'mountain' : 'github'} />
             </a>
         </footer>
         <a class="floating-contact" href={sitePath(contactHref)}>
-            <Icon name="chat" size={17} /> Let's talk
+            <Icon name="chat" size={17} /> {isFrench ? 'On échange ?' : "Let's talk"}
         </a>
         <script>
+            const isFrench = document.documentElement.lang === 'fr';
             const button = document.querySelector<HTMLButtonElement>('#theme-toggle');
             function syncTheme() {
                 const dark = document.documentElement.dataset.theme === 'dark';
                 button?.setAttribute('aria-pressed', String(dark));
-                button?.setAttribute('aria-label', `Switch to ${dark ? 'light' : 'dark'} theme`);
+                button?.setAttribute(
+                    'aria-label',
+                    isFrench
+                        ? `Activer le thème ${dark ? 'clair' : 'sombre'}`
+                        : `Switch to ${dark ? 'light' : 'dark'} theme`,
+                );
                 document
                     .querySelector('meta[name="theme-color"]')
                     ?.setAttribute('content', dark ? '#101113' : '#ffffff');

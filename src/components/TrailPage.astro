@@ -1,0 +1,411 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from './Icon.astro';
+import PixelPortrait from './PixelPortrait.astro';
+import { profile } from '../data/profile';
+import { trailGoals } from '../data/trail';
+import { trailCopy, type Language } from '../data/trail-copy';
+import trailResults from '../data/trail-results.json';
+import { sitePath } from '../lib/paths';
+import '../styles/trail.css';
+
+const { lang } = Astro.props as { lang: Language };
+const copy = trailCopy[lang];
+const goals = trailGoals.map((goal, index) => ({ ...goal, ...copy.goals[index] }));
+const indexLabels: Record<string, string> = {
+    general: lang === 'fr' ? 'Général' : 'Overall',
+    '20k': '20K',
+    '50k': '50K',
+    '100k': '100K',
+    '100m': '100M',
+};
+const highlights = ['2026-08-08', '2026-06-12', '2025-10-11'].map((date, index) => ({
+    ...trailResults.results.find((result) => result.dateIso === date)!,
+    note: copy.highlights[index],
+}));
+const formatDate = (date: string) =>
+    new Intl.DateTimeFormat(lang === 'fr' ? 'fr-FR' : 'en-GB', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+        timeZone: 'UTC',
+    }).format(new Date(date));
+const formatNumber = (number: number) =>
+    new Intl.NumberFormat(lang === 'fr' ? 'fr-FR' : 'en-GB').format(number);
+const formatPlacing = (place: string) =>
+    lang === 'fr' ? ({ '1st': '1er', '2nd': '2e', '3rd': '3e' }[place] ?? place) : place;
+---
+
+<Layout mode="trail" lang={lang} title={copy.title} description={copy.description}>
+    <section class="hero trail-hero" aria-labelledby="trail-title">
+        <div class="identity">
+            <PixelPortrait src="/images/trail/enzo.webp" alt={copy.portraitAlt} />
+            <div>
+                <h1 id="trail-title">Enzo Gubbiotti</h1>
+                <p class="runner-location">Puy-de-Dôme, Auvergne</p>
+                <div class="socials">
+                    <a
+                        href={trailResults.profileUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={copy.utmbProfileAria}
+                    >
+                        <Icon name="mountain" size={20} />
+                    </a>
+                    <a href={`mailto:${profile.email}`} aria-label={copy.emailAria}>
+                        <Icon name="mail" size={20} />
+                    </a>
+                </div>
+            </div>
+        </div>
+        <h2 class="hero-role">
+            {copy.heroRole} <span>{copy.heroRoleAside}</span>
+        </h2>
+        <p class="intro">{copy.intro}</p>
+        <div class="trail-hero-actions">
+            <a class="button primary" href="#goals">
+                {copy.goalsButton} <Icon name="chevron" size={14} />
+            </a>
+            <a class="text-link" href="#results">
+                {copy.resultsButton} <Icon name="arrow" size={15} />
+            </a>
+        </div>
+        <figure class="home-landscape">
+            <img
+                src={sitePath('/images/trail/auvergne.webp')}
+                alt={copy.landscapeAlt}
+                width="1600"
+                height="1200"
+                fetchpriority="high"
+            />
+            <figcaption>
+                <span>{copy.landscapeCaption}</span>
+                <span>Chaîne des Puys · Auvergne</span>
+            </figcaption>
+        </figure>
+    </section>
+
+    <section id="utmb" data-reveal aria-labelledby="utmb-heading">
+        <div class="section-heading">
+            <h2 id="utmb-heading">UTMB Index</h2>
+            <a class="text-link" href={trailResults.profileUrl} target="_blank" rel="noreferrer">
+                {copy.viewProfile} <Icon name="arrow" size={14} />
+            </a>
+        </div>
+        <dl class="runner-indexes">
+            {trailResults.indexes.map((category) => (
+                <div class:list={{ 'index-overall': category.piCategory === 'general' }}>
+                    <dt>{indexLabels[category.piCategory]}</dt>
+                    <dd>{category.index ?? <span class="index-unrated">{copy.notRated}</span>}</dd>
+                </div>
+            ))}
+        </dl>
+        <p class="source-note">
+            {copy.publishedProfile} ·{' '}
+            <time datetime={trailResults.retrievedAt}>{formatDate(trailResults.retrievedAt)}</time>
+        </p>
+    </section>
+
+    <section id="results" data-reveal aria-labelledby="results-heading">
+        <div class="section-heading">
+            <h2 id="results-heading">{copy.finishLine}</h2>
+            <span class="section-aside">{copy.selectedResults}</span>
+        </div>
+        <div class="race-results">
+            {highlights.map((result) => (
+                <article class="race-result">
+                    <div class="race-date">
+                        <time datetime={result.dateIso}>{formatDate(result.dateIso)}</time>
+                    </div>
+                    <div class="race-information">
+                        <h3>{result.raceName}</h3>
+                        <p class="race-event">{result.eventName}</p>
+                        <p class="race-terrain">
+                            {Number(result.distance)} km <span>/</span>{' '}
+                            {formatNumber(result.elevationGain)} m+
+                        </p>
+                        <p class="result-context">{result.note}</p>
+                    </div>
+                    <div class="race-performance">
+                        <p class="finish-time">{result.time}</p>
+                        {result.categoryPlacing && (
+                            <p>
+                                <strong>
+                                    {formatPlacing(result.categoryPlacing.place)} ·{' '}
+                                    {result.categoryPlacing.category}
+                                </strong>
+                            </p>
+                        )}
+                        <p>
+                            <strong>{result.rank}</strong> / {result.totalRanked} {copy.overall}
+                        </p>
+                    </div>
+                </article>
+            ))}
+        </div>
+        <details class="full-results">
+            <summary>
+                {copy.allResults} <Icon name="chevron" size={14} />
+            </summary>
+            <div
+                class="results-table-scroll"
+                tabindex="0"
+                role="region"
+                aria-label={copy.resultsRegion}
+            >
+                <table>
+                    <caption>{copy.resultsCaption}</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">{copy.race}</th>
+                            <th scope="col">{copy.distance}</th>
+                            <th scope="col">{copy.time}</th>
+                            <th scope="col">{indexLabels.general}</th>
+                            <th scope="col">{copy.category}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {trailResults.results.map((result) => (
+                            <tr>
+                                <th scope="row">
+                                    {result.raceName}
+                                    <time datetime={result.dateIso}>
+                                        {formatDate(result.dateIso)}
+                                    </time>
+                                </th>
+                                <td>{Number(result.distance)} km</td>
+                                <td>{result.isDnf ? copy.didNotFinish : result.time}</td>
+                                <td>
+                                    {result.isDnf ? '—' : `${result.rank} / ${result.totalRanked}`}
+                                </td>
+                                <td>
+                                    {result.categoryPlacing
+                                        ? `${formatPlacing(result.categoryPlacing.place)} · ${result.categoryPlacing.category}`
+                                        : '—'}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </details>
+        <p class="source-note">
+            {copy.resultsSourceBefore}{' '}
+            <a href={trailResults.profileUrl} target="_blank" rel="noreferrer">
+                {copy.resultsSourceLink}
+            </a>
+        </p>
+    </section>
+
+    <section id="goals" data-reveal aria-labelledby="goals-heading">
+        <div class="section-heading">
+            <h2 id="goals-heading">{copy.goalsTitle}</h2>
+            <span class="year-label">2027</span>
+        </div>
+        <p class="body-copy goals-intro">{copy.goalsIntro}</p>
+        <div class="trail-goals">
+            {goals.map((goal) => (
+                <article class="trail-goal" id={goal.id}>
+                    <a
+                        class="goal-image"
+                        href={goal.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={goal.linkLabel}
+                    >
+                        <img
+                            src={sitePath(goal.image)}
+                            alt={goal.imageAlt}
+                            width="1000"
+                            height="750"
+                            loading="lazy"
+                        />
+                        <span>{goal.location}</span>
+                    </a>
+                    <div class="goal-copy">
+                        <div class="goal-heading">
+                            <h3>{goal.title}</h3>
+                            <span class="goal-status">{copy.goal}</span>
+                        </div>
+                        <p class="goal-timing">
+                            {goal.timing} <span>·</span> {goal.type}
+                        </p>
+                        <p class="goal-distance">
+                            {goal.distance} <span>/</span>{' '}
+                            {lang === 'fr' ? goal.elevation.replace(',', ' ') : goal.elevation}
+                        </p>
+                        <p class="body-copy">{goal.description}</p>
+                        <a class="text-link" href={goal.href} target="_blank" rel="noreferrer">
+                            {goal.linkLabel} <Icon name="arrow" size={14} />
+                        </a>
+                    </div>
+                </article>
+            ))}
+        </div>
+        <p class="source-note">{copy.goalsDisclaimer}</p>
+    </section>
+
+    <section id="story" data-reveal aria-labelledby="story-heading">
+        <div class="section-heading">
+            <h2 id="story-heading">{copy.storyTitle}</h2>
+        </div>
+        <div class="trail-story">
+            <div class="story-copy">
+                <p class="body-copy">{copy.storyFirst}</p>
+                <p class="body-copy">{copy.storySecond}</p>
+                <a class="text-link" href={sitePath(lang === 'fr' ? '/fr/' : '/')}>
+                    {copy.developerLink} <Icon name="arrow" size={14} />
+                </a>
+            </div>
+            <div class="trail-principles">
+                <div>
+                    <h3>{copy.homeGround}</h3>
+                    <p>Puy-de-Dôme, Auvergne.</p>
+                </div>
+                <div>
+                    <h3>{copy.longGame}</h3>
+                    <p>{copy.longGameText}</p>
+                </div>
+                <div>
+                    <h3>{copy.dream}</h3>
+                    <p>{copy.dreamText}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" data-reveal aria-labelledby="trail-contact-heading">
+        <div class="section-heading">
+            <h2 id="trail-contact-heading">{copy.contactTitle}</h2>
+        </div>
+        <div class="contact-grid">
+            <p class="body-copy">{copy.contactIntro}</p>
+            <div class="contact-links">
+                <a
+                    class="contact-card"
+                    href={`mailto:${profile.email}?subject=${encodeURIComponent(copy.contactSubject)}`}
+                >
+                    <span class="contact-icon">
+                        <Icon name="mail" />
+                    </span>
+                    <span>
+                        <small>{copy.contactSubject}</small>
+                        <span>{profile.email}</span>
+                    </span>
+                    <Icon name="chevron" size={16} />
+                </a>
+                <a
+                    class="contact-card"
+                    href={trailResults.profileUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    <span class="contact-icon">
+                        <Icon name="mountain" />
+                    </span>
+                    <span>
+                        <small>{copy.followProgress}</small>
+                        <span>{copy.utmbProfile}</span>
+                    </span>
+                    <Icon name="arrow" size={16} />
+                </a>
+            </div>
+        </div>
+    </section>
+    <details class="trail-credits">
+        <summary>{copy.creditsTitle}</summary>
+        <p>
+            {copy.creditsIntro}{' '}
+            <a href={trailResults.profileUrl} target="_blank" rel="noreferrer">
+                {copy.creditsProfile}
+            </a>
+            .
+        </p>
+        <ul class="photographer-credits">
+            <li>
+                Auvergne:{' '}
+                <a
+                    href="https://commons.wikimedia.org/wiki/File:Panorama_Nord_-_Puy_de_dome.jpg"
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    Thalia Gylonno
+                </a>
+                ·{' '}
+                <a
+                    href="https://creativecommons.org/licenses/by-sa/2.0/"
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    CC BY-SA 2.0
+                </a>
+                .
+            </li>
+            <li>
+                Madeira:{' '}
+                <a
+                    href="https://commons.wikimedia.org/wiki/File:Pico_do_Arieiro.jpg"
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    Markus Bernet
+                </a>
+                ·{' '}
+                <a
+                    href="https://creativecommons.org/licenses/by-sa/2.0/"
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    CC BY-SA 2.0
+                </a>
+                .
+            </li>
+            <li>
+                Réunion:{' '}
+                <a
+                    href="https://commons.wikimedia.org/wiki/File:Mafate.jpg"
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    Jdada42
+                </a>
+                ·{' '}
+                <a
+                    href="https://creativecommons.org/licenses/by-sa/3.0/"
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    CC BY-SA 3.0
+                </a>
+                .
+            </li>
+        </ul>
+        <p>
+            {copy.creditsProcessing}{' '}
+            <a href={sitePath('/images/trail/SOURCES.md')}>{copy.fullCredits}</a>.
+        </p>
+        <p>
+            {copy.raceDetails}{' '}
+            <a
+                href="https://miutmadeira.com/miut-2027-regulations/"
+                target="_blank"
+                rel="noreferrer"
+            >
+                MIUT 2027
+            </a>{' '}
+            ·{' '}
+            <a
+                href="https://fastestknowntime.com/route/gr441-france"
+                target="_blank"
+                rel="noreferrer"
+            >
+                {copy.fktSource}
+            </a>{' '}
+            ·{' '}
+            <a href="https://www.grandraid-reunion.com/en/" target="_blank" rel="noreferrer">
+                Grand Raid Réunion
+            </a>
+            .
+        </p>
+    </details>
+</Layout>

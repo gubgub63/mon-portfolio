@@ -1,0 +1,599 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from './Icon.astro';
+import PixelPortrait from './PixelPortrait.astro';
+import GitHubActivity from './GitHubActivity.astro';
+import { profile, experience, stackGroups, projects } from '../data/profile';
+import { sitePath } from '../lib/paths';
+
+interface Props {
+    lang: 'en' | 'fr';
+}
+
+const { lang } = Astro.props;
+const fr = lang === 'fr';
+const email = profile.email;
+const featured = projects.slice(0, 2);
+const projectCards = projects.filter((project) => !featured.includes(project));
+const techColor: Record<string, string> = {
+    React: '#149eca',
+    Angular: '#d32f49',
+    Vue: '#25986b',
+    Astro: '#b047c8',
+    PHP: '#787cb5',
+    Java: '#d08035',
+    WordPress: '#21759b',
+    WooCommerce: '#96588a',
+    Python: '#387bab',
+    Docker: '#2496ed',
+    Git: '#f05032',
+    TypeScript: '#3178c6',
+};
+const copy = {
+    en: {
+        role: 'Full-Stack Developer',
+        roleFocus: '— Web & E-commerce',
+        introStart:
+            "I'm a full-stack developer building web applications and e-commerce experiences with",
+        introEnd:
+            "Currently at Accenture, I'm also exploring data engineering and building tools inspired by life on the trails.",
+        viewExperience: 'View my experience',
+        experience: 'Experience',
+        viewDetails: 'View details',
+        permanent: 'Permanent contract · France',
+        previous: 'WordPress & WooCommerce',
+        featured: 'Featured Work',
+        personal: 'Personal project',
+        exploreProject: 'Explore project',
+        projects: 'Projects',
+        platform: 'Full-stack platform',
+        viewRepository: 'View repository',
+        exploreAll: 'Explore all projects',
+        technologies: 'Technologies',
+        viewAll: 'View all',
+        pauseAnimation: 'Pause animation',
+        playAnimation: 'Play animation',
+        showLess: 'Show less',
+        frontend: 'Frontend technologies',
+        backend: 'Backend technologies',
+        tools: 'Tools and e-commerce',
+        education: 'Education',
+        graduated: 'Graduated',
+        degree: 'BUT in Computer Science',
+        degreeSubtitle: 'Bachelor Universitaire de Technologie · Informatique',
+        degreeDetail: 'Software development & hands-on projects',
+        outside: 'Outside the IDE',
+        outsideCopy:
+            "Away from the keyboard, you'll find me on the trails. The climbs, the quiet, and the long runs give me a fresh perspective — and inspire the tools I build when I'm back.",
+        trailRunning: 'Trail running',
+        ultraTrail: 'Ultra-trail',
+        outdoors: 'The outdoors',
+        exploreTrail: 'Explore my trail side',
+        nextPhoto: 'Show next trail inspiration photograph',
+        photoHint: 'A little perspective',
+        contactTitle: "Let's work together.",
+        contactCopy:
+            "Have a web project in mind, a technical challenge, or a trail recommendation? I'd love to hear about it. Let's start a conversation.",
+        findGithub: 'Find me on GitHub',
+    },
+    fr: {
+        role: 'Développeur full-stack',
+        roleFocus: '— Applications web et e-commerce',
+        introStart: 'Je conçois des applications web et des sites e-commerce avec :',
+        introEnd:
+            "Aujourd'hui, je travaille chez Accenture. J'explore aussi l'ingénierie des données et je développe des outils inspirés par le trail.",
+        viewExperience: 'Voir mon parcours',
+        experience: 'Parcours',
+        viewDetails: 'Voir le détail',
+        permanent: 'CDI · France',
+        previous: 'WordPress & WooCommerce',
+        featured: 'Projets sélectionnés',
+        personal: 'Projet personnel',
+        exploreProject: 'Découvrir le projet',
+        projects: 'Projets',
+        platform: 'Plateforme web',
+        viewRepository: 'Voir le code sur GitHub',
+        exploreAll: 'Voir tous les projets',
+        technologies: 'Technologies',
+        viewAll: 'Tout voir',
+        pauseAnimation: "Mettre l'animation en pause",
+        playAnimation: "Relancer l'animation",
+        showLess: 'Voir moins',
+        frontend: 'Développement frontend',
+        backend: 'Développement backend',
+        tools: 'Outils et e-commerce',
+        education: 'Formation',
+        graduated: 'Diplômé',
+        degree: 'BUT informatique',
+        degreeSubtitle: 'Bachelor universitaire de technologie, spécialité informatique',
+        degreeDetail: 'Programmation et projets concrets',
+        outside: 'En dehors du code',
+        outsideCopy:
+            'Quand je quitte le clavier, je chausse les baskets et je pars sur les sentiers. Les montées, le calme et les longues sorties me changent les idées et nourrissent aussi les projets que je développe.',
+        trailRunning: 'Trail',
+        ultraTrail: 'Ultra-trail',
+        outdoors: 'Plein air',
+        exploreTrail: 'Découvrir mon univers trail',
+        nextPhoto: 'Afficher la photo de trail suivante',
+        photoHint: 'Une bouffée de grand air',
+        contactTitle: 'Un projet en tête ?',
+        contactCopy:
+            "Vous avez un projet web, un défi technique ou un parcours de trail à me conseiller ? Écrivez-moi, je serai ravi d'en parler.",
+        findGithub: 'Retrouvez-moi sur GitHub',
+    },
+}[lang];
+const frenchProjects: Record<string, { summary: string; description: string }> = {
+    summitstride: {
+        summary: 'Une application pour préparer les longues distances.',
+        description:
+            "Une application d'entraînement pour l'ultra-trail, avec des plans personnalisés, un suivi de la nutrition, des activités et un calendrier d'entraînement.",
+    },
+    nourino: {
+        summary: 'Suivre ses repas et leurs apports en toute simplicité.',
+        description:
+            'Un journal alimentaire qui estime les calories et les nutriments à partir d’une description, d’une photo ou d’un code-barres. Des applications iOS et Android sont également prévues.',
+    },
+    portfolio: {
+        summary: 'Mon parcours, mes projets et ma passion pour le trail.',
+        description:
+            'Un site créé avec Astro et TypeScript pour présenter mon parcours, mes projets et mon activité sur GitHub.',
+    },
+    dansenity: {
+        summary: 'Cours de danse, professeurs et élèves réunis au même endroit.',
+        description:
+            'Une plateforme qui permet de découvrir des cours de danse, de réserver et de payer en ligne. Elle propose aussi des outils pour les professeurs et les administrateurs.',
+    },
+    pykemon: {
+        summary: 'Un jeu inspiré de Pokémon pour apprendre Python.',
+        description:
+            'Un jeu inspiré de Pokémon, développé en Python dans le cadre d’un projet scolaire en spécialité NSI.',
+    },
+};
+const projectSummary = (project: (typeof projects)[number]) =>
+    fr ? frenchProjects[project.slug]?.summary || project.summary : project.summary;
+const projectDescription = (project: (typeof projects)[number]) =>
+    fr ? frenchProjects[project.slug]?.description || project.description : project.description;
+const projectTitle = (project: (typeof projects)[number]) =>
+    fr && project.slug === 'portfolio' ? 'Portfolio personnel' : project.title;
+const experienceCopy: Record<string, { role: string; period: string; description: string }> = {
+    Accenture: {
+        role: 'Développeur full-stack',
+        period: 'Depuis le 14 septembre',
+        description: 'Développement frontend et backend d’applications web dans le cadre d’un CDI.',
+    },
+    'De Bussac Multimedia': {
+        role: 'Développeur full-stack · Alternance',
+        period: 'Auparavant',
+        description:
+            'Création de sites e-commerce avec WordPress et WooCommerce, ACF, Gutenberg et Timber.',
+    },
+};
+---
+
+<Layout
+    lang={lang}
+    title={fr ? 'Enzo Gubbiotti — Développeur full-stack' : 'Enzo Gubbiotti — Full-Stack Developer'}
+    description={
+        fr
+            ? 'Développeur full-stack chez Accenture, je conçois des applications web et des sites e-commerce. Je m’intéresse aussi à l’ingénierie des données et je pratique le trail.'
+            : undefined
+    }
+>
+    <section class="hero">
+        <div class="identity">
+            <PixelPortrait alt={fr ? 'Portrait GitHub d’Enzo' : "Enzo's GitHub avatar"} />
+            <div>
+                <h1>{profile.name}</h1>
+                <div class="socials">
+                    <a
+                        href={profile.github}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={fr ? 'Profil GitHub' : 'GitHub profile'}
+                    >
+                        <Icon name="github" size={20} />
+                    </a>
+                    <a href={`mailto:${email}`} aria-label={fr ? 'Écrire à Enzo' : 'Email Enzo'}>
+                        <Icon name="mail" size={20} />
+                    </a>
+                </div>
+            </div>
+        </div>
+        <h2 class="hero-role">
+            {copy.role} <span>{copy.roleFocus}</span>
+        </h2>
+        <p class="intro">
+            {copy.introStart}{' '}
+            <span class="tech-list">
+                <span class="inline-tech">
+                    <Icon name="code" size={13} /> Java
+                </span>{' '}
+                <span class="inline-tech">
+                    <Icon name="code" size={13} /> Angular
+                </span>{' '}
+                <span class="inline-tech">
+                    <Icon name="code" size={13} /> PHP
+                </span>{' '}
+                <span class="inline-tech">
+                    <Icon name="code" size={13} /> WordPress
+                </span>
+            </span>
+            {copy.introEnd}
+        </p>
+        <a class="button primary" href="#experience">
+            {copy.viewExperience} <Icon name="chevron" size={14} />
+        </a>
+    </section>
+    <section id="experience" data-reveal>
+        <div class="section-heading">
+            <h2>{copy.experience}</h2>
+            <button
+                class="text-link"
+                id="experience-toggle"
+                aria-expanded="false"
+                aria-controls="experience-list"
+            >
+                {copy.viewDetails} <Icon name="chevron" size={14} />
+            </button>
+        </div>
+        <div class="timeline" id="experience-list">
+            {experience
+                .filter((e) => e.company !== 'Education')
+                .map((item) => (
+                    <article class="timeline-row">
+                        <p class="period">
+                            {fr ? experienceCopy[item.company]?.period || item.period : item.period}
+                        </p>
+                        <div>
+                            <h3>
+                                {fr ? experienceCopy[item.company]?.role || item.role : item.role}
+                            </h3>
+                            <p class="company">{item.company}</p>
+                            <p class="subtle">{item.current ? copy.permanent : copy.previous}</p>
+                            <p class="experience-detail" hidden>
+                                {fr
+                                    ? experienceCopy[item.company]?.description || item.description
+                                    : item.description}
+                            </p>
+                        </div>
+                    </article>
+                ))}
+        </div>
+    </section>
+    <section id="highlights" data-reveal>
+        <div class="section-heading">
+            <h2>{copy.featured}</h2>
+        </div>
+        <div class="featured-gallery">
+            {featured.map((project) => (
+                <a
+                    class:list={['featured-panel', { active: project.slug === 'nourino' }]}
+                    href={project.website || project.repo}
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    {project.slug === 'nourino' && 'featureImages' in project ? (
+                        <div
+                            class="nourino-screens"
+                            aria-label={
+                                fr ? 'Captures de l’application Nourino' : 'Nourino app screenshots'
+                            }
+                        >
+                            {project.featureImages.map((image, index) => (
+                                <img
+                                    src={sitePath(image)}
+                                    alt={
+                                        fr
+                                            ? [
+                                                  'Journal Nourino',
+                                                  'Analyse d’un repas Nourino',
+                                                  'Statistiques Nourino',
+                                              ][index]
+                                            : [
+                                                  'Nourino food journal',
+                                                  'Nourino meal analysis',
+                                                  'Nourino statistics',
+                                              ][index]
+                                    }
+                                    width="1206"
+                                    height="2622"
+                                    loading="lazy"
+                                />
+                            ))}
+                        </div>
+                    ) : (
+                        <img
+                            src={sitePath(project.featureImage || '/images/trail-mountains.jpg')}
+                            alt=""
+                            width="720"
+                            height="480"
+                            loading="lazy"
+                        />
+                    )}
+                    <div class="featured-shade"></div>
+                    <div class="featured-content">
+                        <span class="feature-type">{copy.personal}</span>
+                        <h3>{projectTitle(project)}</h3>
+                        <p>{projectSummary(project)}</p>
+                        <span class="feature-link">
+                            {copy.exploreProject} <Icon name="arrow" size={14} />
+                        </span>
+                    </div>
+                </a>
+            ))}
+        </div>
+    </section>
+    <section id="projects" data-reveal>
+        <div class="section-heading">
+            <h2>{copy.projects}</h2>
+        </div>
+        <div class="project-grid">
+            {projectCards.map((project) => (
+                <article class="project-card">
+                    <a
+                        href={project.repo}
+                        class:list={['project-visual', `project-visual-${project.slug}`]}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={
+                            fr
+                                ? `Voir ${projectTitle(project)} sur GitHub`
+                                : `Explore ${project.title} on GitHub`
+                        }
+                    >
+                        {project.slug === 'pykemon' ? (
+                            <img
+                                src={sitePath('/images/pykemon-map.png')}
+                                alt={fr ? 'Carte du jeu Pykemon' : 'Pykemon game map'}
+                                width="400"
+                                height="300"
+                                loading="lazy"
+                            />
+                        ) : (
+                            <>
+                                <Icon name="code" size={34} />
+                                <span>{projectTitle(project)}</span>
+                            </>
+                        )}
+                    </a>
+                    <div class="project-copy">
+                        <h3>
+                            <a href={project.repo} target="_blank" rel="noreferrer">
+                                {projectTitle(project)}
+                            </a>
+                        </h3>
+                        <p class="project-role">
+                            {project.slug === 'dansenity' ? copy.platform : copy.personal}
+                        </p>
+                        <p>{projectDescription(project)}</p>
+                        <div class="project-tech">
+                            {project.technologies.slice(0, 3).map((t) => (
+                                <span>{t}</span>
+                            ))}
+                        </div>
+                        <a
+                            class="project-link"
+                            href={project.repo}
+                            target="_blank"
+                            rel="noreferrer"
+                        >
+                            {copy.viewRepository} <Icon name="arrow" size={13} />
+                        </a>
+                    </div>
+                </article>
+            ))}
+        </div>
+        <a
+            class="button all-projects"
+            href={`${profile.github}?tab=repositories`}
+            target="_blank"
+            rel="noreferrer"
+        >
+            {copy.exploreAll} <Icon name="chevron" size={15} />
+        </a>
+    </section>
+    <section id="technologies" data-reveal>
+        <div class="section-heading">
+            <h2>{copy.technologies}</h2>
+            <button
+                id="tech-toggle"
+                class="text-link"
+                aria-expanded="false"
+                aria-controls="all-technologies"
+            >
+                {copy.viewAll} <Icon name="chevron" size={14} />
+            </button>
+        </div>
+        <button id="motion-toggle" class="text-link motion-toggle" aria-pressed="false">
+            {copy.pauseAnimation}
+        </button>
+        <div class="tech-marquees">
+            {[
+                stackGroups[0].items,
+                [...stackGroups[1].items, 'Python', 'SQL'],
+                ['Git', 'Docker', ...stackGroups[2].items],
+            ].map((items, row) => (
+                <div class="marquee" aria-label={[copy.frontend, copy.backend, copy.tools][row]}>
+                    <div class:list={['marquee-track', { reverse: row === 1 }]}>
+                        {[0, 1].map((copy) => (
+                            <div
+                                class="marquee-group"
+                                aria-hidden={copy === 1 ? 'true' : undefined}
+                            >
+                                {items.map((t) => (
+                                    <span class="tech-chip">
+                                        <span style={`color:${techColor[t] || 'var(--muted)'}`}>
+                                            <Icon name="code" size={14} />
+                                        </span>
+                                        {t}
+                                    </span>
+                                ))}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </div>
+        <div id="all-technologies" class="all-technologies" hidden>
+            {stackGroups.map((group) => (
+                <div>
+                    <h3>
+                        {fr && group.label === 'Currently exploring'
+                            ? "En cours d'exploration"
+                            : fr && group.label === 'Data & tools'
+                              ? 'Données et outils'
+                              : group.label}
+                    </h3>
+                    <p>{group.items.join(' · ')}</p>
+                </div>
+            ))}
+        </div>
+    </section>
+    <section id="education" data-reveal>
+        <div class="section-heading">
+            <h2>{copy.education}</h2>
+        </div>
+        <div class="timeline-row">
+            <p class="period">{copy.graduated}</p>
+            <div>
+                <h3>{fr ? 'BUT' : copy.degree}</h3>
+                <p class="subtle">{copy.degreeSubtitle}</p>
+                <p class="subtle">{copy.degreeDetail}</p>
+            </div>
+        </div>
+    </section>
+    <section id="outside" data-reveal>
+        <div class="section-heading">
+            <h2>{copy.outside}</h2>
+        </div>
+        <div class="outside-grid">
+            <div>
+                <p class="body-copy">{copy.outsideCopy}</p>
+                <div class="interest-tags">
+                    <span>{copy.trailRunning}</span>
+                    <span>{copy.ultraTrail}</span>
+                    <span>{copy.outdoors}</span>
+                </div>
+                <a class="text-link trail-entry" href={sitePath(fr ? '/fr/trail/' : '/trail/')}>
+                    {copy.exploreTrail} <Icon name="arrow" size={15} />
+                </a>
+            </div>
+            <button class="photo-stack" aria-label={copy.nextPhoto}>
+                <img
+                    src={sitePath('/images/trail-forest.jpg')}
+                    alt={fr ? 'Une forêt paisible en montagne' : 'A quiet forest in the mountains'}
+                    width="224"
+                    height="224"
+                    loading="lazy"
+                />
+                <img
+                    src={sitePath('/images/trail-hiking.jpg')}
+                    alt={
+                        fr
+                            ? 'Randonneurs sur un sentier de montagne'
+                            : 'Hikers following a mountain trail'
+                    }
+                    width="224"
+                    height="224"
+                    loading="lazy"
+                />
+                <img
+                    src={sitePath('/images/trail-mountains.jpg')}
+                    alt={fr ? 'Sommets au-dessus des sentiers' : 'Mountain peaks above the trails'}
+                    width="224"
+                    height="224"
+                    loading="lazy"
+                />
+                <span class="photo-hint">
+                    {copy.photoHint} <Icon name="arrow" size={12} />
+                </span>
+            </button>
+        </div>
+    </section>
+    <GitHubActivity lang={lang} />
+    <section id="contact" data-reveal>
+        <div class="section-heading">
+            <h2>{copy.contactTitle}</h2>
+        </div>
+        <div class="contact-grid">
+            <p class="body-copy">{copy.contactCopy}</p>
+            <div class="contact-links">
+                <a class="contact-card" href={`mailto:${email}`}>
+                    <span class="contact-icon">
+                        <Icon name="mail" />
+                    </span>
+                    <span>
+                        <small>Email</small>
+                        <span>{email}</span>
+                    </span>
+                    <Icon name="chevron" size={16} />
+                </a>
+                <a class="contact-card" href={profile.github} target="_blank" rel="noreferrer">
+                    <span class="contact-icon">
+                        <Icon name="github" />
+                    </span>
+                    <span>
+                        <small>{copy.findGithub}</small>
+                        <span>@{profile.handle}</span>
+                    </span>
+                    <Icon name="arrow" size={16} />
+                </a>
+            </div>
+        </div>
+    </section>
+    <script>
+        const isFrench = document.documentElement.lang === 'fr';
+        for (const [trigger, target] of [
+            ['experience-toggle', 'experience-list'],
+            ['tech-toggle', 'all-technologies'],
+        ]) {
+            const button = document.getElementById(trigger);
+            const panel = document.getElementById(target);
+            button?.addEventListener('click', () => {
+                const open = button.getAttribute('aria-expanded') !== 'true';
+                button.setAttribute('aria-expanded', String(open));
+                if (target === 'experience-list')
+                    panel
+                        ?.querySelectorAll<HTMLElement>('.experience-detail')
+                        .forEach((el) => (el.hidden = !open));
+                else if (panel) panel.hidden = !open;
+                button.childNodes[0].textContent = open
+                    ? isFrench
+                        ? 'Voir moins '
+                        : 'Show less '
+                    : target === 'experience-list'
+                      ? isFrench
+                          ? 'Voir le détail '
+                          : 'View details '
+                      : isFrench
+                        ? 'Tout voir '
+                        : 'View all ';
+            });
+        }
+        document.getElementById('motion-toggle')?.addEventListener('click', (event) => {
+            const button = event.currentTarget as HTMLButtonElement;
+            const paused = button.getAttribute('aria-pressed') !== 'true';
+            button.setAttribute('aria-pressed', String(paused));
+            button.textContent = paused
+                ? isFrench
+                    ? "Relancer l'animation"
+                    : 'Play animation'
+                : isFrench
+                  ? "Mettre l'animation en pause"
+                  : 'Pause animation';
+            document.querySelector('.tech-marquees')?.classList.toggle('paused', paused);
+        });
+        const panels = document.querySelectorAll('.featured-panel');
+        panels.forEach((panel) => {
+            const activate = () =>
+                panels.forEach((el) => el.classList.toggle('active', el === panel));
+            panel.addEventListener('pointerenter', activate);
+            panel.addEventListener('focus', activate);
+        });
+        const stack = document.querySelector('.photo-stack');
+        stack?.addEventListener('click', () => {
+            const photos = stack.querySelectorAll('img');
+            if (photos.length) stack.insertBefore(photos[photos.length - 1], photos[0]);
+        });
+    </script>
+</Layout>

@@ -3,7 +3,7 @@ import { join, resolve } from 'node:path';
 
 const base = (process.argv[2] || '/').replace(/\/$/, '');
 const dist = resolve('dist');
-const pages = ['index.html', 'trail/index.html'];
+const pages = ['index.html', 'trail/index.html', 'fr/index.html', 'fr/trail/index.html'];
 const errors = [];
 
 for (const page of pages) {

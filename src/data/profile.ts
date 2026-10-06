@@ -80,7 +80,12 @@ export const projects = [
             'A nutrition journal that estimates calories and macros from meal descriptions, photos, and barcodes, with native iOS and Android apps.',
         repo: '',
         website: 'https://nourino.com/',
-        featureImage: '/images/nourino.webp',
+        featureImage: '/images/nourino-journal.webp',
+        featureImages: [
+            '/images/nourino-journal.webp',
+            '/images/nourino-meal.webp',
+            '/images/nourino-stats.webp',
+        ],
         technologies: ['SwiftUI', 'Jetpack Compose', 'Django', 'Astro'],
         source: 'Official Nourino website and local project README',
     },

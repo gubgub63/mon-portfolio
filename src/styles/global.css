@@ -224,6 +224,13 @@ main > section {
     vertical-align: middle;
     white-space: nowrap;
 }
+.tech-list::after {
+    content: '.';
+    margin-left: 0.12em;
+}
+.tech-list .inline-tech:last-child {
+    margin-right: -0.35em;
+}
 .button {
     display: inline-flex;
     align-items: center;
@@ -341,6 +348,39 @@ h2 {
 .featured-panel:hover > img {
     transform: scale(1.03);
 }
+.nourino-screens {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    overflow: hidden;
+    padding-top: 13px;
+    background: #e9e9ed;
+}
+.nourino-screens img {
+    display: block;
+    flex: none;
+    width: auto;
+    height: 112%;
+    border-radius: 10px;
+    box-shadow: 0 10px 28px rgb(20 20 30 / 15%);
+    filter: grayscale(0.35);
+    transition:
+        filter 0.5s,
+        transform 0.8s var(--ease);
+}
+.nourino-screens img:nth-child(2) {
+    transform: translateY(22px);
+}
+.nourino-screens img:nth-child(3) {
+    transform: translateY(9px);
+}
+.featured-panel.active .nourino-screens img,
+.featured-panel:hover .nourino-screens img {
+    filter: grayscale(0);
+}
 .featured-shade {
     position: absolute;
     inset: 0;
@@ -362,6 +402,9 @@ h2 {
     margin-top: 4px;
     overflow-wrap: anywhere;
     line-height: 1.15;
+}
+.featured-panel:not(.active) .featured-content h3 {
+    font-size: 20px;
 }
 .featured-content p {
     font-size: 13px;
@@ -906,6 +949,9 @@ h2 {
     .featured-panel.active {
         flex: 1;
     }
+    .nourino-screens img:not(:first-child) {
+        display: none;
+    }
     .featured-content .feature-type {
         letter-spacing: 0.05em;
     }
@@ -949,6 +995,26 @@ h2 {
 .mode-switch a:hover {
     color: var(--fg);
 }
+.language-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+}
+.language-switch a {
+    padding-block: 8px;
+}
+.language-switch a[aria-current='true'],
+.language-switch a:hover {
+    color: var(--fg);
+}
+.language-switch a:focus-visible {
+    outline: 2px solid var(--fg);
+    outline-offset: 3px;
+}
 .trail-entry {
     margin-top: 18px;
     color: var(--fg);
@@ -965,5 +1031,9 @@ h2 {
     .mode-switch a {
         min-height: 36px;
         padding-inline: 10px;
+    }
+    .language-switch {
+        gap: 3px;
+        font-size: 10px;
     }
 }

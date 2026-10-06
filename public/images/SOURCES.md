@@ -5,4 +5,6 @@
 - trail-hiking.jpg: https://images.unsplash.com/photo-1551632811-561732d1e306 — illustrative trail photograph.
 - trail-forest.jpg: https://images.unsplash.com/photo-1472396961693-142e6e269027 — illustrative landscape.
 
-- nourino.webp: https://nourino.com/hero-orchard.png — original Nourino brand landscape from the official site. Resized to 1200px wide and converted to WebP for the project preview.
+- nourino-journal.webp: https://nourino.com/_astro/journal.SMEmHVC4_1IjVD3.webp — original app screenshot from the official Nourino site.
+- nourino-meal.webp: https://nourino.com/_astro/photo.mW-fO6w0_Z100Guj.webp — original app screenshot from the official Nourino site.
+- nourino-stats.webp: https://nourino.com/_astro/stats.CUyM9uPy_lN8BO.webp — original app screenshot from the official Nourino site.

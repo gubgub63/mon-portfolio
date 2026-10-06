@@ -72,6 +72,9 @@ jobs:
                     --site "${{ steps.pages.outputs.origin }}" \
                     --base "${{ steps.pages.outputs.base_path }}"
               working-directory: ${{ env.BUILD_PATH }}
+            - name: Check production paths and assets
+              run: node scripts/check-pages-build.mjs "${{ steps.pages.outputs.base_path }}"
+              working-directory: ${{ env.BUILD_PATH }}
             - name: Upload artifact
               uses: actions/upload-pages-artifact@v3
               with:
@@ -85,6 +88,14 @@ jobs:
         runs-on: ubuntu-latest
         name: Deploy
         steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
             - name: Deploy to GitHub Pages
               id: deployment
               uses: actions/deploy-pages@v4
+            - name: Verify public pages and images
+              run: node scripts/verify-public.mjs "${{ steps.deployment.outputs.page_url }}"

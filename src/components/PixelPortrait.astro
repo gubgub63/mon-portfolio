@@ -1,10 +1,12 @@
 ---
+import { sitePath } from '../lib/paths';
+
 interface Props {
     src?: string;
     alt?: string;
 }
 
-const { src = 'public/images/profile.png', alt = 'Profile portrait' } = Astro.props;
+const { src = '/images/profile.png', alt = 'Profile portrait' } = Astro.props;
 ---
 
 <pixel-portrait>
@@ -15,7 +17,14 @@ const { src = 'public/images/profile.png', alt = 'Profile portrait' } = Astro.pr
         aria-pressed="false"
         data-active="false"
     >
-        <img src={src} alt={alt} width="160" height="160" fetchpriority="high" draggable="false" />
+        <img
+            src={sitePath(src)}
+            alt={alt}
+            width="160"
+            height="160"
+            fetchpriority="high"
+            draggable="false"
+        />
         <span class="pixels" aria-hidden="true">
             {Array.from({ length: 144 }, () => (
                 <span class="pixel" />

@@ -4,6 +4,7 @@ import Icon from '../components/Icon.astro';
 import PixelPortrait from '../components/PixelPortrait.astro';
 import GitHubActivity from '../components/GitHubActivity.astro';
 import { profile, experience, stackGroups, projects } from '../data/profile';
+import { sitePath } from '../lib/paths';
 const email = profile.email;
 const featured = projects.slice(0, 2);
 const projectCards = projects.filter((project) => !featured.includes(project));
@@ -115,7 +116,7 @@ const techColor: Record<string, string> = {
                     rel="noreferrer"
                 >
                     <img
-                        src={project.featureImage || '/images/trail-mountains.jpg'}
+                        src={sitePath(project.featureImage || '/images/trail-mountains.jpg')}
                         alt=""
                         width="720"
                         height="480"
@@ -150,7 +151,7 @@ const techColor: Record<string, string> = {
                     >
                         {project.slug === 'pykemon' ? (
                             <img
-                                src="/images/pykemon-map.png"
+                                src={sitePath('/images/pykemon-map.png')}
                                 alt="Pykemon game map"
                                 width="400"
                                 height="300"
@@ -288,27 +289,27 @@ const techColor: Record<string, string> = {
                     <span>Ultra-trail</span>
                     <span>The outdoors</span>
                 </div>
-                <a class="text-link trail-entry" href="/trail/">
+                <a class="text-link trail-entry" href={sitePath('/trail/')}>
                     Explore my trail side <Icon name="arrow" size={15} />
                 </a>
             </div>
             <button class="photo-stack" aria-label="Show next trail inspiration photograph">
                 <img
-                    src="/images/trail-forest.jpg"
+                    src={sitePath('/images/trail-forest.jpg')}
                     alt="A quiet forest in the mountains"
                     width="224"
                     height="224"
                     loading="lazy"
                 />
                 <img
-                    src="/images/trail-hiking.jpg"
+                    src={sitePath('/images/trail-hiking.jpg')}
                     alt="Hikers following a mountain trail"
                     width="224"
                     height="224"
                     loading="lazy"
                 />
                 <img
-                    src="/images/trail-mountains.jpg"
+                    src={sitePath('/images/trail-mountains.jpg')}
                     alt="Mountain peaks above the trails"
                     width="224"
                     height="224"

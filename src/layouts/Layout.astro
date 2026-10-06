@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import Icon from '../components/Icon.astro';
+import { sitePath } from '../lib/paths';
 const {
     mode = 'developer',
     title = 'Enzo — Full-Stack Developer',
@@ -31,7 +32,7 @@ const contactHref = isTrail ? '/trail/#contact' : '/#contact';
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:type" content="website" />
-        <link rel="icon" href="/favicon.svg" />
+        <link rel="icon" href={sitePath('/favicon.svg')} />
         <title>{title}</title>
         <script is:inline>
             try {
@@ -47,21 +48,21 @@ const contactHref = isTrail ? '/trail/#contact' : '/#contact';
         <header class="site-header">
             <nav class="shell nav" aria-label="Main navigation">
                 <div class="nav-identity">
-                    <a class="wordmark" href="/" aria-label="Enzo home">
+                    <a class="wordmark" href={sitePath('/')} aria-label="Enzo home">
                         ENZO
                     </a>
                     <div class="mode-switch" role="group" aria-label="Explore my two worlds">
-                        <a href="/" aria-current={!isTrail ? 'page' : undefined}>
+                        <a href={sitePath('/')} aria-current={!isTrail ? 'page' : undefined}>
                             <Icon name="code" size={14} /> Developer
                         </a>
-                        <a href="/trail/" aria-current={isTrail ? 'page' : undefined}>
+                        <a href={sitePath('/trail/')} aria-current={isTrail ? 'page' : undefined}>
                             <Icon name="mountain" size={14} /> Trail
                         </a>
                     </div>
                 </div>
                 <div class="nav-links">
                     {navigation.map((item) => (
-                        <a class="section-nav-link" href={item.href}>
+                        <a class="section-nav-link" href={sitePath(item.href)}>
                             {item.label}
                         </a>
                     ))}
@@ -110,7 +111,7 @@ const contactHref = isTrail ? '/trail/#contact' : '/#contact';
                 <Icon name={isTrail ? 'mountain' : 'github'} />
             </a>
         </footer>
-        <a class="floating-contact" href={contactHref}>
+        <a class="floating-contact" href={sitePath(contactHref)}>
             <Icon name="chat" size={17} /> Let's talk
         </a>
         <script>

@@ -13,7 +13,9 @@ interface Props {
 const { lang } = Astro.props;
 const fr = lang === 'fr';
 const email = profile.email;
-const featured = projects.slice(0, 2);
+const featured = ['mystats', 'nourino']
+    .map((slug) => projects.find((project) => project.slug === slug))
+    .filter((project) => project !== undefined);
 const projectCards = projects.filter((project) => !featured.includes(project));
 const techColor: Record<string, string> = {
     React: '#149eca',
@@ -45,6 +47,7 @@ const copy = {
         featured: 'Featured Work',
         personal: 'Personal project',
         exploreProject: 'Explore project',
+        selectProject: 'Show project',
         projects: 'Projects',
         platform: 'Full-stack platform',
         viewRepository: 'View repository',
@@ -90,6 +93,7 @@ const copy = {
         featured: 'Projets sélectionnés',
         personal: 'Projet personnel',
         exploreProject: 'Découvrir le projet',
+        selectProject: 'Afficher le projet',
         projects: 'Projets',
         platform: 'Plateforme web',
         viewRepository: 'Voir le code sur GitHub',
@@ -123,10 +127,10 @@ const copy = {
     },
 }[lang];
 const frenchProjects: Record<string, { summary: string; description: string }> = {
-    summitstride: {
-        summary: 'Une application pour préparer les longues distances.',
+    mystats: {
+        summary: 'Un tableau de bord personnel pour suivre mes activités Strava.',
         description:
-            "Une application d'entraînement pour l'ultra-trail, avec des plans personnalisés, un suivi de la nutrition, des activités et un calendrier d'entraînement.",
+            'Distance, dénivelé, temps en mouvement, sorties récentes et graphiques par semaine ou par sport : myStats rassemble mes activités Strava dans un même tableau de bord. La capture utilise des données fictives.',
     },
     nourino: {
         summary: 'Suivre ses repas et leurs apports en toute simplicité.',
@@ -262,64 +266,88 @@ const experienceCopy: Record<string, { role: string; period: string; description
     </section>
     <section id="highlights" data-reveal>
         <div class="section-heading">
-            <h2>{copy.featured}</h2>
+            <h2 id="featured-heading">{copy.featured}</h2>
         </div>
-        <div class="featured-gallery">
-            {featured.map((project) => (
-                <a
-                    class:list={['featured-panel', { active: project.slug === 'nourino' }]}
-                    href={project.website || project.repo}
-                    target="_blank"
-                    rel="noreferrer"
+        <div class="featured-gallery" role="group" aria-labelledby="featured-heading">
+            {featured.map((project, index) => (
+                <article
+                    class:list={['featured-panel', { active: index === 0 }]}
+                    data-featured-panel={project.slug}
                 >
-                    {project.slug === 'nourino' && 'featureImages' in project ? (
-                        <div
-                            class="nourino-screens"
-                            aria-label={
-                                fr ? 'Captures de l’application Nourino' : 'Nourino app screenshots'
-                            }
-                        >
-                            {project.featureImages.map((image, index) => (
-                                <img
-                                    src={sitePath(image)}
-                                    alt={
-                                        fr
-                                            ? [
-                                                  'Journal Nourino',
-                                                  'Analyse d’un repas Nourino',
-                                                  'Statistiques Nourino',
-                                              ][index]
-                                            : [
-                                                  'Nourino food journal',
-                                                  'Nourino meal analysis',
-                                                  'Nourino statistics',
-                                              ][index]
-                                    }
-                                    width="1206"
-                                    height="2622"
-                                    loading="lazy"
-                                />
-                            ))}
-                        </div>
-                    ) : (
-                        <img
-                            src={sitePath(project.featureImage || '/images/trail-mountains.jpg')}
-                            alt=""
-                            width="720"
-                            height="480"
-                            loading="lazy"
-                        />
-                    )}
+                    <div class="featured-media">
+                        {project.slug === 'nourino' && 'featureImages' in project ? (
+                            <div class="nourino-screens">
+                                {project.featureImages.map((image, imageIndex) => (
+                                    <img
+                                        src={sitePath(image)}
+                                        alt={
+                                            fr
+                                                ? [
+                                                      'Journal Nourino',
+                                                      'Analyse d’un repas Nourino',
+                                                      'Statistiques Nourino',
+                                                  ][imageIndex]
+                                                : [
+                                                      'Nourino food journal',
+                                                      'Nourino meal analysis',
+                                                      'Nourino statistics',
+                                                  ][imageIndex]
+                                        }
+                                        width="1206"
+                                        height="2622"
+                                        loading="lazy"
+                                    />
+                                ))}
+                            </div>
+                        ) : (
+                            <img
+                                src={sitePath(
+                                    project.featureImage || '/images/trail-mountains.jpg',
+                                )}
+                                alt={
+                                    project.slug === 'mystats'
+                                        ? fr
+                                            ? 'Aperçu du tableau de bord myStats avec des données fictives'
+                                            : 'myStats dashboard preview with sample activity data'
+                                        : project.featureImageAlt || project.title
+                                }
+                                width="1440"
+                                height="1000"
+                                loading="lazy"
+                            />
+                        )}
+                    </div>
+                    <button
+                        class="featured-select"
+                        type="button"
+                        data-featured-select
+                        aria-label={`${copy.selectProject}: ${projectTitle(project)}`}
+                        aria-controls={`featured-content-${project.slug}`}
+                        aria-pressed={index === 0}
+                    ></button>
                     <div class="featured-shade"></div>
-                    <div class="featured-content">
+                    <div class="featured-collapsed" aria-hidden={index === 0 ? 'true' : undefined}>
+                        <strong>{projectTitle(project)}</strong>
+                        <span>{copy.personal}</span>
+                    </div>
+                    <div
+                        class="featured-content"
+                        id={`featured-content-${project.slug}`}
+                        aria-hidden={index === 0 ? undefined : 'true'}
+                    >
                         <span class="feature-type">{copy.personal}</span>
                         <h3>{projectTitle(project)}</h3>
                         <p>{projectSummary(project)}</p>
-                        <span class="feature-link">
+                        <a
+                            class="feature-link"
+                            href={project.website || project.repo}
+                            target="_blank"
+                            rel="noreferrer"
+                        >
                             {copy.exploreProject} <Icon name="arrow" size={14} />
-                        </span>
+                        </a>
                     </div>
-                </a>
+                </article>
             ))}
         </div>
     </section>
@@ -583,12 +611,41 @@ const experienceCopy: Record<string, { role: string; period: string; description
                   : 'Pause animation';
             document.querySelector('.tech-marquees')?.classList.toggle('paused', paused);
         });
-        const panels = document.querySelectorAll('.featured-panel');
+        const panels = document.querySelectorAll<HTMLElement>('.featured-panel');
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const selectPanel = (selected: Element) => {
+            panels.forEach((panel) => {
+                const active = panel === selected;
+                panel.classList.toggle('active', active);
+                panel
+                    .querySelector<HTMLButtonElement>('button[data-featured-select]')
+                    ?.setAttribute('aria-pressed', String(active));
+                panel
+                    .querySelector<HTMLElement>('.featured-content')
+                    ?.setAttribute('aria-hidden', String(!active));
+                panel
+                    .querySelector<HTMLElement>('.featured-collapsed')
+                    ?.setAttribute('aria-hidden', String(active));
+            });
+        };
         panels.forEach((panel) => {
-            const activate = () =>
-                panels.forEach((el) => el.classList.toggle('active', el === panel));
-            panel.addEventListener('pointerenter', activate);
-            panel.addEventListener('focus', activate);
+            const select = () => selectPanel(panel);
+            panel
+                .querySelector<HTMLButtonElement>('button[data-featured-select]')
+                ?.addEventListener('click', select);
+            panel.addEventListener('pointerenter', (event) => {
+                if (event.pointerType !== 'touch') select();
+            });
+            panel.addEventListener('focusin', select);
+            panel.addEventListener('pointermove', (event) => {
+                if (reduceMotion || event.pointerType !== 'mouse') return;
+                const bounds = panel.getBoundingClientRect();
+                const position = (event.clientX - bounds.left) / bounds.width;
+                panel.style.setProperty('--media-shift', `${(0.5 - position) * 12}px`);
+            });
+            panel.addEventListener('pointerleave', () => {
+                panel.style.removeProperty('--media-shift');
+            });
         });
         const stack = document.querySelector('.photo-stack');
         stack?.addEventListener('click', () => {

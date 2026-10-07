@@ -62,15 +62,16 @@ export const stackGroups = [
 
 export const projects = [
     {
-        slug: 'summitstride',
-        title: 'SummitStride',
-        summary: 'A training companion for the long run.',
+        slug: 'mystats',
+        title: 'myStats',
+        summary: 'A personal dashboard for Strava activities.',
         description:
-            'An ultra-trail training application combining personalised plans, nutrition, activity integrations, and a training calendar.',
-        repo: 'https://github.com/gubgub63/SummitStride',
-        technologies: ['Next.js', 'TypeScript', 'Fastify', 'PostgreSQL'],
-        year: 2025,
-        source: 'Public repository README',
+            'Track distance, elevation, moving time and activity totals, with weekly charts, sport filters and recent runs. The preview uses sample data.',
+        repo: 'https://github.com/gubgub63/MyStravaStats',
+        featureImage: '/images/mystats-dashboard.webp',
+        featureImageAlt: 'myStats dashboard preview with sample activity data',
+        technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Recharts'],
+        source: 'MyStravaStats repository README and demo screenshot',
     },
     {
         slug: 'nourino',

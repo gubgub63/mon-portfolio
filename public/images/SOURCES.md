@@ -8,3 +8,4 @@
 - nourino-journal.webp: https://nourino.com/_astro/journal.SMEmHVC4_1IjVD3.webp — original app screenshot from the official Nourino site.
 - nourino-meal.webp: https://nourino.com/_astro/photo.mW-fO6w0_Z100Guj.webp — original app screenshot from the official Nourino site.
 - nourino-stats.webp: https://nourino.com/_astro/stats.CUyM9uPy_lN8BO.webp — original app screenshot from the official Nourino site.
+- mystats-dashboard.webp: https://github.com/gubgub63/MyStravaStats/blob/main/docs/screenshots/preview-light.png — myStats dashboard screenshot from the project's repository; the screen displays sample data.

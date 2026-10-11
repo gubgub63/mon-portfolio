@@ -34,4 +34,13 @@ Landscape photographs illustrate Enzo's home region and future destinations. The
 - Adaptation: a 480 × 480 WebP crop served by the source image service. Displayed with a grayscale/color interaction.
 - Personal profile asset; no Creative Commons license is asserted for this photograph.
 
-The layout crops photographs to their display frames. No photographer endorses this portfolio. Sources and licenses checked on 4 October 2026.
+## TikTok preparation diary — tiktok-puy-de-dome.avif
+
+- Subject: Enzo running on a forest trail, cover of “Day 4 sortie longue au puy de dôme”.
+- Creator/account: **EnzoQuiCourt**, @enzo_gubbiotti. The user confirmed ownership of this account on 11 October 2026.
+- Original post: https://www.tiktok.com/@enzo_gubbiotti/video/7691968723619499296
+- Source: the public cover image displayed on the TikTok profile, downloaded from TikTok's image CDN on 11 October 2026. The expiring CDN URL is not used as a runtime dependency.
+- Asset: original 405 × 720 AVIF cover saved locally without changes. Displayed at its original aspect ratio, with a caption overlay.
+- Personal account asset; no Creative Commons license is asserted. This is personal trail footage, unlike the illustrative landscapes above.
+
+The layout crops landscape photographs to their display frames. No photographer endorses this portfolio. Landscape sources and licenses checked on 4 October 2026; TikTok cover source checked on 11 October 2026.

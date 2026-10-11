@@ -25,7 +25,7 @@ const navigation = isTrail
     ? [
           { href: `${trailPath}#results`, label: isFrench ? 'Résultats' : 'Results' },
           { href: `${trailPath}#goals`, label: isFrench ? 'Objectifs 2027' : '2027 goals' },
-          { href: `${trailPath}#story`, label: isFrench ? 'Mon histoire' : 'My story' },
+          { href: `${trailPath}#partnerships`, label: isFrench ? 'Partenariats' : 'Partnerships' },
       ]
     : [
           { href: `${homePath}#projects`, label: isFrench ? 'Projets' : 'Projects' },
@@ -184,7 +184,14 @@ const absoluteUrl = (path: string) => new URL(sitePath(path), Astro.site || Astr
             </a>
         </footer>
         <a class="floating-contact" href={sitePath(contactHref)}>
-            <Icon name="chat" size={17} /> {isFrench ? 'On échange ?' : "Let's talk"}
+            <Icon name="chat" size={17} />{' '}
+            {isTrail
+                ? isFrench
+                    ? 'Partenariats'
+                    : 'Partnerships'
+                : isFrench
+                  ? 'On échange ?'
+                  : "Let's talk"}
         </a>
         <script>
             const isFrench = document.documentElement.lang === 'fr';

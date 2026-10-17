@@ -4,6 +4,8 @@
     "version": "0.0.1",
     "scripts": {
         "dev": "astro dev",
+        "github:update": "node scripts/update-github.mjs",
+        "prebuild": "npm run github:update",
         "build": "astro build",
         "preview": "astro preview",
         "astro": "astro",

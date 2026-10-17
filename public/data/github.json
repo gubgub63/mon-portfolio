@@ -1,51 +1,16 @@
 {
     "username": "gubgub63",
-    "fetchedAt": "2026-10-04T08:47:27.790266+00:00",
+    "fetchedAt": "2026-10-17T07:06:46.325Z",
     "source": "https://github.com/users/gubgub63/contributions",
     "profileUrl": "https://github.com/gubgub63",
-    "total": 21,
-    "reportedTotal": 25,
-    "note": "The total is the sum of visible day cells. GitHub reports a different headline total; both are preserved without inventing missing activity.",
+    "total": 73,
+    "reportedTotal": 73,
+    "note": "reportedTotal is the GitHub profile headline displayed by the portfolio; total sums the visible daily cells, which can differ from the headline.",
     "range": {
-        "start": "2025-10-05",
-        "end": "2026-10-04"
+        "start": "2025-10-12",
+        "end": "2026-10-17"
     },
     "contributions": [
-        {
-            "date": "2025-10-05",
-            "count": 0,
-            "level": 0
-        },
-        {
-            "date": "2025-10-06",
-            "count": 1,
-            "level": 1
-        },
-        {
-            "date": "2025-10-07",
-            "count": 0,
-            "level": 0
-        },
-        {
-            "date": "2025-10-08",
-            "count": 0,
-            "level": 0
-        },
-        {
-            "date": "2025-10-09",
-            "count": 0,
-            "level": 0
-        },
-        {
-            "date": "2025-10-10",
-            "count": 0,
-            "level": 0
-        },
-        {
-            "date": "2025-10-11",
-            "count": 0,
-            "level": 0
-        },
         {
             "date": "2025-10-12",
             "count": 0,
@@ -393,8 +358,8 @@
         },
         {
             "date": "2025-12-20",
-            "count": 10,
-            "level": 4
+            "count": 5,
+            "level": 2
         },
         {
             "date": "2025-12-21",
@@ -1363,43 +1328,43 @@
         },
         {
             "date": "2026-07-02",
-            "count": 0,
-            "level": 0
+            "count": 5,
+            "level": 2
         },
         {
             "date": "2026-07-03",
-            "count": 0,
-            "level": 0
+            "count": 3,
+            "level": 1
         },
         {
             "date": "2026-07-04",
-            "count": 0,
-            "level": 0
+            "count": 2,
+            "level": 1
         },
         {
             "date": "2026-07-05",
-            "count": 0,
-            "level": 0
+            "count": 1,
+            "level": 1
         },
         {
             "date": "2026-07-06",
-            "count": 0,
-            "level": 0
+            "count": 3,
+            "level": 1
         },
         {
             "date": "2026-07-07",
-            "count": 0,
-            "level": 0
+            "count": 7,
+            "level": 3
         },
         {
             "date": "2026-07-08",
-            "count": 0,
-            "level": 0
+            "count": 12,
+            "level": 4
         },
         {
             "date": "2026-07-09",
-            "count": 0,
-            "level": 0
+            "count": 5,
+            "level": 2
         },
         {
             "date": "2026-07-10",
@@ -1833,6 +1798,71 @@
         },
         {
             "date": "2026-10-04",
+            "count": 2,
+            "level": 1
+        },
+        {
+            "date": "2026-10-05",
+            "count": 0,
+            "level": 0
+        },
+        {
+            "date": "2026-10-06",
+            "count": 12,
+            "level": 4
+        },
+        {
+            "date": "2026-10-07",
+            "count": 1,
+            "level": 1
+        },
+        {
+            "date": "2026-10-08",
+            "count": 0,
+            "level": 0
+        },
+        {
+            "date": "2026-10-09",
+            "count": 0,
+            "level": 0
+        },
+        {
+            "date": "2026-10-10",
+            "count": 0,
+            "level": 0
+        },
+        {
+            "date": "2026-10-11",
+            "count": 1,
+            "level": 1
+        },
+        {
+            "date": "2026-10-12",
+            "count": 1,
+            "level": 1
+        },
+        {
+            "date": "2026-10-13",
+            "count": 1,
+            "level": 1
+        },
+        {
+            "date": "2026-10-14",
+            "count": 1,
+            "level": 1
+        },
+        {
+            "date": "2026-10-15",
+            "count": 0,
+            "level": 0
+        },
+        {
+            "date": "2026-10-16",
+            "count": 1,
+            "level": 1
+        },
+        {
+            "date": "2026-10-17",
             "count": 0,
             "level": 0
         }

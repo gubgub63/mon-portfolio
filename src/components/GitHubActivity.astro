@@ -37,7 +37,7 @@ cells.forEach((day, index) => {
         previousMonth = month;
     }
 });
-const total = new Intl.NumberFormat(fr ? 'fr-FR' : 'en-US').format(snapshot.total);
+const total = new Intl.NumberFormat(fr ? 'fr-FR' : 'en-US').format(snapshot.reportedTotal);
 const snapshotDate = dateLabel(snapshot.fetchedAt, {
     month: 'short',
     day: 'numeric',
@@ -102,9 +102,7 @@ const snapshotDate = dateLabel(snapshot.fetchedAt, {
             <div class="graph-footer">
                 <p>
                     <strong>{total}</strong>{' '}
-                    {fr
-                        ? 'contributions sur cette période'
-                        : 'visible contributions in this period'}
+                    {fr ? 'contributions sur cette période' : 'contributions in this period'}
                 </p>
                 <div class="legend" aria-hidden="true">
                     <span>{fr ? 'Moins' : 'Less'}</span>

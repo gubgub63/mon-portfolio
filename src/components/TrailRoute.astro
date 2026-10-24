@@ -1,0 +1,277 @@
+---
+import route from '../data/gr441-3d.json';
+import '../styles/trail-route.css';
+import { initialTrailView, renderTrailScene } from '../lib/trail-scene';
+const { lang, showElevation = false } = Astro.props as {
+    lang: 'en' | 'fr';
+    showElevation?: boolean;
+};
+const fr = lang === 'fr';
+const distanceLabel = new Intl.NumberFormat(fr ? 'fr-FR' : 'en-GB', {
+    maximumFractionDigits: 1,
+}).format(route.distanceKm);
+const minimumAltitude = Math.min(...route.route.map((point) => point[2]));
+const maximumAltitude = Math.max(...route.route.map((point) => point[2]));
+const profileY = (altitude: number) =>
+    130 - ((altitude - minimumAltitude) / (maximumAltitude - minimumAltitude)) * 110;
+const elevationPath = route.route
+    .map(
+        (point, index) =>
+            `${index ? 'L' : 'M'}${((point[3] / route.distanceKm) * 600).toFixed(1)},${profileY(point[2]).toFixed(1)}`,
+    )
+    .join(' ');
+---
+
+<figure class="trail-route" data-trail-route data-lang={lang}>
+    <div class="route-heading">
+        <div>
+            <span class="route-eyebrow">GR441 · Chaîne des Puys</span>
+            <p>{fr ? 'Le tour de mes volcans.' : 'Around my home volcanoes.'}</p>
+        </div>
+        <div
+            class="route-view-switch"
+            role="group"
+            aria-label={fr ? 'Vue du parcours' : 'Route view'}
+            hidden
+        >
+            <button type="button" data-view="3d" aria-pressed="true">
+                3D
+            </button>
+            <button type="button" data-view="2d" aria-pressed="false">
+                2D
+            </button>
+        </div>
+    </div>
+    <div
+        class="route-viewport"
+        aria-label={fr ? 'Tracé du GR441 en relief' : 'GR441 route in relief'}
+    >
+        <svg
+            class="route-scene"
+            viewBox="0 0 600 470"
+            role="img"
+            aria-label={
+                fr
+                    ? 'Parcours géographique du GR441 sur le relief de la Chaîne des Puys'
+                    : 'Geographic GR441 route over the terrain of the Chaîne des Puys'
+            }
+        >
+            <g data-scene set:html={renderTrailScene(route, initialTrailView)} />
+        </svg>
+        <div class="route-zoom" hidden>
+            <button
+                type="button"
+                data-zoom="in"
+                aria-label={fr ? 'Agrandir le parcours' : 'Zoom in'}
+            >
+                +
+            </button>
+            <button
+                type="button"
+                data-zoom="out"
+                aria-label={fr ? 'Réduire le parcours' : 'Zoom out'}
+            >
+                −
+            </button>
+            <button
+                type="button"
+                data-reset
+                aria-label={fr ? 'Rétablir la vue initiale' : 'Reset the view'}
+            >
+                ↺
+            </button>
+        </div>
+    </div>
+    <p class="route-hint" id="route-instructions" hidden>
+        {fr
+            ? 'Glisser pour orienter · Flèches au clavier · + / − pour zoomer'
+            : 'Drag to rotate · Arrow keys to orient · + / − to zoom'}
+    </p>
+    <div class="route-explore" hidden>
+        <div class="route-readout">
+            <label for="route-progress">{fr ? 'Explorer le tracé' : 'Explore the route'}</label>
+            <output for="route-progress" data-readout></output>
+        </div>
+        <input
+            id="route-progress"
+            type="range"
+            min="0"
+            max="1000"
+            step="1"
+            value="0"
+            aria-label={fr ? 'Position sur le parcours du GR441' : 'Position along the GR441 route'}
+        />
+        <div class="route-range-labels" aria-hidden="true">
+            <span>Volvic</span>
+            <span>
+                {distanceLabel} km · {fr ? 'retour à Volvic' : 'back to Volvic'}
+            </span>
+        </div>
+    </div>
+    {showElevation && (
+        <div class="route-elevation">
+            <div class="route-elevation-label">
+                <span>{fr ? 'Le profil de la boucle' : 'The loop’s elevation profile'}</span>
+                <span>
+                    {minimumAltitude}–{maximumAltitude} m
+                </span>
+            </div>
+            <svg
+                class="route-profile"
+                viewBox="0 0 600 150"
+                role="img"
+                aria-label={
+                    fr
+                        ? 'Profil altimétrique du GR441, basé sur les altitudes IGN'
+                        : 'GR441 elevation profile, based on IGN elevations'
+                }
+            >
+                <path class="route-profile-area" d={`${elevationPath} L600,145 L0,145 Z`} />
+                <path class="route-profile-track" d={elevationPath} />
+                <line data-profile-line x1="0" x2="0" y1="8" y2="145" />
+                <circle data-profile-point cx="0" cy={profileY(route.route[0][2])} r="4" />
+            </svg>
+        </div>
+    )}
+    <figcaption>
+        <span>
+            {fr
+                ? 'Relief amplifié ×8 · Tracé GPS simplifié'
+                : 'Relief exaggerated ×8 · Simplified GPS track'}
+        </span>
+        <span>
+            <a href={route.source} target="_blank" rel="noreferrer">
+                Fastest Known Time
+            </a>{' '}
+            ·{' '}
+            <a href={route.elevationSource} target="_blank" rel="noreferrer">
+                IGN · RGE ALTI®
+            </a>
+        </span>
+    </figcaption>
+</figure>
+
+<script>
+    import data from '../data/gr441-3d.json';
+    import { initialTrailView, renderTrailScene, routePosition } from '../lib/trail-scene';
+
+    const root = document.querySelector<HTMLElement>('[data-trail-route]');
+    if (root) {
+        const viewport = root.querySelector<HTMLElement>('.route-viewport')!;
+        const scene = root.querySelector<SVGGElement>('[data-scene]')!;
+        const slider = root.querySelector<HTMLInputElement>('input')!;
+        const readout = root.querySelector<HTMLOutputElement>('[data-readout]')!;
+        const fr = root.dataset.lang === 'fr';
+        const format = new Intl.NumberFormat(fr ? 'fr-FR' : 'en-GB', { maximumFractionDigits: 1 });
+        const view = { ...initialTrailView };
+        const profileLine = root.querySelector<SVGLineElement>('[data-profile-line]');
+        const profilePoint = root.querySelector<SVGCircleElement>('[data-profile-point]');
+        const minAltitude = Math.min(...data.route.map((point) => point[2]));
+        const maxAltitude = Math.max(...data.route.map((point) => point[2]));
+        let frame = 0;
+        let drag: { id: number; x: number; y: number; yaw: number; pitch: number } | null = null;
+        const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n));
+        function draw() {
+            frame = 0;
+            scene.innerHTML = renderTrailScene(data, view);
+            const point = routePosition(data, view.progress);
+            const value = `${format.format(point[3])} km · ${Math.round(point[2])} m`;
+            readout.value = value;
+            slider.setAttribute('aria-valuetext', value);
+            const profileX = (point[3] / data.distanceKm) * 600;
+            profileLine?.setAttribute('x1', String(profileX));
+            profileLine?.setAttribute('x2', String(profileX));
+            profilePoint?.setAttribute('cx', String(profileX));
+            profilePoint?.setAttribute(
+                'cy',
+                String(130 - ((point[2] - minAltitude) / (maxAltitude - minAltitude)) * 110),
+            );
+            root!.dataset.flat = String(view.flat);
+            root!.querySelectorAll<HTMLButtonElement>('[data-view]').forEach((button) => {
+                button.setAttribute(
+                    'aria-pressed',
+                    String((button.dataset.view === '2d') === view.flat),
+                );
+            });
+            root!.querySelector<HTMLButtonElement>('[data-zoom="in"]')!.disabled = view.zoom >= 1.6;
+            root!.querySelector<HTMLButtonElement>('[data-zoom="out"]')!.disabled =
+                view.zoom <= 0.7;
+        }
+        function schedule() {
+            if (!frame) frame = requestAnimationFrame(draw);
+        }
+        function zoom(amount: number) {
+            view.zoom = clamp(view.zoom + amount, 0.7, 1.6);
+            schedule();
+        }
+        viewport.tabIndex = 0;
+        viewport.setAttribute('aria-describedby', 'route-instructions');
+        root.querySelectorAll<HTMLElement>('[hidden]').forEach((element) => {
+            element.hidden = false;
+        });
+        root.querySelectorAll<HTMLButtonElement>('[data-view]').forEach((button) => {
+            button.addEventListener('click', () => {
+                view.flat = button.dataset.view === '2d';
+                schedule();
+            });
+        });
+        root.querySelector('[data-reset]')!.addEventListener('click', () => {
+            Object.assign(view, { ...initialTrailView, progress: view.progress });
+            schedule();
+        });
+        root.querySelector('[data-zoom="in"]')!.addEventListener('click', () => zoom(0.15));
+        root.querySelector('[data-zoom="out"]')!.addEventListener('click', () => zoom(-0.15));
+        slider.addEventListener('input', () => {
+            view.progress = Number(slider.value) / 1000;
+            schedule();
+        });
+        viewport.addEventListener('keydown', (event) => {
+            if (event.target !== viewport) return;
+            if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) {
+                if (view.flat) return;
+                event.preventDefault();
+                if (event.key === 'ArrowLeft') view.yaw -= 0.12;
+                if (event.key === 'ArrowRight') view.yaw += 0.12;
+                if (event.key === 'ArrowUp') view.pitch = clamp(view.pitch + 0.08, 0.35, 1.2);
+                if (event.key === 'ArrowDown') view.pitch = clamp(view.pitch - 0.08, 0.35, 1.2);
+                schedule();
+            } else if (event.key === '+' || event.key === '=' || event.key === '-') {
+                event.preventDefault();
+                zoom(event.key === '-' ? -0.15 : 0.15);
+            } else if (event.key === 'Home') {
+                event.preventDefault();
+                Object.assign(view, { ...initialTrailView, progress: view.progress });
+                schedule();
+            }
+        });
+        viewport.addEventListener('pointerdown', (event) => {
+            if (view.flat || event.button !== 0 || (event.target as Element).closest('button'))
+                return;
+            drag = {
+                id: event.pointerId,
+                x: event.clientX,
+                y: event.clientY,
+                yaw: view.yaw,
+                pitch: view.pitch,
+            };
+            viewport.setPointerCapture(event.pointerId);
+            viewport.dataset.dragging = 'true';
+        });
+        viewport.addEventListener('pointermove', (event) => {
+            if (!drag || event.pointerId !== drag.id) return;
+            view.yaw = drag.yaw + (event.clientX - drag.x) * 0.008;
+            // Touch keeps vertical page scrolling; horizontal gestures rotate the scene.
+            if (event.pointerType !== 'touch')
+                view.pitch = clamp(drag.pitch + (event.clientY - drag.y) * 0.005, 0.35, 1.2);
+            schedule();
+        });
+        const release = () => {
+            drag = null;
+            delete viewport.dataset.dragging;
+        };
+        viewport.addEventListener('pointerup', release);
+        viewport.addEventListener('pointercancel', release);
+        viewport.addEventListener('lostpointercapture', release);
+        draw();
+    }
+</script>

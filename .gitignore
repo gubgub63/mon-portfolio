@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # Local browser artifacts
 .playwright-mcp/
+
+# Generated Impeccable review captures and evidence
+.impeccable/review/

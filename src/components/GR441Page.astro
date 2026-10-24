@@ -1,0 +1,277 @@
+---
+import TrailLayout from '../layouts/TrailLayout.astro';
+import TrailRoute from './TrailRoute.astro';
+import Icon from './Icon.astro';
+import { gr441Copy, gr441Project } from '../data/gr441-project';
+import { profile } from '../data/profile';
+import { trailSocial } from '../data/trail-social';
+import route from '../data/gr441-route.json';
+import { sitePath } from '../lib/paths';
+import '../styles/gr441.css';
+
+const { lang } = Astro.props as { lang: 'fr' | 'en' };
+const fr = lang === 'fr';
+const c = gr441Copy[lang];
+const trailPath = sitePath(fr ? '/fr/trail/' : '/trail/');
+const contactHref = `mailto:${profile.email}?subject=${encodeURIComponent(c.mailSubject)}&body=${encodeURIComponent(c.mailBody)}`;
+---
+
+<TrailLayout lang={lang} title={c.title} description={c.description} project="gr441">
+    <div class="gr-project">
+        <section class="gr-hero trail-wrap" aria-labelledby="gr-title">
+            <a class="gr-back" href={trailPath}>
+                <Icon name="arrow" size={16} />
+                {c.back}
+            </a>
+            <div class="gr-hero-grid">
+                <div class="gr-hero-copy">
+                    <p class="gr-kicker">{c.eyebrow}</p>
+                    <h1 id="gr-title">
+                        GR441<span>.</span>
+                    </h1>
+                    <p class="gr-hero-title">{c.heroTitle}</p>
+                    <p class="gr-hero-intro">{c.heroIntro}</p>
+                    <div class="gr-hero-actions">
+                        <a class="trail-action" href="#parcours">
+                            {c.explore}
+                            <Icon name="arrow" size={18} />
+                        </a>
+                        <a class="gr-inline-link" href="#carnet">
+                            {c.follow}
+                            <Icon name="arrow" size={16} />
+                        </a>
+                    </div>
+                </div>
+                <figure class="gr-landscape">
+                    <img
+                        src={sitePath('/images/trail/auvergne.webp')}
+                        alt={c.landscapeAlt}
+                        width="1600"
+                        height="1200"
+                        fetchpriority="high"
+                    />
+                    <div class="gr-photo-label" aria-hidden="true">
+                        <span>Auvergne, France</span>
+                        <Icon name="mountain" size={22} />
+                    </div>
+                    <figcaption>{c.landscapeCaption}</figcaption>
+                </figure>
+            </div>
+            <div class="gr-status">
+                <span aria-hidden="true"></span>
+                {c.status}
+            </div>
+            <dl class="gr-facts">
+                <div>
+                    <dt>{c.distance}</dt>
+                    <dd>
+                        114 <span>km</span>
+                    </dd>
+                </div>
+                <div>
+                    <dt>{c.climbing}</dt>
+                    <dd>
+                        2 782 <span>m+</span>
+                    </dd>
+                </div>
+                <div>
+                    <dt>{c.window}</dt>
+                    <dd>{gr441Project.timing[lang]}</dd>
+                </div>
+                <div>
+                    <dt>{c.format}</dt>
+                    <dd>{gr441Project.format[lang]}</dd>
+                </div>
+            </dl>
+        </section>
+
+        <section
+            id="objectif"
+            class="gr-intention gr-section trail-wrap"
+            aria-labelledby="gr-intention-title"
+        >
+            <div class="gr-section-heading">
+                <p class="gr-kicker">{c.objectiveLabel}</p>
+                <h2 id="gr-intention-title">{c.objectiveTitle}</h2>
+            </div>
+            <div class="gr-intention-copy">
+                <p class="gr-lead">{c.objectiveFirst}</p>
+                <p>{c.objectiveSecond}</p>
+                <div class="gr-signature">
+                    <img
+                        src={sitePath('/images/trail/enzo.webp')}
+                        alt="Enzo Gubbiotti"
+                        width="480"
+                        height="480"
+                        loading="lazy"
+                    />
+                    <div>
+                        <span>Enzo Gubbiotti</span>
+                        <p>{c.signature}</p>
+                    </div>
+                </div>
+                <aside
+                    class="gr-fkt"
+                    aria-label={fr ? 'Comprendre l’objectif FKT' : 'About the FKT goal'}
+                >
+                    <h3>{c.fktTitle}</h3>
+                    <p>{c.fktText}</p>
+                    <a class="gr-inline-link" href={route.source} target="_blank" rel="noreferrer">
+                        {c.fktLink}
+                        <Icon name="arrow" size={15} />
+                    </a>
+                </aside>
+            </div>
+        </section>
+
+        <section id="parcours" class="gr-terrain" aria-labelledby="gr-terrain-title">
+            <div class="gr-terrain-inner trail-wrap">
+                <div class="gr-terrain-copy">
+                    <p class="gr-kicker">{c.routeLabel}</p>
+                    <h2 id="gr-terrain-title">{c.routeTitle}</h2>
+                    <p class="gr-lead">{c.routeIntro}</p>
+                    <p class="gr-terrain-note">{c.routeNote}</p>
+                    <p class="gr-terrain-source">{c.routeSource}</p>
+                </div>
+                <TrailRoute lang={lang} showElevation />
+            </div>
+        </section>
+
+        <section
+            id="preparation"
+            class="gr-preparation gr-section trail-wrap"
+            aria-labelledby="gr-preparation-title"
+        >
+            <div class="gr-section-heading">
+                <p class="gr-kicker">{c.preparationLabel}</p>
+                <h2 id="gr-preparation-title">{c.preparationTitle}</h2>
+                <p>{c.preparationIntro}</p>
+            </div>
+            <ol class="gr-roadmap">
+                {c.steps.map((step, index) => (
+                    <li class:list={{ 'gr-step-defined': index === 0 }}>
+                        <span class="gr-step-number" aria-hidden="true">
+                            {String(index + 1).padStart(2, '0')}
+                        </span>
+                        <div>
+                            <div class="gr-step-title">
+                                <h3>{step.title}</h3>
+                                <span class="gr-step-status">{step.status}</span>
+                            </div>
+                            <p>{step.text}</p>
+                        </div>
+                    </li>
+                ))}
+            </ol>
+        </section>
+
+        <section class="gr-evidence trail-wrap" aria-labelledby="gr-evidence-title">
+            <div class="gr-evidence-inner">
+                <div class="gr-evidence-marker">
+                    <span>UTPMA</span>
+                    <span>2026</span>
+                </div>
+                <div>
+                    <p class="gr-kicker">{c.evidenceLabel}</p>
+                    <h2 id="gr-evidence-title">{c.evidenceTitle}</h2>
+                    <p>{c.evidenceText}</p>
+                </div>
+                <a class="gr-inline-link" href={`${trailPath}#results`}>
+                    {c.evidenceLink}
+                    <Icon name="arrow" size={18} />
+                </a>
+            </div>
+        </section>
+
+        <section
+            id="carnet"
+            class="gr-diary gr-section trail-wrap"
+            aria-labelledby="gr-diary-title"
+        >
+            <a
+                class="gr-diary-film"
+                href={trailSocial.featuredPost.url}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`${c.watch} · ${c.diaryCaption}`}
+            >
+                <img
+                    src={sitePath(trailSocial.featuredPost.image)}
+                    alt={
+                        fr
+                            ? 'Enzo sur un sentier, dans sa vidéo de sortie longue au puy de Dôme'
+                            : 'Enzo on a trail, from his long-run video on Puy de Dôme'
+                    }
+                    width={trailSocial.featuredPost.width}
+                    height={trailSocial.featuredPost.height}
+                    loading="lazy"
+                />
+                <span class="gr-film-play">
+                    <Icon name="play" size={22} />
+                </span>
+                <span class="gr-film-caption">
+                    <span>{c.diaryPost}</span>
+                    <span>
+                        {c.watch}
+                        <Icon name="arrow" size={16} />
+                    </span>
+                </span>
+            </a>
+            <div class="gr-diary-copy">
+                <p class="gr-kicker">{c.diaryLabel}</p>
+                <h2 id="gr-diary-title">{c.diaryTitle}</h2>
+                <p class="gr-lead">{c.diaryText}</p>
+                <a
+                    class="gr-inline-link"
+                    href={trailSocial.profileUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    {c.tiktok}
+                    <Icon name="arrow" size={18} />
+                </a>
+                <p class="gr-diary-note">{c.diaryCaption}</p>
+            </div>
+        </section>
+
+        <section id="contact" class="gr-contact" aria-labelledby="gr-contact-title">
+            <div class="gr-contact-inner trail-wrap">
+                <p class="gr-kicker">{c.contactLabel}</p>
+                <h2 id="gr-contact-title">{c.contactTitle}</h2>
+                <p>{c.contactText}</p>
+                <a class="trail-action" href={contactHref}>
+                    {c.contactAction}
+                    <Icon name="arrow" size={20} />
+                </a>
+                <p class="gr-contact-note">{c.contactNote}</p>
+            </div>
+        </section>
+        <div class="gr-sources trail-wrap">
+            <details>
+                <summary>
+                    {c.sources}
+                    <Icon name="chevron" size={15} />
+                </summary>
+                <p>{c.sourcesText}</p>
+                <p>
+                    <a href={route.source} target="_blank" rel="noreferrer">
+                        Fastest Known Time · GR441
+                    </a>{' '}
+                    ·{' '}
+                    <a
+                        href="https://data.geopf.fr/altimetrie/resources/ign_rge_alti_wld"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        IGN · RGE ALTI®
+                    </a>{' '}
+                    · <a href={sitePath('/images/trail/SOURCES.md')}>{c.credits}</a>
+                </p>
+            </details>
+            <a class="gr-inline-link" href={trailPath}>
+                {c.back}
+                <Icon name="arrow" size={16} />
+            </a>
+        </div>
+    </div>
+</TrailLayout>

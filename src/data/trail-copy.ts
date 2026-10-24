@@ -1,3 +1,5 @@
+import { gr441Project } from './gr441-project';
+
 export type Language = 'en' | 'fr';
 
 export const trailCopy = {
@@ -11,7 +13,7 @@ export const trailCopy = {
         eyebrow: 'Trail & ultra · Auvergne',
         heroRole: 'From the volcanoes.',
         heroRoleAside: 'Towards the long distance.',
-        intro: 'An Espoir category win at La Gentiane and a 114 km ultra finish. I’m building my next chapter around the GR441, Madeira and Réunion, with the ambition of making a life in trail running.',
+        intro: 'An Espoir category win at La Gentiane and a 114 km ultra finish. My goal for 2026 is to reach a UTMB Index of 700. I’m building my next chapter around the GR441, Madeira and Réunion, with the ambition of making a life in trail running.',
         partnershipButton: 'Discuss a partnership',
         goalsButton: 'My 2027 goals',
         resultsButton: 'Race results',
@@ -135,12 +137,13 @@ export const trailCopy = {
             },
             {
                 title: 'GR441 · FKT attempt',
+                timing: gr441Project.timing.en,
                 location: 'Chaîne des Puys, Auvergne',
                 type: 'Personal challenge',
                 imageAlt: 'The volcanic landscape of the Chaîne des Puys, seen from Puy de Dôme',
                 description:
-                    'Chase a fastest known time on the loop around my home volcanoes. A personal project on the GR441, with the attempt format still to be defined.',
-                linkLabel: 'View the FKT route',
+                    'Attempt a supported fastest known time on the loop around my home volcanoes in early 2027. A personal project, from the preparation to attempt day.',
+                linkLabel: 'Explore the GR441 project',
             },
             {
                 location: 'Réunion Island',
@@ -163,7 +166,7 @@ export const trailCopy = {
         eyebrow: 'Trail & ultra · Auvergne',
         heroRole: 'Des volcans.',
         heroRoleAside: 'Vers la longue distance.',
-        intro: 'Une victoire en catégorie Espoir à La Gentiane et un ultra de 114 km terminé. Je construis la suite autour du GR441, de Madère et de La Réunion, avec l’ambition de faire du trail mon quotidien.',
+        intro: 'Une victoire en catégorie Espoir à La Gentiane et un ultra de 114 km terminé. Mon objectif pour 2026 : atteindre un index UTMB de 700. Je construis la suite autour du GR441, de Madère et de La Réunion, avec l’ambition de faire du trail mon quotidien.',
         partnershipButton: 'Parlons partenariat',
         goalsButton: 'Mes objectifs 2027',
         resultsButton: 'Résultats de course',
@@ -290,12 +293,13 @@ export const trailCopy = {
             },
             {
                 title: 'GR441 · tentative de FKT',
+                timing: gr441Project.timing.fr,
                 location: 'Chaîne des Puys, Auvergne',
                 type: 'Défi personnel',
                 imageAlt: 'Le paysage volcanique de la Chaîne des Puys vu depuis le puy de Dôme',
                 description:
-                    'Tenter le meilleur temps connu sur la boucle autour de mes volcans. Un projet personnel sur le GR441, dont les modalités restent à définir.',
-                linkLabel: 'Voir le parcours FKT',
+                    'Tenter le meilleur temps connu avec assistance sur la boucle autour de mes volcans, début 2027. Un projet personnel, de la préparation au jour de la tentative.',
+                linkLabel: 'Découvrir le projet GR441',
             },
             {
                 location: 'Île de La Réunion',

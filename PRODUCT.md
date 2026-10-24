@@ -30,8 +30,12 @@ The profile image is the actual public gubgub63 GitHub avatar, not a supplied pe
 
 The `/trail/` route presents Enzo's confirmed trail-running identity alongside his developer portfolio. He is from Puy-de-Dôme, Auvergne, and dreams of making a living from trail running. His confirmed 2027 ambitions are MIUT Legend, a GR441 fastest-known-time attempt and the Diagonale des Fous. These are goals, not confirmed registrations or completed achievements.
 
+Enzo also confirmed his goal of reaching a UTMB Index of 700 in 2026. This appears in both trail introductions as an ambition, independently of the dated published index values.
+
 The user confirmed ownership of https://utmb.world/fr/runner/7379898.enzo.gubbiotti. The trail portrait comes from that profile; the developer portrait remains the GitHub avatar. UTMB indexes and results are a static snapshot retrieved October 4, 2026, including the published DNF and unrated 100M category. Landscape images show the Chaîne des Puys, Madeira and Mafate and illustrate places rather than participation. Credits, licenses and modifications are recorded in `public/images/trail/SOURCES.md`.
 
 Both developer and trail pages now ship in English and French (`/`, `/fr/`, `/trail/`, `/fr/trail/`). The October 11, 2026 trail revision focuses on prospective brand partnerships: selected Espoir category podiums, the completed 114 km UTPMA, the GR441 as a distinctive 2027 ambition, three proposed collaboration formats and a direct email with a prefilled partnership brief. Espoir placings come from the user's confirmations, independently of the UTMB general rankings.
 
 The user confirmed TikTok as his only supplied social account: https://www.tiktok.com/@enzo_gubbiotti, displayed as EnzoQuiCourt. The public profile showed 2,968 followers and 50.5K cumulative account likes on October 11, 2026. `src/data/trail-social.ts` stores that dated snapshot; neither reach nor engagement rate is inferred. The actual cover of the user-supplied Puy de Dôme preparation video is saved locally, linked to its TikTok post and attributed in the image sources. Proposed content collaborations do not imply past brand partnerships or guaranteed deliverables.
+
+The user confirmed on 23 October 2026 that the GR441 attempt is planned for **early 2027**, **with assistance**. The dedicated bilingual project lives at `/trail/gr441/` and `/fr/trail/gr441/`. Exact date, target time, support team and reconnaissance schedule remain unconfirmed; do not invent them or mark planned milestones complete.

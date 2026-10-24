@@ -31,7 +31,15 @@ Landscape photographs illustrate Enzo's home region and future destinations. The
 - Subject: Enzo Gubbiotti at a running event.
 - Source: the profile photograph published on Enzo's confirmed UTMB profile, https://utmb.world/fr/runner/7379898.enzo.gubbiotti
 - Original image identifier: worldseries/Members/4c7d864d-28e0-46cc-b765-06f33b38f7ff on img.utmb.world.
-- Adaptation: a 480 × 480 WebP crop served by the source image service. Displayed with a grayscale/color interaction.
+- Adaptation: a 480 × 480 WebP crop served by the source image service. Displayed in color in the photographic journal, with layout cropping and frame motion. No retouching of the person.
+- Personal profile asset; no Creative Commons license is asserted for this photograph.
+
+## Enzo's UTMB banner — enzo-utmb-banner.webp
+
+- Subject: Enzo Gubbiotti running in the mountains.
+- Source: the banner published on Enzo's confirmed UTMB profile, https://utmb.world/fr/runner/7379898.enzo.gubbiotti, retrieved on 18 October 2026 at the user's request.
+- Original image: https://img.utmb.world/image/upload/q_auto/f_webp/c_fill,g_auto/if_w_gt_1920/c_scale,w_1920/if_end/v1/worldseries/Members/4360fccd-18a2-40ad-8d78-dad9915608d2
+- Asset: 800 × 450 WebP served by the source image service, stored locally. The hero uses a CSS crop centered on Enzo. No retouching of the person.
 - Personal profile asset; no Creative Commons license is asserted for this photograph.
 
 ## TikTok preparation diary — tiktok-puy-de-dome.avif

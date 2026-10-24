@@ -6,7 +6,7 @@ if (!siteUrl) {
 }
 
 const base = new URL(siteUrl);
-const pages = ['', 'trail/', 'fr/', 'fr/trail/'];
+const pages = ['', 'trail/', 'fr/', 'fr/trail/', 'trail/gr441/', 'fr/trail/gr441/'];
 
 async function verify() {
     const images = new Set();

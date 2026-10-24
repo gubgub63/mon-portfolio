@@ -1,0 +1,628 @@
+.gr-project {
+    --gr-section-space: clamp(70px, 8vw, 120px);
+}
+.gr-project .gr-kicker {
+    margin: 0 0 22px;
+    font-size: 11px;
+    line-height: 1.6;
+    letter-spacing: 0.055em;
+    color: var(--trail-muted);
+}
+.gr-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 44px;
+    color: var(--trail-muted);
+    font-size: 12px;
+    margin-bottom: 38px;
+}
+.gr-back svg {
+    transform: rotate(180deg);
+}
+.gr-back:hover {
+    color: var(--trail-ink);
+}
+.gr-hero {
+    padding-top: 16px;
+}
+.gr-hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 7%;
+}
+.gr-hero h1 {
+    font-size: clamp(76px, 9vw, 138px);
+    letter-spacing: -0.075em;
+    font-weight: 400;
+    line-height: 1;
+    margin: 0 0 24px -0.065em;
+}
+.gr-hero h1 span {
+    color: var(--trail-orange);
+}
+.gr-hero-title {
+    font-size: clamp(26px, 2.8vw, 38px);
+    letter-spacing: -0.04em;
+    line-height: 1.25;
+    max-width: 17ch;
+    text-wrap: balance;
+}
+.gr-hero-intro {
+    max-width: 46ch;
+    color: var(--trail-muted);
+    margin-top: 22px;
+    line-height: 1.85;
+}
+.gr-hero-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 18px 28px;
+    margin-top: 30px;
+}
+.gr-project .trail-action {
+    margin: 0;
+}
+.gr-inline-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    min-height: 44px;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 7px;
+}
+.gr-inline-link svg {
+    transition: transform 220ms var(--trail-ease);
+}
+.gr-inline-link:hover svg {
+    transform: translate(3px, -3px);
+}
+.gr-landscape {
+    position: relative;
+    align-self: stretch;
+    min-height: 480px;
+}
+.gr-landscape > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 45%;
+    border-radius: 3px;
+}
+.gr-photo-label {
+    position: absolute;
+    left: 24px;
+    right: 24px;
+    top: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #fffdf6;
+    font-size: 12px;
+    text-shadow: 0 1px 8px #0008;
+}
+.gr-landscape figcaption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 50px 24px 24px;
+    background: linear-gradient(transparent, #152015a6);
+    color: #fffdf6;
+    font-size: 12px;
+}
+.gr-status {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 11px;
+    color: var(--trail-muted);
+    margin: 32px 0 20px;
+}
+.gr-status > span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--trail-orange);
+}
+.gr-facts {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-block: 1px solid var(--trail-line);
+    padding-block: 27px;
+    gap: 24px;
+}
+.gr-facts dt {
+    font-size: 11px;
+    color: var(--trail-muted);
+    margin-bottom: 8px;
+}
+.gr-facts dd {
+    font-size: clamp(19px, 2.2vw, 29px);
+    letter-spacing: -0.035em;
+    line-height: 1.3;
+}
+.gr-facts dd > span {
+    font-size: 16px;
+    color: var(--trail-muted);
+    letter-spacing: 0;
+}
+.gr-section {
+    padding-block: var(--gr-section-space);
+}
+.gr-intention,
+.gr-preparation {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 12%;
+}
+.gr-section-heading h2 {
+    max-width: 12ch;
+}
+.gr-section-heading > p:not(.gr-kicker) {
+    color: var(--trail-muted);
+    max-width: 32ch;
+    line-height: 1.8;
+    margin-top: 24px;
+}
+.gr-intention-copy > p {
+    color: var(--trail-muted);
+    line-height: 1.85;
+}
+.gr-intention-copy > p + p {
+    margin-top: 24px;
+}
+.gr-lead {
+    font-size: clamp(17px, 1.4vw, 20px);
+    line-height: 1.8;
+}
+.gr-signature {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    margin-top: 28px;
+}
+.gr-signature > img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.gr-signature span {
+    font-size: 13px;
+}
+.gr-signature p {
+    color: var(--trail-muted);
+    font-size: 11px;
+    margin-top: 3px;
+}
+.gr-fkt {
+    border-left: 2px solid var(--trail-orange);
+    padding: 4px 0 4px 24px;
+    margin-top: 48px;
+}
+.gr-fkt h3 {
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+}
+.gr-fkt p {
+    margin-block: 12px 8px;
+    font-size: 13px;
+    color: var(--trail-muted);
+    line-height: 1.8;
+}
+.gr-terrain {
+    background: var(--trail-night);
+    color: var(--trail-white);
+    padding-block: var(--gr-section-space);
+}
+.gr-terrain-inner {
+    display: grid;
+    grid-template-columns: 0.7fr 1.3fr;
+    gap: 10%;
+    align-items: center;
+}
+.gr-terrain .gr-kicker {
+    color: var(--trail-night-muted);
+}
+.gr-terrain h2 {
+    max-width: 12ch;
+}
+.gr-terrain .gr-lead {
+    color: var(--trail-night-muted);
+    margin-top: 28px;
+}
+.gr-terrain-note {
+    font-size: 13px;
+    color: var(--trail-night-muted);
+    margin-top: 28px;
+    line-height: 1.8;
+}
+.gr-terrain-source {
+    font-size: 10px;
+    color: var(--trail-night-muted);
+    margin-top: 36px;
+    max-width: 43ch;
+    line-height: 1.8;
+}
+.gr-roadmap {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.gr-roadmap > li {
+    display: grid;
+    grid-template-columns: 35px 1fr;
+    gap: 20px;
+    padding: 26px 0 30px;
+    border-top: 1px solid var(--trail-line);
+}
+.gr-roadmap > li:last-child {
+    border-bottom: 1px solid var(--trail-line);
+}
+.gr-step-number {
+    font-size: 12px;
+    line-height: 2.2;
+    color: var(--trail-muted);
+}
+.gr-step-defined .gr-step-number {
+    color: var(--trail-orange);
+}
+.gr-step-title {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+}
+.gr-step-title h3 {
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: -0.03em;
+    line-height: 1.4;
+}
+.gr-step-status {
+    font-size: 10px;
+    color: var(--trail-muted);
+    white-space: nowrap;
+}
+.gr-step-defined .gr-step-status {
+    color: var(--trail-ink);
+    border-bottom: 2px solid var(--trail-orange);
+}
+.gr-roadmap li p {
+    color: var(--trail-muted);
+    font-size: 14px;
+    line-height: 1.8;
+    margin-top: 14px;
+    max-width: 56ch;
+}
+.gr-evidence-inner {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 40px;
+    align-items: center;
+    padding: 36px 0;
+    border-block: 1px solid var(--trail-line);
+}
+.gr-evidence-marker {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+    font-size: 25px;
+    letter-spacing: -0.05em;
+    padding-right: 36px;
+    border-right: 1px solid var(--trail-line);
+}
+.gr-evidence-marker span:last-child {
+    margin-top: 8px;
+    color: var(--trail-muted);
+}
+.gr-evidence .gr-kicker {
+    margin-bottom: 8px;
+}
+.gr-evidence h2 {
+    font-size: 24px;
+}
+.gr-evidence p:not(.gr-kicker) {
+    color: var(--trail-muted);
+    font-size: 13px;
+    line-height: 1.8;
+    max-width: 68ch;
+    margin-top: 12px;
+}
+.gr-diary {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 12%;
+    align-items: center;
+}
+.gr-diary-film {
+    position: relative;
+    display: block;
+    width: min(100%, 270px);
+    justify-self: center;
+    transform: rotate(-3deg);
+    transition: transform 400ms var(--trail-ease);
+    color: #fffdf6;
+}
+.gr-diary-film:hover {
+    transform: rotate(0deg);
+}
+.gr-diary-film > img {
+    width: 100%;
+    height: auto;
+}
+.gr-film-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: grid;
+    place-items: center;
+    width: 58px;
+    height: 58px;
+    border: 1px solid #fff9;
+    border-radius: 50%;
+    background: #15201555;
+}
+.gr-film-caption {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 60px 20px 20px;
+    background: linear-gradient(transparent, #152015e6);
+    font-size: 13px;
+}
+.gr-film-caption > span:last-child {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 11px;
+}
+.gr-diary h2 {
+    max-width: 18ch;
+}
+.gr-diary .gr-lead {
+    color: var(--trail-muted);
+    margin-block: 24px;
+    max-width: 46ch;
+}
+.gr-diary-note {
+    color: var(--trail-muted);
+    font-size: 10px;
+    margin-top: 24px;
+}
+.gr-contact {
+    background: var(--trail-journal-bg);
+    padding-block: var(--gr-section-space);
+}
+.gr-contact-inner {
+    max-width: 1100px;
+    text-align: center;
+}
+.gr-contact h2 {
+    max-width: 21ch;
+    margin-inline: auto;
+}
+.gr-contact p:not(.gr-kicker) {
+    max-width: 62ch;
+    margin: 28px auto;
+    color: var(--trail-muted);
+    line-height: 1.85;
+}
+.gr-contact .trail-action {
+    display: inline-flex;
+}
+.gr-contact p.gr-contact-note {
+    font-size: 11px;
+    margin: 18px auto 0;
+}
+.gr-sources {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px 40px;
+    align-items: start;
+    padding-block: 30px;
+    border-bottom: 1px solid var(--trail-line);
+}
+.gr-sources details {
+    max-width: 75ch;
+    font-size: 11px;
+    color: var(--trail-muted);
+}
+.gr-sources summary {
+    display: inline-flex;
+    gap: 12px;
+    align-items: center;
+    min-height: 44px;
+    cursor: pointer;
+    color: var(--trail-ink);
+}
+.gr-sources details[open] summary svg {
+    transform: rotate(90deg);
+}
+.gr-sources details p {
+    line-height: 1.8;
+    margin-block: 12px;
+}
+.gr-sources details a {
+    text-decoration: underline;
+}
+@media (max-width: 1000px) {
+    .gr-hero-grid {
+        gap: 5%;
+    }
+    .gr-landscape {
+        min-height: 440px;
+    }
+    .gr-intention,
+    .gr-preparation,
+    .gr-terrain-inner {
+        gap: 7%;
+    }
+    .gr-terrain-inner {
+        grid-template-columns: 0.8fr 1.2fr;
+    }
+    .gr-evidence-inner {
+        grid-template-columns: auto 1fr;
+        gap: 28px;
+    }
+    .gr-evidence .gr-inline-link {
+        grid-column: 2;
+        justify-self: start;
+    }
+}
+@media (max-width: 760px) {
+    .gr-back {
+        margin-bottom: 26px;
+    }
+    .gr-hero-grid,
+    .gr-intention,
+    .gr-preparation,
+    .gr-terrain-inner,
+    .gr-diary {
+        grid-template-columns: 1fr;
+        gap: 36px;
+    }
+    .gr-hero .gr-kicker {
+        margin-bottom: 16px;
+    }
+    .gr-hero h1 {
+        font-size: clamp(76px, 18vw, 110px);
+        margin-bottom: 18px;
+    }
+    .gr-hero-title {
+        max-width: 22ch;
+        font-size: 28px;
+    }
+    .gr-hero-intro {
+        font-size: 15px;
+        margin-top: 18px;
+    }
+    .gr-hero-actions {
+        gap: 12px 24px;
+        margin-top: 24px;
+    }
+    .gr-landscape {
+        min-height: 0;
+        height: 290px;
+    }
+    .gr-photo-label {
+        left: 18px;
+        right: 18px;
+        top: 18px;
+    }
+    .gr-landscape figcaption {
+        padding-inline: 18px;
+        font-size: 11px;
+    }
+    .gr-status {
+        margin-top: 24px;
+        font-size: 10px;
+    }
+    .gr-facts {
+        grid-template-columns: 1fr 1fr;
+        gap: 24px 18px;
+        padding-block: 24px;
+    }
+    .gr-facts dd {
+        font-size: 22px;
+    }
+    .gr-section-heading h2 {
+        max-width: 18ch;
+    }
+    .gr-project .gr-kicker {
+        margin-bottom: 16px;
+    }
+    .gr-fkt {
+        margin-top: 32px;
+        padding-left: 18px;
+    }
+    .gr-terrain-inner {
+        gap: 40px;
+    }
+    .gr-terrain h2 {
+        max-width: 16ch;
+    }
+    .gr-terrain .gr-lead {
+        margin-top: 20px;
+    }
+    .gr-terrain-source {
+        max-width: 60ch;
+        margin-top: 20px;
+    }
+    .gr-roadmap > li {
+        grid-template-columns: 24px 1fr;
+        gap: 14px;
+        padding-block: 24px;
+    }
+    .gr-step-title h3 {
+        font-size: 19px;
+    }
+    .gr-evidence-inner {
+        gap: 20px;
+        grid-template-columns: 1fr;
+    }
+    .gr-evidence-marker {
+        flex-direction: row;
+        gap: 8px;
+        border: 0;
+        font-size: 16px;
+        padding: 0;
+    }
+    .gr-evidence-marker span:last-child {
+        margin: 0;
+    }
+    .gr-evidence .gr-inline-link {
+        grid-column: auto;
+    }
+    .gr-evidence h2 {
+        font-size: 25px;
+    }
+    .gr-diary-copy {
+        grid-row: 1;
+    }
+    .gr-diary h2 {
+        max-width: 18ch;
+    }
+    .gr-diary-film {
+        width: min(75%, 270px);
+    }
+    .gr-diary-note {
+        margin-top: 16px;
+    }
+    .gr-contact-inner {
+        text-align: left;
+    }
+    .gr-contact h2,
+    .gr-contact p:not(.gr-kicker) {
+        margin-inline: 0;
+    }
+    .gr-contact p:not(.gr-kicker) {
+        font-size: 15px;
+    }
+    .gr-contact p.gr-contact-note {
+        font-size: 11px;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .gr-inline-link svg,
+    .gr-diary-film {
+        transition: none;
+    }
+    .gr-diary-film {
+        transform: none;
+    }
+}

@@ -1,0 +1,161 @@
+---
+import Icon from '../components/Icon.astro';
+import { sitePath } from '../lib/paths';
+import '../styles/trail.css';
+import displayFont from '../assets/fonts/manrope-400.ttf?url';
+
+interface Props {
+    lang: 'en' | 'fr';
+    title: string;
+    description: string;
+    project?: 'gr441';
+}
+const { lang, title, description, project } = Astro.props;
+const fr = lang === 'fr';
+const trailPath = fr ? '/fr/trail/' : '/trail/';
+const englishPath = project ? '/trail/gr441/' : '/trail/';
+const frenchPath = project ? '/fr/trail/gr441/' : '/fr/trail/';
+const pagePath = fr ? frenchPath : englishPath;
+const absoluteUrl = (path: string) => new URL(sitePath(path), Astro.site || Astro.url).href;
+---
+
+<!doctype html>
+<html lang={lang}>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content={description} />
+        <meta name="theme-color" content="#f4f1e9" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content={absoluteUrl('/images/trail/auvergne.webp')} />
+        <link rel="canonical" href={absoluteUrl(pagePath)} />
+        <link rel="alternate" hreflang="en" href={absoluteUrl(englishPath)} />
+        <link rel="alternate" hreflang="fr" href={absoluteUrl(frenchPath)} />
+        <link rel="icon" href={sitePath('/favicon.svg')} />
+        <link rel="preload" href={displayFont} as="font" type="font/ttf" crossorigin />
+        <title>{title}</title>
+        <script is:inline>
+            try {
+                if (localStorage.getItem('theme') === 'dark')
+                    document.documentElement.dataset.theme = 'dark';
+            } catch {}
+        </script>
+    </head>
+    <body class="trail-site">
+        <a class="skip-link" href="#main">
+            {fr ? 'Aller au contenu' : 'Skip to content'}
+        </a>
+        <header class="trail-header">
+            <nav class="trail-nav" aria-label={fr ? 'Navigation principale' : 'Main navigation'}>
+                <a
+                    class="trail-wordmark"
+                    href={sitePath(trailPath)}
+                    aria-label="Enzo Gubbiotti — Trail"
+                >
+                    <Icon name="mountain" size={28} />
+                    <span>Enzo Gubbiotti</span>
+                </a>
+                <div class="trail-nav-sections">
+                    {project ? (
+                        <>
+                            <a href="#objectif">{fr ? 'L’objectif' : 'The goal'}</a>
+                            <a href="#parcours">{fr ? 'Le tracé' : 'The route'}</a>
+                            <a href="#preparation">{fr ? 'La préparation' : 'The preparation'}</a>
+                        </>
+                    ) : (
+                        <>
+                            <a href="#story">{fr ? 'Le parcours' : 'My story'}</a>
+                            <a href="#goals">{fr ? 'Les projets' : 'The projects'}</a>
+                            <a href="#results">{fr ? 'Les résultats' : 'The results'}</a>
+                        </>
+                    )}
+                </div>
+                <div class="trail-nav-tools">
+                    <a class="trail-nav-contact" href="#contact">
+                        {fr ? 'On fait équipe ?' : 'Let’s team up'}
+                        <Icon name="arrow" size={16} />
+                    </a>
+                    <div
+                        class="trail-languages"
+                        role="group"
+                        aria-label={fr ? 'Langue du site' : 'Site language'}
+                    >
+                        <a
+                            href={sitePath(frenchPath)}
+                            lang="fr"
+                            hreflang="fr"
+                            aria-current={fr ? 'page' : undefined}
+                        >
+                            FR
+                        </a>
+                        <a
+                            href={sitePath(englishPath)}
+                            lang="en"
+                            hreflang="en"
+                            aria-current={!fr ? 'page' : undefined}
+                        >
+                            EN
+                        </a>
+                    </div>
+                    <button
+                        class="trail-theme"
+                        type="button"
+                        aria-label={fr ? 'Changer le thème' : 'Change theme'}
+                        aria-pressed="false"
+                    >
+                        <Icon name="sun" size={18} />
+                    </button>
+                </div>
+            </nav>
+        </header>
+        <main id="main">
+            <slot />
+        </main>
+        <footer class="trail-footer trail-wrap">
+            <a class="trail-wordmark" href={sitePath(trailPath)}>
+                <Icon name="mountain" size={28} />
+                <span>Enzo Gubbiotti</span>
+            </a>
+            <p>© {new Date().getFullYear()} Enzo Gubbiotti · Puy-de-Dôme, France</p>
+            <a class="trail-text-link" href={sitePath(fr ? '/fr/' : '/')}>
+                {fr ? 'Côté développeur' : 'The developer side'}
+                <Icon name="arrow" size={16} />
+            </a>
+            <a
+                class="trail-back-top"
+                href="#main"
+                aria-label={fr ? 'Retour en haut' : 'Back to top'}
+            >
+                <Icon name="chevron" size={19} />
+            </a>
+        </footer>
+        <script>
+            const themeButton = document.querySelector<HTMLButtonElement>('.trail-theme');
+            const fr = document.documentElement.lang === 'fr';
+            function syncTheme() {
+                const dark = document.documentElement.dataset.theme === 'dark';
+                themeButton?.setAttribute('aria-pressed', String(dark));
+                themeButton?.setAttribute(
+                    'aria-label',
+                    fr
+                        ? `Activer le thème ${dark ? 'clair' : 'sombre'}`
+                        : `Switch to ${dark ? 'light' : 'dark'} theme`,
+                );
+                document
+                    .querySelector('meta[name="theme-color"]')
+                    ?.setAttribute('content', dark ? '#191c18' : '#f4f1e9');
+            }
+            syncTheme();
+            themeButton?.addEventListener('click', () => {
+                const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+                document.documentElement.dataset.theme = theme;
+                try {
+                    localStorage.setItem('theme', theme);
+                } catch {}
+                syncTheme();
+            });
+        </script>
+    </body>
+</html>

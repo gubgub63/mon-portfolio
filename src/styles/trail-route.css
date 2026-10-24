@@ -1,0 +1,246 @@
+.trail-route {
+    min-width: 0;
+    width: 100%;
+    color: var(--trail-white);
+}
+.route-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #c5cbbd38;
+}
+.route-eyebrow {
+    color: var(--trail-night-muted);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+}
+.route-heading p {
+    margin-top: 4px;
+    font-size: 20px;
+    letter-spacing: -0.025em;
+}
+.route-view-switch {
+    display: flex;
+    padding: 4px;
+    border: 1px solid #c5cbbd50;
+    border-radius: 100px;
+}
+.trail-route button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    min-width: 44px;
+    min-height: 44px;
+    border: 0;
+    background: transparent;
+    color: var(--trail-white);
+    font-size: 13px;
+    border-radius: 50%;
+}
+.route-view-switch button {
+    border-radius: 100px;
+    min-height: 38px;
+}
+.route-view-switch button[aria-pressed='true'] {
+    background: var(--trail-orange);
+    color: var(--trail-on-orange);
+    font-weight: 700;
+}
+.trail-route button:hover:not(:disabled):not([aria-pressed='true']) {
+    background: #c5cbbd20;
+}
+.trail-route button:disabled {
+    opacity: 0.35;
+    cursor: default;
+}
+.route-viewport {
+    position: relative;
+    margin-block: 4px;
+    touch-action: pan-y pinch-zoom;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+    overflow: hidden;
+}
+.route-viewport[data-dragging='true'] {
+    cursor: grabbing;
+}
+.trail-route[data-flat='true'] .route-viewport {
+    cursor: default;
+}
+.route-scene {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+}
+.route-scene path {
+    fill: none;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    vector-effect: non-scaling-stroke;
+}
+.route-grid {
+    stroke: #d3ddbb;
+    stroke-width: 0.6;
+    opacity: 0.16;
+}
+.route-halo {
+    stroke: #252b24;
+    stroke-width: 5;
+    opacity: 0.65;
+}
+.route-track {
+    stroke: var(--trail-orange);
+    stroke-width: 2.5;
+}
+.route-origin {
+    fill: var(--trail-white);
+    stroke: var(--trail-night);
+    stroke-width: 2;
+}
+.route-place,
+.route-north {
+    fill: var(--trail-white);
+    font-family: var(--trail-body);
+    font-size: 12px;
+    paint-order: stroke;
+    stroke: var(--trail-night);
+    stroke-width: 4px;
+    stroke-linejoin: round;
+}
+.route-north {
+    fill: var(--trail-night-muted);
+    font-size: 11px;
+}
+.route-altitude-line {
+    stroke: var(--trail-white);
+    stroke-width: 1;
+    stroke-dasharray: 3 4;
+    opacity: 0.5;
+}
+.route-position-ring {
+    fill: #fb5b3020;
+    stroke: var(--trail-orange);
+    stroke-width: 1;
+}
+.route-position {
+    fill: var(--trail-white);
+    stroke: var(--trail-orange);
+    stroke-width: 2;
+}
+.route-zoom {
+    position: absolute;
+    right: 0;
+    bottom: 18px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #c5cbbd50;
+    background: var(--trail-night);
+    border-radius: 100px;
+    padding: 3px;
+}
+.route-zoom button {
+    font-size: 22px;
+}
+.route-hint {
+    color: var(--trail-night-muted);
+    font-size: 11px;
+    text-align: center;
+    margin-block: 0 24px;
+}
+.route-explore {
+    padding-top: 20px;
+    border-top: 1px solid #c5cbbd38;
+}
+.route-readout,
+.route-range-labels {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+}
+.route-readout {
+    font-size: 12px;
+}
+.route-readout output {
+    color: var(--trail-white);
+    font-variant-numeric: tabular-nums;
+}
+.route-explore input {
+    display: block;
+    width: 100%;
+    height: 36px;
+    margin: 4px 0;
+    accent-color: var(--trail-orange);
+    cursor: ew-resize;
+}
+.route-range-labels {
+    color: var(--trail-night-muted);
+    font-size: 10px;
+}
+.trail-route figcaption {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    color: var(--trail-night-muted);
+    font-size: 10px;
+    margin-top: 24px;
+}
+.trail-route figcaption a {
+    text-decoration: underline;
+}
+.route-elevation {
+    margin-top: 24px;
+}
+.route-elevation-label {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: 10px;
+    color: var(--trail-night-muted);
+}
+.route-profile {
+    display: block;
+    width: 100%;
+    margin-top: 8px;
+    overflow: visible;
+}
+.route-profile-area {
+    fill: #fb5b3014;
+}
+.route-profile-track {
+    fill: none;
+    stroke: var(--trail-orange);
+    stroke-width: 1.5;
+    vector-effect: non-scaling-stroke;
+}
+.route-profile line {
+    stroke: var(--trail-white);
+    stroke-width: 1;
+    stroke-dasharray: 3 4;
+    opacity: 0.5;
+}
+.route-profile circle {
+    fill: var(--trail-white);
+    stroke: var(--trail-orange);
+    stroke-width: 2;
+}
+@media (max-width: 760px) {
+    .trail-route {
+        max-width: 600px;
+        justify-self: center;
+    }
+    .route-heading p {
+        font-size: 18px;
+    }
+    .route-hint {
+        max-width: 30ch;
+        margin-inline: auto;
+    }
+}

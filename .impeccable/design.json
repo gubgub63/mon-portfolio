@@ -1,6 +1,6 @@
 {
     "schemaVersion": 2,
-    "generatedAt": "2026-10-04T08:53:52.121063+00:00",
+    "generatedAt": "2026-10-17T14:55:06.586570+00:00",
     "title": "Design System: Enzo Gubbiotti Portfolio",
     "extensions": {
         "shadows": [
@@ -13,6 +13,11 @@
                 "name": "floating-contact",
                 "value": "0 4px 12px #0002",
                 "purpose": "Fixed contact action."
+            },
+            {
+                "name": "trail-biography-photo",
+                "value": "0 14px 32px #15201517",
+                "purpose": "Chapter-responsive biography photographs."
             }
         ],
         "motion": [
@@ -35,6 +40,76 @@
                 "name": "marquee",
                 "value": "35s / 40s reverse",
                 "purpose": "Technology rows; paused by interaction and disabled for reduced motion."
+            },
+            {
+                "name": "trail-ease",
+                "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+                "purpose": "Shared trail transforms and mask reveals."
+            },
+            {
+                "name": "trail-name-entry",
+                "value": "850ms; 100ms stagger; clip-path inset(0 0 100% 0) to inset(0); translateY(12px) to 0",
+                "purpose": "Web Animations entry on two full-name lines."
+            },
+            {
+                "name": "trail-portrait-entry",
+                "value": "1000ms; opacity 0 to 1; translateY(22px) to 0",
+                "purpose": "Web Animations entrance of the personal portrait."
+            },
+            {
+                "name": "trail-hero-scroll",
+                "value": "portrait -32px/+5deg; landscape -20px,+24px/-3deg; preparation +35px/-4deg at full progress",
+                "purpose": "Small frame separation while hero intersects viewport; scheduled by events."
+            },
+            {
+                "name": "trail-pointer-depth",
+                "value": "rotateY up to 3deg; rotateX up to 2deg",
+                "purpose": "Hero collage only; hover-capable fine pointer; resets on leave."
+            },
+            {
+                "name": "trail-story-photo",
+                "value": "850ms transform; chapter nearest viewport center",
+                "purpose": "Foreground photo tracks the three biography chapters."
+            },
+            {
+                "name": "trail-route-scroll",
+                "value": "stroke-dasharray:1; stroke-dashoffset:1-progress; marker via getPointAtLength",
+                "purpose": "Source-derived GR441 drawing; clamped visible-section progress; base route remains complete."
+            },
+            {
+                "name": "trail-project-native",
+                "value": "image leave 320ms; image mask 650ms; copy leave 200ms ease-out; copy enter 450ms",
+                "purpose": "Native View Transitions when available; skip previous transition before replacement."
+            },
+            {
+                "name": "trail-project-fallback",
+                "value": "600ms; clip-path inset(0 0 0 100%) to inset(0)",
+                "purpose": "Web Animations incoming-image reveal when native transitions are unavailable."
+            },
+            {
+                "name": "trail-state",
+                "value": "180ms / 200ms / 220ms",
+                "purpose": "Project state, control fill and navigation underline."
+            },
+            {
+                "name": "trail-arrow",
+                "value": "250ms; translate(3px, -3px)",
+                "purpose": "Text/action/contact link hover."
+            },
+            {
+                "name": "trail-discover",
+                "value": "450ms; rotate(-45deg)",
+                "purpose": "Round personal-discovery arrow hover."
+            },
+            {
+                "name": "trail-journal",
+                "value": "650ms rotate(3deg) to rotate(0deg); image 700ms scale(1.035)",
+                "purpose": "Personal preparation-cover hover."
+            },
+            {
+                "name": "trail-reduced-motion",
+                "value": "CSS animation:none; transition-duration:.01ms; scroll-behavior:auto; entrance animations cancelled; hero transforms and route dash styles cleared",
+                "purpose": "Static photos, non-sticky biography, full route, hidden marker and immediate tab changes."
             }
         ],
         "breakpoints": [
@@ -49,8 +124,317 @@
             {
                 "name": "activity-compact",
                 "value": "540px max-width"
+            },
+            {
+                "name": "trail-compact-desktop",
+                "value": "1100px max-width"
+            },
+            {
+                "name": "trail-mobile",
+                "value": "760px max-width"
             }
-        ]
+        ],
+        "scope": {
+            "developer": {
+                "routes": ["/", "/fr/"],
+                "sources": ["src/layouts/Layout.astro", "src/styles/global.css"],
+                "tokenPrefix": "unprefixed",
+                "authority": "Preserve the supplied Ren Lenon reference and pixel portrait."
+            },
+            "trail": {
+                "routes": ["/trail/", "/fr/trail/"],
+                "sources": [
+                    "src/layouts/TrailLayout.astro",
+                    "src/styles/trail.css",
+                    "src/components/TrailPage.astro"
+                ],
+                "tokenPrefix": "trail-",
+                "authority": "A personal field journal. Full name and real personal imagery lead; light Manrope, source-grounded motion, independent of developer."
+            }
+        },
+        "trailDepth": {
+            "method": "Single upright shadow-free oval hero portrait; overlapping shadowed photo stack only in biography; unboxed project descriptions.",
+            "destinationScrim": "linear-gradient(transparent 60%, #172012b3)",
+            "heroPortraitRadius": "14px",
+            "projectLandscapeRadius": "24px 140px 24px 90px",
+            "projectControlRadius": "100px"
+        },
+        "trailFocus": {
+            "outline": "3px solid currentColor",
+            "outlineOffset": "6px",
+            "purpose": "All keyboard-visible trail controls."
+        },
+        "typographyMeta": {
+            "trail-display": {
+                "displayName": "Trail display",
+                "purpose": "Enzo Gubbiotti name first; light natural-case identity."
+            },
+            "trail-headline": {
+                "displayName": "Trail headline",
+                "purpose": "Smaller natural-case section headings."
+            },
+            "trail-title": {
+                "displayName": "Trail project title",
+                "purpose": "Project names."
+            },
+            "trail-body": {
+                "displayName": "Trail body",
+                "purpose": "Explanatory prose."
+            },
+            "trail-lead": {
+                "displayName": "Trail lead",
+                "purpose": "Editorial introduction."
+            },
+            "trail-label": {
+                "displayName": "Trail label",
+                "purpose": "Navigation and controls."
+            }
+        },
+        "trailFonts": {
+            "source": "src/assets/fonts/",
+            "faces": ["manrope-400.ttf", "manrope-700.ttf"],
+            "loading": "Self-hosted Manrope; font-display: swap; regular face preloaded; sans-serif fallback.",
+            "license": "OFL license alongside the fonts."
+        },
+        "colorMeta": {
+            "trail-paper": {
+                "role": "neutral",
+                "displayName": "Paper",
+                "tonalRamp": [
+                    "oklch(15% 0.0111 89.72)",
+                    "oklch(26% 0.0111 89.72)",
+                    "oklch(38% 0.0111 89.72)",
+                    "oklch(49% 0.0111 89.72)",
+                    "oklch(61% 0.0111 89.72)",
+                    "oklch(72% 0.0111 89.72)",
+                    "oklch(84% 0.0111 89.72)",
+                    "oklch(95% 0.0111 89.72)"
+                ],
+                "rampPurpose": "Illustrative preview only; not additional runtime tokens."
+            },
+            "trail-ink": {
+                "role": "neutral",
+                "displayName": "Ink",
+                "tonalRamp": [
+                    "oklch(15% 0.0152 141.16)",
+                    "oklch(26% 0.0152 141.16)",
+                    "oklch(38% 0.0152 141.16)",
+                    "oklch(49% 0.0152 141.16)",
+                    "oklch(61% 0.0152 141.16)",
+                    "oklch(72% 0.0152 141.16)",
+                    "oklch(84% 0.0152 141.16)",
+                    "oklch(95% 0.0152 141.16)"
+                ],
+                "rampPurpose": "Illustrative preview only; not additional runtime tokens."
+            },
+            "trail-muted": {
+                "role": "neutral",
+                "displayName": "Muted",
+                "tonalRamp": [
+                    "oklch(15% 0.0265 126.66)",
+                    "oklch(26% 0.0265 126.66)",
+                    "oklch(38% 0.0265 126.66)",
+                    "oklch(49% 0.0265 126.66)",
+                    "oklch(61% 0.0265 126.66)",
+                    "oklch(72% 0.0265 126.66)",
+                    "oklch(84% 0.0265 126.66)",
+                    "oklch(95% 0.0265 126.66)"
+                ],
+                "rampPurpose": "Illustrative preview only; not additional runtime tokens."
+            },
+            "trail-line": {
+                "role": "neutral",
+                "displayName": "Line",
+                "tonalRamp": [
+                    "oklch(15% 0.0165 110.62)",
+                    "oklch(26% 0.0165 110.62)",
+                    "oklch(38% 0.0165 110.62)",
+                    "oklch(49% 0.0165 110.62)",
+                    "oklch(61% 0.0165 110.62)",
+                    "oklch(72% 0.0165 110.62)",
+                    "oklch(84% 0.0165 110.62)",
+                    "oklch(95% 0.0165 110.62)"
+                ],
+                "rampPurpose": "Illustrative preview only; not additional runtime tokens."
+            },
+            "trail-orange": {
+                "role": "primary",
+                "displayName": "Orange",
+                "tonalRamp": [
+                    "oklch(15% 0.2032 35.58)",
+                    "oklch(26% 0.2032 35.58)",
+                    "oklch(38% 0.2032 35.58)",
+                    "oklch(49% 0.2032 35.58)",
+                    "oklch(61% 0.2032 35.58)",
+                    "oklch(72% 0.2032 35.58)",
+                    "oklch(84% 0.2032 35.58)",
+                    "oklch(95% 0.2032 35.58)"
+                ],
+                "rampPurpose": "Illustrative preview only; not additional runtime tokens."
+            },
+            "trail-on-orange": {
+                "role": "neutral",
+                "displayName": "On Orange",
+                "tonalRamp": [
+                    "oklch(15% 0.0193 59.46)",
+                    "oklch(26% 0.0193 59.46)",
+                    "oklch(38% 0.0193 59.46)",
+                    "oklch(49% 0.0193 59.46)",
+                    "oklch(61% 0.0193 59.46)",
+                    "oklch(72% 0.0193 59.46)",
+                    "oklch(84% 0.0193 59.46)",
+                    "oklch(95% 0.0193 59.46)"
+                ],
+                "rampPurpose": "Illustrative preview only; not additional runtime tokens."
+            },
+            "trail-night": {
+                "role": "neutral",
+                "displayName": "Night",
+                "tonalRamp": [
+                    "oklch(15% 0.0152 141.16)",
+                    "oklch(26% 0.0152 141.16)",
+                    "oklch(38% 0.0152 141.16)",
+                    "oklch(49% 0.0152 141.16)",
+                    "oklch(61% 0.0152 141.16)",
+                    "oklch(72% 0.0152 141.16)",
+                    "oklch(84% 0.0152 141.16)",
+                    "oklch(95% 0.0152 141.16)"
+                ],
+                "rampPurpose": "Illustrative preview only; not additional runtime tokens."
+            },
+            "trail-white": {
+                "role": "neutral",
+                "displayName": "White",
+                "tonalRamp": [
+                    "oklch(15% 0.0095 93.57)",
+                    "oklch(26% 0.0095 93.57)",
+                    "oklch(38% 0.0095 93.57)",
+                    "oklch(49% 0.0095 93.57)",
+                    "oklch(61% 0.0095 93.57)",
+                    "oklch(72% 0.0095 93.57)",
+                    "oklch(84% 0.0095 93.57)",
+                    "oklch(95% 0.0095 93.57)"
+                ],
+                "rampPurpose": "Illustrative preview only; not additional runtime tokens."
+            },
+            "trail-night-muted": {
+                "role": "neutral",
+                "displayName": "Night Muted",
+                "tonalRamp": [
+                    "oklch(15% 0.0202 125.87)",
+                    "oklch(26% 0.0202 125.87)",
+                    "oklch(38% 0.0202 125.87)",
+                    "oklch(49% 0.0202 125.87)",
+                    "oklch(61% 0.0202 125.87)",
+                    "oklch(72% 0.0202 125.87)",
+                    "oklch(84% 0.0202 125.87)",
+                    "oklch(95% 0.0202 125.87)"
+                ],
+                "rampPurpose": "Illustrative preview only; not additional runtime tokens."
+            },
+            "trail-dark-paper": {
+                "role": "neutral",
+                "displayName": "Dark Paper",
+                "tonalRamp": [
+                    "oklch(15% 0.0089 137.83)",
+                    "oklch(26% 0.0089 137.83)",
+                    "oklch(38% 0.0089 137.83)",
+                    "oklch(49% 0.0089 137.83)",
+                    "oklch(61% 0.0089 137.83)",
+                    "oklch(72% 0.0089 137.83)",
+                    "oklch(84% 0.0089 137.83)",
+                    "oklch(95% 0.0089 137.83)"
+                ],
+                "rampPurpose": "Illustrative preview only; not additional runtime tokens."
+            },
+            "trail-dark-ink": {
+                "role": "neutral",
+                "displayName": "Dark Ink",
+                "tonalRamp": [
+                    "oklch(15% 0.0111 89.72)",
+                    "oklch(26% 0.0111 89.72)",
+                    "oklch(38% 0.0111 89.72)",
+                    "oklch(49% 0.0111 89.72)",
+                    "oklch(61% 0.0111 89.72)",
+                    "oklch(72% 0.0111 89.72)",
+                    "oklch(84% 0.0111 89.72)",
+                    "oklch(95% 0.0111 89.72)"
+                ],
+                "rampPurpose": "Illustrative preview only; not additional runtime tokens."
+            },
+            "trail-dark-muted": {
+                "role": "neutral",
+                "displayName": "Dark Muted",
+                "tonalRamp": [
+                    "oklch(15% 0.0230 123.71)",
+                    "oklch(26% 0.0230 123.71)",
+                    "oklch(38% 0.0230 123.71)",
+                    "oklch(49% 0.0230 123.71)",
+                    "oklch(61% 0.0230 123.71)",
+                    "oklch(72% 0.0230 123.71)",
+                    "oklch(84% 0.0230 123.71)",
+                    "oklch(95% 0.0230 123.71)"
+                ],
+                "rampPurpose": "Illustrative preview only; not additional runtime tokens."
+            },
+            "trail-dark-line": {
+                "role": "neutral",
+                "displayName": "Dark Line",
+                "tonalRamp": [
+                    "oklch(15% 0.0223 127.57)",
+                    "oklch(26% 0.0223 127.57)",
+                    "oklch(38% 0.0223 127.57)",
+                    "oklch(49% 0.0223 127.57)",
+                    "oklch(61% 0.0223 127.57)",
+                    "oklch(72% 0.0223 127.57)",
+                    "oklch(84% 0.0223 127.57)",
+                    "oklch(95% 0.0223 127.57)"
+                ],
+                "rampPurpose": "Illustrative preview only; not additional runtime tokens."
+            },
+            "trail-journal-bg": {
+                "role": "neutral",
+                "displayName": "Journal Bg",
+                "tonalRamp": [
+                    "oklch(15% 0.0137 120.29)",
+                    "oklch(26% 0.0137 120.29)",
+                    "oklch(38% 0.0137 120.29)",
+                    "oklch(49% 0.0137 120.29)",
+                    "oklch(61% 0.0137 120.29)",
+                    "oklch(72% 0.0137 120.29)",
+                    "oklch(84% 0.0137 120.29)",
+                    "oklch(95% 0.0137 120.29)"
+                ],
+                "rampPurpose": "Illustrative preview only; not additional runtime tokens."
+            },
+            "trail-dark-journal-bg": {
+                "role": "neutral",
+                "displayName": "Dark Journal Bg",
+                "tonalRamp": [
+                    "oklch(15% 0.0216 142.33)",
+                    "oklch(26% 0.0216 142.33)",
+                    "oklch(38% 0.0216 142.33)",
+                    "oklch(49% 0.0216 142.33)",
+                    "oklch(61% 0.0216 142.33)",
+                    "oklch(72% 0.0216 142.33)",
+                    "oklch(84% 0.0216 142.33)",
+                    "oklch(95% 0.0216 142.33)"
+                ],
+                "rampPurpose": "Illustrative preview only; not additional runtime tokens."
+            }
+        },
+        "trailRoute": {
+            "data": "src/data/gr441-route.json",
+            "source": "https://fastestknowntime.com/route/gr441-france",
+            "provenanceField": "trackSource",
+            "derivation": "Simplified geographic projection of the public GR441 GPX; not a completed personal activity or navigation aid.",
+            "fallback": "Complete source-derived SVG remains visible without JavaScript and with reduced motion."
+        },
+        "trailHeroComposition": {
+            "desktop": "Full-width name above a central square portrait; role and introduction left, discovery action right.",
+            "compact": "Below1000px: one-row name, central portrait, two-column role/action, full-width introduction.",
+            "portraitWidth": "430–520px desktop; up to380px compact"
+        }
     },
     "components": [
         {
@@ -99,36 +483,90 @@
             "description": "Minimal inline header navigation.",
             "html": "<nav aria-label=\"Main navigation\"><a class=\"brand\" href=\"/\">ENZO</a><div><a href=\"/#projects\">Projects</a><a href=\"/#experience\">Experience</a><a href=\"/#highlights\">Highlights</a></div></nav>",
             "css": "nav{font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,sans-serif;box-sizing:border-box;display:flex;justify-content:space-between;align-items:center;gap:20px;height:65px;border-bottom:1px solid var(--border,#e2e4e8);font-size:14px}div{display:flex;gap:20px}a{color:var(--muted,#687180);text-decoration:none}.brand{font-weight:750;letter-spacing:-.03em;color:var(--fg,#202632)}a:hover{color:var(--fg,#202632)}a:focus-visible{outline:2px solid var(--fg,#202632);outline-offset:5px}@media(max-width:639px){nav{height:60px;font-size:12px}div{gap:12px}}"
+        },
+        {
+            "name": "Trail project action",
+            "kind": "button",
+            "refersTo": "trail-action",
+            "description": "Pill-shaped orange link to a race or route source.",
+            "html": "<a class=\"ds-trail-action\" href=\"#project\">Discover the project<svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" aria-hidden=\"true\"><path d=\"M5 19 19 5M5 5h14v14\"/></svg></a>",
+            "css": ".ds-trail-action{display:inline-flex;border-radius:100px;align-items:center;justify-content:space-between;gap:30px;min-height:52px;padding:15px 20px;background:var(--trail-orange,#fb5b30);color:var(--trail-on-orange,#231a13);font:700 12px/1.65 Manrope,sans-serif;text-decoration:none;transition:background 180ms}.ds-trail-action:hover{background:var(--trail-ink,#252b24);color:var(--trail-paper,#f4f1e9)}.ds-trail-action:focus-visible{outline:3px solid currentColor;outline-offset:6px}@media(prefers-reduced-motion:reduce){.ds-trail-action{transition:none}}"
+        },
+        {
+            "name": "Trail personal discovery",
+            "kind": "button",
+            "refersTo": "trail-discover-control",
+            "description": "Personal-introduction link paired with a rotating round arrow.",
+            "html": "<a class=\"ds-trail-discover\" href=\"#story\"><span><svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" aria-hidden=\"true\"><path d=\"m9 5 7 7-7 7\"/></svg></span>Step into my world</a>",
+            "css": ".ds-trail-discover{display:inline-flex;align-items:center;gap:16px;min-height:54px;color:var(--trail-ink,#252b24);font:400 13px/1.65 Manrope,sans-serif;text-decoration:none}.ds-trail-discover>span{display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:var(--trail-orange,#fb5b30);color:var(--trail-on-orange,#231a13);transition:transform 450ms cubic-bezier(.16,1,.3,1)}.ds-trail-discover svg{transform:rotate(90deg)}.ds-trail-discover:hover>span{transform:rotate(-45deg)}.ds-trail-discover:focus-visible{outline:3px solid currentColor;outline-offset:6px}@media(prefers-reduced-motion:reduce){.ds-trail-discover>span{transition:none}}"
+        },
+        {
+            "name": "Trail project choice",
+            "kind": "nav",
+            "refersTo": "trail-project-tab",
+            "description": "Rounded destination anchor in a wrapping, openly spaced selector; progressively enhanced to keyboard-operated tabs.",
+            "html": "<nav class=\"ds-trail-choices\" aria-label=\"Projects\"><a class=\"ds-trail-choice ds-trail-selected\" href=\"#gr441\"><strong>GR441</strong><span>Auvergne</span></a><a class=\"ds-trail-choice\" href=\"#miut\"><strong>MIUT Legend</strong><span>Madeira</span></a></nav>",
+            "css": ".ds-trail-choices{display:flex;flex-wrap:wrap;gap:12px;color:var(--trail-ink,#252b24)}.ds-trail-choice{padding:12px 20px;min-height:48px;border:1px solid var(--trail-line,#c7c8bc);border-radius:100px;text-decoration:none;font:400 15px/1.65 Manrope,sans-serif}.ds-trail-choice strong{font:inherit}.ds-trail-choice span{display:none}.ds-trail-selected{background:var(--trail-orange,#fb5b30);border-color:var(--trail-orange,#fb5b30);color:var(--trail-on-orange,#231a13)}.ds-trail-choice:focus-visible{outline:3px solid currentColor;outline-offset:6px}"
+        },
+        {
+            "name": "Trail partnership disclosure",
+            "kind": "custom",
+            "description": "Native openable proposal row with a drawn plus/minus indicator.",
+            "html": "<details class=\"ds-trail-disclosure\"><summary>Equipment support<span aria-hidden=\"true\"></span></summary><p>Support and contribution are agreed together.</p></details>",
+            "css": ".ds-trail-disclosure{color:var(--trail-ink,#252b24);border-block:1px solid var(--trail-line,#c7c8bc)}.ds-trail-disclosure summary{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-block:28px;list-style:none;cursor:pointer;font:400 clamp(20px,2vw,28px)/1.15 Manrope,sans-serif}.ds-trail-disclosure summary::-webkit-details-marker{display:none}.ds-trail-disclosure summary span{position:relative;width:24px;height:24px;flex-shrink:0}.ds-trail-disclosure summary span:before,.ds-trail-disclosure summary span:after{content:\"\";position:absolute;top:11px;left:4px;width:16px;height:2px;background:currentColor;transition:transform 200ms}.ds-trail-disclosure summary span:after{transform:rotate(90deg)}.ds-trail-disclosure[open] summary span:after{transform:rotate(0)}.ds-trail-disclosure p{margin:0;padding:4px 0 32px;font:400 15px/1.65 Manrope,sans-serif}.ds-trail-disclosure summary:focus-visible{outline:3px solid currentColor;outline-offset:6px}@media(prefers-reduced-motion:reduce){.ds-trail-disclosure summary span:before,.ds-trail-disclosure summary span:after{transition:none}}"
         }
     ],
     "narrative": {
-        "northStar": "The supplied Ren Lenon portfolio",
-        "overview": "The user pinned https://renlenon.vercel.app/ as the visual authority and explicitly required preserving its artistic direction. The implemented world is a narrow, white-first portfolio with light section titles, muted prose, compact controls and restrained image interactions. The default system sans stack is intentional reference fidelity.\n\nKeep the identity personal through verified content and the user's projects. Do not reinterpret this into an oversized agency landing page, colorful dashboard or new brand direction. This document records the implementation; the home page's Experience mode and sequence live in `.impeccable/surface.md`.",
+        "northStar": "The supplied Ren Lenon portfolio (developer); A personal field journal (trail)",
+        "overview": "This repository has two independent visual worlds. The unprefixed tokens and developer guidance below apply to `/` and `/fr/`, using `Layout.astro` and `global.css`. The `trail-` tokens and explicitly marked trail guidance apply only to `/trail/` and `/fr/trail/`, using `TrailLayout.astro` and `trail.css`. Trail imports its own stylesheet; do not propagate its display fonts, orange palette or wide composition into the developer portfolio.\n\n### Developer world\n\nThe user pinned https://renlenon.vercel.app/ as the developer visual authority and explicitly required preserving its artistic direction. The implemented world is a narrow, white-first portfolio with light section titles, muted prose, compact controls and restrained image interactions. The default system sans stack is intentional reference fidelity.\n\nKeep the identity personal through verified content and the user's projects. Do not reinterpret this into an oversized agency landing page, colorful dashboard or new brand direction. This document records the implementation; the home page's Experience mode and sequence live in `.impeccable/surface.md`.\n\n**Key Characteristics:**\n\n- Narrow centered composition with generous separation between sections.\n- White and charcoal surfaces, gray text and borders, small black actions.\n- Circular avatar with randomized pixel reveal.\n- Compact timelines, dashed project outlines and softly rounded photographs.\n- Functional light and dark themes, with English and French route variants.\n\n### Trail world\n\nThe trail world is a personal field journal: Enzo's full name leads, accompanied by his color portrait, home landscape and real preparation footage. Warm paper, olive ink, restrained orange and light Manrope typography support the person. Photographic arrangements and source-grounded route motion create the distinctive section design; smaller natural-case headings keep the voice conversational.\n\nThe user explicitly rejected the earlier aggressive condensed typography and oversized campaign slogans. The current personal-first direction supersedes that treatment. The approved contract is `.impeccable/surfaces/src-components-trailpage-astro.md`; page sequence and content constraints live in `.impeccable/trail.md`.\n\n**Key Characteristics:**\n\n- Full name first, with real personal imagery prominent.\n- Manrope 400 display and prose, with 700 reserved for selected controls and emphasis.\n- Loosely rotated photographic frames, fine rules and open evidence rows.\n- Three biographical chapters with a responsive photographic spread, followed by a source-derived GR441 route.\n- Event-driven motion, bilingual routes, persistent themes, keyboard project selection and readable no-JavaScript content.",
         "keyCharacteristics": [
             "Narrow centered composition with generous separation between sections.",
             "White and charcoal surfaces, gray text and borders, small black actions.",
             "Circular avatar with randomized pixel reveal.",
             "Compact timelines, dashed project outlines and softly rounded photographs.",
-            "Functional light and dark themes with English copy throughout."
+            "Functional light and dark themes, with English and French route variants.",
+            "Full name first, with real personal imagery prominent.",
+            "Manrope 400 display and prose, with 700 reserved for selected controls and emphasis.",
+            "Loosely rotated photographic frames, fine rules and open evidence rows.",
+            "Three biographical chapters with a responsive photographic spread, followed by a source-derived GR441 route.",
+            "Event-driven motion, bilingual routes, persistent themes, keyboard project selection and readable no-JavaScript content."
         ],
         "rules": [
             {
                 "name": "The Reference Rule",
                 "body": "Preserve the supplied reference's monochrome hierarchy. Existing muted purple and green project illustrations remain small content surfaces, not accents to expand across the page.",
                 "section": "colors"
+            },
+            {
+                "name": "The Route Boundary Rule",
+                "body": "Keep each world's tokens and component language inside its own layout and routes.",
+                "section": "colors"
+            },
+            {
+                "name": "The Personal Voice Rule",
+                "body": "Lead with Enzo's name and readable natural-case type; preserve the light display weight instead of restoring oversized condensed slogans.",
+                "section": "typography"
             }
         ],
         "dos": [
             "Do preserve the supplied reference's composition, neutral hierarchy and profile pixel effect.",
             "Do maintain English copy, both themes, visible keyboard focus and reduced-motion behavior.",
             "Do keep avatar, stock illustrations and dated contribution data accurately described.",
-            "Do use actual repository destinations and verified career facts."
+            "Do use actual repository destinations and verified career facts.",
+            "Do lead with Enzo’s first and last name, color portrait and personal footage; use light Manrope and natural-case headings.",
+            "Do retain visible focus, both language routes, theme persistence, native disclosures and complete no-JavaScript project content.",
+            "Do keep licensed landscape illustrations, the confirmed portrait and personal footage accurately credited.",
+            "Do show dated performance and social snapshots as evidence, and ambitions as future goals."
         ],
         "donts": [
             "Don't replace the pinned direction with a newly invented visual system.",
             "Don't present stock photos as personal portraits, project screenshots or evidence of trail achievements.",
             "Don't invent career years, project metrics, testimonials or contact channels.",
-            "Don't treat the dated GitHub snapshot as a live activity feed."
+            "Don't treat the dated GitHub snapshot as a live activity feed.",
+            "Don't carry the trail palette, custom typography or wide grid into the developer routes.",
+            "Don't restore the rejected aggressive condensed type, oversized slogans or landscape-first identity.",
+            "Don't present destination photographs as race participation, ambitions as confirmed entries, or social snapshots as live analytics.",
+            "Don't hide project facts or contact behind animation or JavaScript-only controls."
         ]
     }
 }

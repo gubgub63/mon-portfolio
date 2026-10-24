@@ -1,3 +1,5 @@
+import { gr441Project } from './gr441-project';
+
 /** Goals are ambitions supplied by Enzo, not confirmed race entries or completed records. */
 export const trailGoals = [
     {
@@ -19,14 +21,14 @@ export const trailGoals = [
         id: 'gr441',
         title: 'GR441 · FKT attempt',
         location: 'Chaîne des Puys, Auvergne',
-        timing: '2027',
+        timing: gr441Project.timing.en,
         type: 'Personal challenge',
         image: '/images/trail/auvergne.webp',
         imageAlt: 'The volcanic landscape of the Chaîne des Puys, seen from Puy de Dôme',
         distance: '114 km',
         elevation: '2,782 m+',
         description:
-            'Chase a fastest known time on the loop around my home volcanoes. A personal project on the GR441, with the attempt format still to be defined.',
+            'Attempt a supported fastest known time on the loop around my home volcanoes in early 2027. A personal project, from the preparation to attempt day.',
         href: 'https://fastestknowntime.com/route/gr441-france',
         linkLabel: 'View the FKT route',
     },

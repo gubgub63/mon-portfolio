@@ -125,6 +125,24 @@ svg {
     max-width: 1800px;
     margin-inline: auto;
 }
+.trail-nav-identity {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.trail-nav-developer {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--trail-muted);
+}
+.trail-nav-developer:hover {
+    color: var(--trail-ink);
+    text-decoration: underline;
+}
 .trail-wordmark {
     display: inline-flex;
     align-items: center;

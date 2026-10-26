@@ -12,6 +12,7 @@ interface Props {
 }
 const { lang, title, description, project } = Astro.props;
 const fr = lang === 'fr';
+const homePath = fr ? '/fr/' : '/';
 const trailPath = fr ? '/fr/trail/' : '/trail/';
 const englishPath = project ? '/trail/gr441/' : '/trail/';
 const frenchPath = project ? '/fr/trail/gr441/' : '/fr/trail/';
@@ -49,14 +50,20 @@ const absoluteUrl = (path: string) => new URL(sitePath(path), Astro.site || Astr
         </a>
         <header class="trail-header">
             <nav class="trail-nav" aria-label={fr ? 'Navigation principale' : 'Main navigation'}>
-                <a
-                    class="trail-wordmark"
-                    href={sitePath(trailPath)}
-                    aria-label="Enzo Gubbiotti — Trail"
-                >
-                    <Icon name="mountain" size={28} />
-                    <span>Enzo Gubbiotti</span>
-                </a>
+                <div class="trail-nav-identity">
+                    <a
+                        class="trail-wordmark"
+                        href={sitePath(trailPath)}
+                        aria-label="Enzo Gubbiotti — Trail"
+                    >
+                        <Icon name="mountain" size={28} />
+                        <span>Enzo Gubbiotti</span>
+                    </a>
+                    <a class="trail-nav-developer" href={sitePath(homePath)}>
+                        <Icon name="code" size={16} />
+                        <span>{fr ? 'Portfolio dev' : 'Developer portfolio'}</span>
+                    </a>
+                </div>
                 <div class="trail-nav-sections">
                     {project ? (
                         <>
@@ -119,7 +126,7 @@ const absoluteUrl = (path: string) => new URL(sitePath(path), Astro.site || Astr
                 <span>Enzo Gubbiotti</span>
             </a>
             <p>© {new Date().getFullYear()} Enzo Gubbiotti · Puy-de-Dôme, France</p>
-            <a class="trail-text-link" href={sitePath(fr ? '/fr/' : '/')}>
+            <a class="trail-text-link" href={sitePath(homePath)}>
                 {fr ? 'Côté développeur' : 'The developer side'}
                 <Icon name="arrow" size={16} />
             </a>

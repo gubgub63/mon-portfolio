@@ -28,7 +28,7 @@ const indexLabels: Record<string, string> = {
     '100k': '100K',
     '100m': '100M',
 };
-const highlights = ['2026-08-08', '2026-06-12', '2025-10-11'].map((date, index) => ({
+const highlights = ['2026-10-10', '2026-08-08', '2026-06-12'].map((date, index) => ({
     ...trailResults.results.find((result) => result.dateIso === date)!,
     note: copy.highlights[index],
 }));

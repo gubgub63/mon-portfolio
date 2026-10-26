@@ -26,6 +26,26 @@
     ],
     "results": [
         {
+            "dateIso": "2026-10-10",
+            "raceName": "GTA · X - Ultra-Trail 80 km",
+            "eventName": "Grands Trails d'Auvergne (Sommet National du Trail)",
+            "eventYear": 2026,
+            "distance": "80.00",
+            "elevationGain": 3200,
+            "time": "08:55",
+            "isDnf": false,
+            "rank": 38,
+            "totalRanked": 822,
+            "piCategory": "100k",
+            "source": "Time, distance and overall placing supplied directly by Enzo Gubbiotti on 2026-10-26; time supplied to the minute.",
+            "eventSource": "https://www.grandstrailsauvergne.fr/les-courses/x-ultra-trail/",
+            "categoryPlacing": {
+                "category": "Espoir",
+                "place": "2nd",
+                "source": "Confirmed directly by Enzo Gubbiotti"
+            }
+        },
+        {
             "dateIso": "2026-08-08",
             "raceName": "Trail de La Gentiane 28km",
             "eventName": "Trail Des 6 Burons",

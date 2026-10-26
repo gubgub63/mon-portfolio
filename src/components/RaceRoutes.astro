@@ -1,0 +1,101 @@
+---
+import TrailRoute from './TrailRoute.astro';
+import Icon from './Icon.astro';
+import utlac from '../data/utlac-3d.json';
+import vda from '../data/vda-3d.json';
+
+const { lang } = Astro.props as { lang: 'fr' | 'en' };
+const fr = lang === 'fr';
+const races = [
+    {
+        id: 'utlac',
+        name: 'UTLAC 120K',
+        region: fr ? 'Lac de Côme · Italie' : 'Lake Como · Italy',
+        title: fr ? 'D’un lacet à l’autre.' : 'From ridge to lakeshore.',
+        description: fr
+            ? 'De Menaggio à Lecco, une traversée entre les rives du lac de Côme et les crêtes du Triangolo Lariano. Explore le tracé, les longues montées et le retour vers le lac.'
+            : 'From Menaggio to Lecco, a journey between Lake Como’s shores and the ridges of the Triangolo Lariano. Explore the route, the long climbs and the descent back to the lake.',
+        distance: '122 km',
+        climbing: '6 209 m+',
+        start: 'Menaggio',
+        finish: 'Lecco',
+        route: utlac,
+        sourceLabel: 'UTLAC',
+        note: fr
+            ? 'Copie publique du GPX diffusée par Peakflow, édition non précisée. Le tracé peut évoluer ; les chiffres annoncés par l’organisateur et ceux calculés sur le GPX diffèrent.'
+            : 'Public GPX copy distributed by Peakflow, edition unspecified. The course may change; organiser figures differ from those calculated from the GPX.',
+    },
+    {
+        id: 'vda',
+        name: 'Val d’Aran · VDA 160K',
+        region: fr ? 'Pyrénées · Espagne' : 'Pyrenees · Spain',
+        title: fr ? 'Le tour du Val d’Aran.' : 'A journey around Val d’Aran.',
+        description: fr
+            ? 'La Torn dera Val d’Aran relie vallées, cols et lacs d’altitude dans une grande boucle au départ de Vielha. Un autre relief, une autre échelle : suis le parcours au fil des kilomètres.'
+            : 'The Torn dera Val d’Aran links valleys, passes and mountain lakes on a long loop from Vielha. Different terrain, a different scale: follow the route kilometre by kilometre.',
+        distance: '163 km',
+        climbing: '10 000 m+',
+        start: 'Vielha',
+        finish: fr ? 'retour à Vielha' : 'back to Vielha',
+        route: vda,
+        sourceLabel: 'Val d’Aran by UTMB',
+        note: fr
+            ? 'GPX officiel de l’édition 2026, actuellement lié par l’organisateur. Présenté comme référence de terrain ; le parcours d’une prochaine édition peut évoluer.'
+            : 'Official 2026 GPX, currently linked by the organiser. Shown as a terrain reference; the course of a future edition may change.',
+    },
+];
+---
+
+<section id="race-routes" class="race-routes" aria-labelledby="race-routes-title">
+    <div class="race-routes-heading trail-wrap">
+        <p class="trail-caption">{fr ? 'Explorer les parcours · 3D' : 'Explore the routes · 3D'}</p>
+        <h2 id="race-routes-title">
+            {fr ? 'Deux ultras.' : 'Two ultras.'}
+            <br />
+            <span>{fr ? 'Deux reliefs.' : 'Two landscapes.'}</span>
+        </h2>
+    </div>
+    {races.map((race) => (
+        <article id={`parcours-${race.id}`} class="race-route-entry trail-wrap">
+            <div class="race-route-copy">
+                <p class="race-route-kicker">
+                    {race.name} · {race.region}
+                </p>
+                <h3>{race.title}</h3>
+                <p>{race.description}</p>
+                <dl class="loop-facts">
+                    <div>
+                        <dt>{fr ? 'Distance annoncée' : 'Listed distance'}</dt>
+                        <dd>{race.distance}</dd>
+                    </div>
+                    <div>
+                        <dt>{fr ? 'Dénivelé positif' : 'Elevation gain'}</dt>
+                        <dd>{race.climbing}</dd>
+                    </div>
+                </dl>
+                <a
+                    class="trail-text-link"
+                    href={race.route.source}
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    {fr ? 'Découvrir la course' : 'Explore the race'}
+                    <Icon name="arrow" size={18} />
+                </a>
+            </div>
+            <TrailRoute
+                lang={lang}
+                route={race.route}
+                routeId={race.id}
+                name={`${race.name} · ${race.region}`}
+                headline={fr ? 'Le terrain, en relief.' : 'Explore the terrain.'}
+                startLabel={race.start}
+                finishLabel={race.finish}
+                sourceLabel={race.sourceLabel}
+                elevationLabel="Mapzen Terrain Tiles"
+                routeNote={race.note}
+                showElevation
+            />
+        </article>
+    ))}
+</section>

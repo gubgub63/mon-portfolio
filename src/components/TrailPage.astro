@@ -6,6 +6,7 @@ import { trailGoals } from '../data/trail';
 import { trailCopy, type Language } from '../data/trail-copy';
 import trailResults from '../data/trail-results.json';
 import TrailRoute from './TrailRoute.astro';
+import RaceRoutes from './RaceRoutes.astro';
 import { trailSocial } from '../data/trail-social';
 import { sitePath } from '../lib/paths';
 import { gr441Project } from '../data/gr441-project';
@@ -233,6 +234,10 @@ const projectNames: Record<string, string> = {
             <div>
                 <p>{copy.goalsIntro}</p>
                 <p class="trail-caption">{copy.goalsDisclaimer}</p>
+                <a class="trail-text-link" href="#race-routes">
+                    {fr ? 'UTLAC & Val d’Aran en 3D' : 'UTLAC & Val d’Aran in 3D'}
+                    <Icon name="arrow" size={18} />
+                </a>
             </div>
         </div>
         <div class="project-explorer trail-wrap">
@@ -311,6 +316,8 @@ const projectNames: Record<string, string> = {
             </div>
         </div>
     </section>
+
+    <RaceRoutes lang={lang} />
 
     <section id="results" class="trail-results trail-wrap" aria-labelledby="results-heading">
         <div class="results-heading">

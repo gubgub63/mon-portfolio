@@ -1,19 +1,48 @@
 ---
-import route from '../data/gr441-3d.json';
+import gr441Route from '../data/gr441-3d.json';
 import '../styles/trail-route.css';
-import { initialTrailView, renderTrailScene } from '../lib/trail-scene';
-const { lang, showElevation = false } = Astro.props as {
+import { initialTrailView, renderTrailScene, type TrailSceneData } from '../lib/trail-scene';
+const {
+    lang,
+    showElevation = false,
+    route = gr441Route,
+    routeId = 'gr441',
+    name = 'GR441 · Chaîne des Puys',
+    headline,
+    startLabel = 'Volvic',
+    finishLabel,
+    sourceLabel = 'Fastest Known Time',
+    elevationLabel = 'IGN · RGE ALTI®',
+    routeNote,
+} = Astro.props as {
     lang: 'en' | 'fr';
     showElevation?: boolean;
+    route?: TrailSceneData & {
+        source: string;
+        elevationSource: string;
+        trackSource?: string;
+        elevationCredit?: string;
+    };
+    routeId?: string;
+    name?: string;
+    headline?: string;
+    startLabel?: string;
+    finishLabel?: string;
+    sourceLabel?: string;
+    elevationLabel?: string;
+    routeNote?: string;
 };
 const fr = lang === 'fr';
+const sceneData = { ...route, originLabel: startLabel, finishLabel };
+const progressId = `${routeId}-progress`;
+const instructionsId = `${routeId}-instructions`;
 const distanceLabel = new Intl.NumberFormat(fr ? 'fr-FR' : 'en-GB', {
     maximumFractionDigits: 1,
 }).format(route.distanceKm);
 const minimumAltitude = Math.min(...route.route.map((point) => point[2]));
 const maximumAltitude = Math.max(...route.route.map((point) => point[2]));
 const profileY = (altitude: number) =>
-    130 - ((altitude - minimumAltitude) / (maximumAltitude - minimumAltitude)) * 110;
+    130 - ((altitude - minimumAltitude) / Math.max(1, maximumAltitude - minimumAltitude)) * 110;
 const elevationPath = route.route
     .map(
         (point, index) =>
@@ -22,11 +51,16 @@ const elevationPath = route.route
     .join(' ');
 ---
 
-<figure class="trail-route" data-trail-route data-lang={lang}>
+<figure class="trail-route" data-trail-route={routeId} data-lang={lang}>
+    <script
+        type="application/json"
+        data-route-data
+        set:html={JSON.stringify(sceneData).replace(/</g, '\\u003c')}
+    />
     <div class="route-heading">
         <div>
-            <span class="route-eyebrow">GR441 · Chaîne des Puys</span>
-            <p>{fr ? 'Le tour de mes volcans.' : 'Around my home volcanoes.'}</p>
+            <span class="route-eyebrow">{name}</span>
+            <p>{headline ?? (fr ? 'Le tour de mes volcans.' : 'Around my home volcanoes.')}</p>
         </div>
         <div
             class="route-view-switch"
@@ -44,7 +78,7 @@ const elevationPath = route.route
     </div>
     <div
         class="route-viewport"
-        aria-label={fr ? 'Tracé du GR441 en relief' : 'GR441 route in relief'}
+        aria-label={fr ? `Tracé de ${name} en relief` : `${name} route in relief`}
     >
         <svg
             class="route-scene"
@@ -52,11 +86,11 @@ const elevationPath = route.route
             role="img"
             aria-label={
                 fr
-                    ? 'Parcours géographique du GR441 sur le relief de la Chaîne des Puys'
-                    : 'Geographic GR441 route over the terrain of the Chaîne des Puys'
+                    ? `Parcours géographique de ${name} sur le relief`
+                    : `Geographic ${name} route over the terrain`
             }
         >
-            <g data-scene set:html={renderTrailScene(route, initialTrailView)} />
+            <g data-scene set:html={renderTrailScene(sceneData, initialTrailView)} />
         </svg>
         <div class="route-zoom" hidden>
             <button
@@ -82,36 +116,38 @@ const elevationPath = route.route
             </button>
         </div>
     </div>
-    <p class="route-hint" id="route-instructions" hidden>
+    <p class="route-hint" id={instructionsId} hidden>
         {fr
             ? 'Glisser pour orienter · Flèches au clavier · + / − pour zoomer'
             : 'Drag to rotate · Arrow keys to orient · + / − to zoom'}
     </p>
     <div class="route-explore" hidden>
         <div class="route-readout">
-            <label for="route-progress">{fr ? 'Explorer le tracé' : 'Explore the route'}</label>
-            <output for="route-progress" data-readout></output>
+            <label for={progressId}>{fr ? 'Explorer le tracé' : 'Explore the route'}</label>
+            <output for={progressId} data-readout></output>
         </div>
         <input
-            id="route-progress"
+            id={progressId}
             type="range"
             min="0"
             max="1000"
             step="1"
             value="0"
-            aria-label={fr ? 'Position sur le parcours du GR441' : 'Position along the GR441 route'}
+            aria-label={
+                fr ? `Position sur le parcours de ${name}` : `Position along the ${name} route`
+            }
         />
         <div class="route-range-labels" aria-hidden="true">
-            <span>Volvic</span>
+            <span>{startLabel}</span>
             <span>
-                {distanceLabel} km · {fr ? 'retour à Volvic' : 'back to Volvic'}
+                {distanceLabel} km · {finishLabel ?? (fr ? 'retour à Volvic' : 'back to Volvic')}
             </span>
         </div>
     </div>
     {showElevation && (
         <div class="route-elevation">
             <div class="route-elevation-label">
-                <span>{fr ? 'Le profil de la boucle' : 'The loop’s elevation profile'}</span>
+                <span>{fr ? 'Le profil du parcours' : 'The elevation profile'}</span>
                 <span>
                     {minimumAltitude}–{maximumAltitude} m
                 </span>
@@ -120,11 +156,7 @@ const elevationPath = route.route
                 class="route-profile"
                 viewBox="0 0 600 150"
                 role="img"
-                aria-label={
-                    fr
-                        ? 'Profil altimétrique du GR441, basé sur les altitudes IGN'
-                        : 'GR441 elevation profile, based on IGN elevations'
-                }
+                aria-label={fr ? `Profil altimétrique de ${name}` : `${name} elevation profile`}
             >
                 <path class="route-profile-area" d={`${elevationPath} L600,145 L0,145 Z`} />
                 <path class="route-profile-track" d={elevationPath} />
@@ -136,27 +168,35 @@ const elevationPath = route.route
     <figcaption>
         <span>
             {fr
-                ? 'Relief amplifié ×8 · Tracé GPS simplifié'
-                : 'Relief exaggerated ×8 · Simplified GPS track'}
+                ? `Relief amplifié ×${route.verticalExaggeration ?? 8} · Tracé GPS simplifié`
+                : `Relief exaggerated ×${route.verticalExaggeration ?? 8} · Simplified GPS track`}
         </span>
         <span>
             <a href={route.source} target="_blank" rel="noreferrer">
-                Fastest Known Time
+                {sourceLabel}
             </a>{' '}
             ·{' '}
             <a href={route.elevationSource} target="_blank" rel="noreferrer">
-                IGN · RGE ALTI®
+                {elevationLabel}
             </a>
         </span>
+        {route.trackSource && (
+            <a href={route.trackSource} target="_blank" rel="noreferrer">
+                {fr ? 'Source du GPX' : 'GPX source'}
+            </a>
+        )}
+        {route.elevationCredit && <span>{route.elevationCredit}</span>}
+        {routeNote && <span>{routeNote}</span>}
     </figcaption>
 </figure>
 
 <script>
-    import data from '../data/gr441-3d.json';
     import { initialTrailView, renderTrailScene, routePosition } from '../lib/trail-scene';
 
-    const root = document.querySelector<HTMLElement>('[data-trail-route]');
-    if (root) {
+    for (const root of document.querySelectorAll<HTMLElement>('[data-trail-route]')) {
+        const data = JSON.parse(
+            root.querySelector('[data-route-data]')!.textContent!,
+        ) as import('../lib/trail-scene').TrailSceneData;
         const viewport = root.querySelector<HTMLElement>('.route-viewport')!;
         const scene = root.querySelector<SVGGElement>('[data-scene]')!;
         const slider = root.querySelector<HTMLInputElement>('input')!;
@@ -184,7 +224,9 @@ const elevationPath = route.route
             profilePoint?.setAttribute('cx', String(profileX));
             profilePoint?.setAttribute(
                 'cy',
-                String(130 - ((point[2] - minAltitude) / (maxAltitude - minAltitude)) * 110),
+                String(
+                    130 - ((point[2] - minAltitude) / Math.max(1, maxAltitude - minAltitude)) * 110,
+                ),
             );
             root!.dataset.flat = String(view.flat);
             root!.querySelectorAll<HTMLButtonElement>('[data-view]').forEach((button) => {
@@ -205,7 +247,7 @@ const elevationPath = route.route
             schedule();
         }
         viewport.tabIndex = 0;
-        viewport.setAttribute('aria-describedby', 'route-instructions');
+        viewport.setAttribute('aria-describedby', root.querySelector('.route-hint')!.id);
         root.querySelectorAll<HTMLElement>('[hidden]').forEach((element) => {
             element.hidden = false;
         });

@@ -231,7 +231,65 @@
     stroke: var(--trail-orange);
     stroke-width: 2;
 }
+.race-routes {
+    padding-block: clamp(64px, 8vw, 120px);
+    background: var(--trail-night);
+    color: var(--trail-white);
+}
+.race-routes-heading {
+    margin-bottom: 64px;
+}
+.race-routes .trail-caption,
+.race-routes h2 span {
+    color: var(--trail-night-muted);
+}
+.race-routes-heading h2 {
+    margin-top: 16px;
+}
+.race-route-entry {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    align-items: center;
+    gap: clamp(32px, 7vw, 120px);
+}
+.race-route-entry + .race-route-entry {
+    margin-top: 80px;
+    padding-top: 80px;
+    border-top: 1px solid #c5cbbd38;
+}
+.race-route-kicker {
+    font-size: 12px;
+    color: var(--trail-night-muted);
+}
+.race-route-copy h3 {
+    margin-block: 20px 24px;
+    font-size: clamp(28px, 3vw, 44px);
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.035em;
+}
+.race-route-copy > p:not(.race-route-kicker) {
+    max-width: 46ch;
+    color: var(--trail-night-muted);
+}
+.race-route-copy .loop-facts {
+    margin-block: 32px;
+}
+.race-route-copy .loop-facts dt {
+    color: var(--trail-night-muted);
+}
 @media (max-width: 760px) {
+    .race-routes-heading {
+        margin-bottom: 40px;
+    }
+    .race-route-entry {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 40px;
+    }
+    .race-route-entry + .race-route-entry {
+        margin-top: 56px;
+        padding-top: 56px;
+    }
     .trail-route {
         max-width: 600px;
         justify-self: center;

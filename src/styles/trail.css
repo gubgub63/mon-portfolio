@@ -1831,3 +1831,8 @@ tbody time {
         max-width: 22ch;
     }
 }
+.project-landscape:not(:has(img)) {
+    background:
+        radial-gradient(ellipse at 20% 85%, #5d7a52 0, transparent 55%),
+        radial-gradient(ellipse at 80% 30%, #4a6644 0, transparent 50%), #2f4230;
+}

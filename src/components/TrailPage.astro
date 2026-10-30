@@ -47,8 +47,8 @@ const formatPlacing = (place: string) =>
 const fr = lang === 'fr';
 const projectNames: Record<string, string> = {
     gr441: 'GR441',
-    miut: 'MIUT Legend',
-    diagonale: 'Diagonale des Fous',
+    utlac: 'UTLAC 120K',
+    vda: 'VDA 160K',
 };
 ---
 
@@ -261,19 +261,15 @@ const projectNames: Record<string, string> = {
                         aria-labelledby={`${goal.id}-title`}
                     >
                         <div class="project-landscape">
-                            <img
-                                src={sitePath(goal.image)}
-                                alt={goal.imageAlt}
-                                width={goal.id === 'gr441' ? '1600' : '1000'}
-                                height={
-                                    goal.id === 'gr441'
-                                        ? '1200'
-                                        : goal.id === 'miut'
-                                          ? '721'
-                                          : '669'
-                                }
-                                loading="lazy"
-                            />
+                            {goal.image && (
+                                <img
+                                    src={sitePath(goal.image)}
+                                    alt={goal.imageAlt}
+                                    width="1600"
+                                    height="1200"
+                                    loading="lazy"
+                                />
+                            )}
                             <span class="project-location">
                                 <Icon name="mountain" size={18} />
                                 {goal.location}
@@ -614,44 +610,6 @@ const projectNames: Record<string, string> = {
                     </a>
                     .
                 </li>
-                <li>
-                    Madeira:{' '}
-                    <a
-                        href="https://commons.wikimedia.org/wiki/File:Pico_do_Arieiro.jpg"
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        Markus Bernet
-                    </a>
-                    ·{' '}
-                    <a
-                        href="https://creativecommons.org/licenses/by-sa/2.0/"
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        CC BY-SA 2.0
-                    </a>
-                    .
-                </li>
-                <li>
-                    Réunion:{' '}
-                    <a
-                        href="https://commons.wikimedia.org/wiki/File:Mafate.jpg"
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        Jdada42
-                    </a>
-                    ·{' '}
-                    <a
-                        href="https://creativecommons.org/licenses/by-sa/3.0/"
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        CC BY-SA 3.0
-                    </a>
-                    .
-                </li>
             </ul>
             <p>
                 {copy.creditsProcessing}{' '}
@@ -666,12 +624,8 @@ const projectNames: Record<string, string> = {
             </p>
             <p>
                 {copy.raceDetails}{' '}
-                <a
-                    href="https://miutmadeira.com/miut-2027-regulations/"
-                    target="_blank"
-                    rel="noreferrer"
-                >
-                    MIUT 2027
+                <a href="https://www.utlactrail.com/gare/120k/" target="_blank" rel="noreferrer">
+                    UTLAC 120K
                 </a>{' '}
                 ·{' '}
                 <a
@@ -682,8 +636,8 @@ const projectNames: Record<string, string> = {
                     {copy.fktSource}
                 </a>{' '}
                 ·{' '}
-                <a href="https://www.grandraid-reunion.com/en/" target="_blank" rel="noreferrer">
-                    Grand Raid Réunion
+                <a href="https://valdaran.utmb.world/races/VDA" target="_blank" rel="noreferrer">
+                    Val d’Aran by UTMB
                 </a>
                 .
             </p>

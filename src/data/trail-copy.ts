@@ -13,7 +13,7 @@ export const trailCopy = {
         eyebrow: 'Trail & ultra · Auvergne',
         heroRole: 'From the volcanoes.',
         heroRoleAside: 'Towards the long distance.',
-        intro: 'An Espoir category win at La Gentiane and a 114 km ultra finish. My goal for 2026 is to reach a UTMB Index of 700. I’m building my next chapter around the GR441, Madeira and Réunion, with the ambition of making a life in trail running.',
+        intro: 'An Espoir category win at La Gentiane and a 114 km ultra finish. My goal for 2026 is to reach a UTMB Index of 700. I’m building my next chapter around the GR441, UTLAC and Val d’Aran, with the ambition of making a life in trail running.',
         partnershipButton: 'Discuss a partnership',
         goalsButton: 'My 2027 goals',
         resultsButton: 'Race results',
@@ -34,7 +34,7 @@ export const trailCopy = {
         viewTiktok: 'Explore my videos',
         winLabel: 'Espoir category · La Gentiane 2026',
         longestLabel: 'Finished · UTPMA 2026',
-        projectsLabel: 'GR441 · MIUT · Diagonale',
+        projectsLabel: 'GR441 · UTLAC · VDA',
         viewProfile: 'View profile',
         notRated: 'Not rated',
         publishedProfile: 'Published UTMB profile',
@@ -59,7 +59,7 @@ export const trailCopy = {
         categorySource: '2026 GTA result and Espoir category placings supplied by Enzo.',
         goalsTitle: 'The next chapter.',
         goalsIntro:
-            'A personal challenge in my home volcanoes, then two island adventures. Three ambitions to prepare for, and stories to share along the way.',
+            'A personal challenge in my home volcanoes, then two alpine ultras. Three ambitions to prepare for, and stories to share along the way.',
         signatureProject: 'Signature project',
         goalPartnershipLabel: 'A partnership opportunity',
         goalPartnerships: [
@@ -127,13 +127,12 @@ export const trailCopy = {
         fktSource: 'GR441 on Fastest Known Time',
         goals: [
             {
-                location: 'Madeira, Portugal',
-                timing: '24 April 2027',
+                location: 'Lake Como, Italy',
+                timing: '2027',
                 type: 'Race goal',
-                imageAlt: 'Madeira mountain landscape',
                 description:
-                    'Take on Madeira from coast to coast. A long day and night in the mountains, and a chance to take my ultra-running a step further.',
-                linkLabel: 'Explore MIUT',
+                    'Cross the Triangolo Lariano from Menaggio to Lecco. Long climbs above Lake Como and a night on the ridges, for my first ultra beyond 100 km.',
+                linkLabel: 'Explore UTLAC',
             },
             {
                 title: 'GR441 · FKT attempt',
@@ -146,13 +145,12 @@ export const trailCopy = {
                 linkLabel: 'Explore the GR441 project',
             },
             {
-                location: 'Réunion Island',
+                location: 'Pyrenees, Spain',
+                timing: '2027',
                 type: 'Race goal',
-                imageAlt: 'Mountain ridges and valleys on Réunion Island',
-                distance: 'An island crossing',
                 description:
-                    'Make it to the start line of the Diagonale and experience Réunion on foot. One of the adventures that makes me want to keep going further.',
-                linkLabel: 'Explore the Grand Raid',
+                    'Complete the Torn dera Val d’Aran, a long loop from Vielha through valleys, passes and mountain lakes. The biggest ultra of my projects.',
+                linkLabel: 'Explore Val d’Aran',
             },
         ],
     },
@@ -166,7 +164,7 @@ export const trailCopy = {
         eyebrow: 'Trail & ultra · Auvergne',
         heroRole: 'Des volcans.',
         heroRoleAside: 'Vers la longue distance.',
-        intro: 'Une victoire en catégorie Espoir à La Gentiane et un ultra de 114 km terminé. Mon objectif pour 2026 : atteindre un index UTMB de 700. Je construis la suite autour du GR441, de Madère et de La Réunion, avec l’ambition de faire du trail mon quotidien.',
+        intro: 'Une victoire en catégorie Espoir à La Gentiane et un ultra de 114 km terminé. Mon objectif pour 2026 : atteindre un index UTMB de 700. Je construis la suite autour du GR441, de l’UTLAC et du Val d’Aran, avec l’ambition de faire du trail mon quotidien.',
         partnershipButton: 'Parlons partenariat',
         goalsButton: 'Mes objectifs 2027',
         resultsButton: 'Résultats de course',
@@ -187,7 +185,7 @@ export const trailCopy = {
         viewTiktok: 'Découvrir mes vidéos',
         winLabel: 'Catégorie Espoir · La Gentiane 2026',
         longestLabel: 'Terminé · UTPMA 2026',
-        projectsLabel: 'GR441 · MIUT · Diagonale',
+        projectsLabel: 'GR441 · UTLAC · VDA',
         viewProfile: 'Voir mon profil',
         notRated: 'Non classé',
         publishedProfile: 'Profil UTMB publié',
@@ -212,7 +210,7 @@ export const trailCopy = {
         categorySource: 'Résultat du GTA 2026 et classements Espoir communiqués par Enzo.',
         goalsTitle: 'La suite se prépare.',
         goalsIntro:
-            'Un défi personnel autour de mes volcans, puis deux aventures insulaires. Trois ambitions à préparer, et des histoires à partager en chemin.',
+            'Un défi personnel autour de mes volcans, puis deux ultras de montagne. Trois ambitions à préparer, et des histoires à partager en chemin.',
         signatureProject: 'Projet signature',
         goalPartnershipLabel: 'Une piste de collaboration',
         goalPartnerships: [
@@ -283,13 +281,12 @@ export const trailCopy = {
         fktSource: 'GR441 sur Fastest Known Time',
         goals: [
             {
-                location: 'Madère, Portugal',
-                timing: '24 avril 2027',
+                location: 'Lac de Côme, Italie',
+                timing: '2027',
                 type: 'Objectif de course',
-                imageAlt: 'Paysage montagneux de Madère',
                 description:
-                    'Traverser Madère d’une côte à l’autre. Une longue journée et une nuit en montagne pour franchir un cap en ultra-trail.',
-                linkLabel: 'Découvrir le MIUT',
+                    'Traverser le Triangolo Lariano de Menaggio à Lecco. De longues montées au-dessus du lac de Côme et une nuit sur les crêtes, pour mon premier ultra au-delà de 100 km.',
+                linkLabel: 'Découvrir l’UTLAC',
             },
             {
                 title: 'GR441 · tentative de FKT',
@@ -302,13 +299,12 @@ export const trailCopy = {
                 linkLabel: 'Découvrir le projet GR441',
             },
             {
-                location: 'Île de La Réunion',
+                location: 'Pyrénées, Espagne',
+                timing: '2027',
                 type: 'Objectif de course',
-                imageAlt: 'Crêtes et vallées montagneuses de La Réunion',
-                distance: 'Traversée de l’île',
                 description:
-                    'Prendre le départ de la Diagonale et découvrir La Réunion en courant. Une aventure qui me donne envie d’aller toujours plus loin.',
-                linkLabel: 'Découvrir le Grand Raid',
+                    'Boucler la Torn dera Val d’Aran, une grande boucle au départ de Vielha entre vallées, cols et lacs d’altitude. Le plus gros ultra de mes projets.',
+                linkLabel: 'Découvrir le Val d’Aran',
             },
         ],
     },
